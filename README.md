@@ -65,6 +65,8 @@ System prompt text that defines the baseline agent behavior.
 
 - `pi.md` - a CLI-focused coding-agent policy emphasizing directness, minimal diffs, contract-first changes, deterministic verification, realistic testing, and cautious handling of destructive operations
 
+- `judge.md` - an LLM response-evaluation policy that scores a `TEST_RESPONSE` against an `INITIAL_PROMPT` and `REFERENCE_RESPONSE`, then returns strict JSON with per-criterion scores, a rounded composite score, and a one-paragraph review summary
+
 ## what kind of content lives here
 
 This is not a general prompt dump. The repository content is opinionated and procedural.
