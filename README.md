@@ -1,6 +1,6 @@
 # agent-skills
 
-Public prompt library for LLM harness platforms.
+This is my public prompt library for use across LLM harness platforms. Many are my own creations, while a few are adapted or refactore from versions in a variety of different places.
 
 This repository collects reusable:
 
@@ -8,7 +8,7 @@ This repository collects reusable:
 - skill files with trigger metadata and operating instructions,
 - system prompt text for a direct, verification-first coding agent.
 
-The content is oriented toward code review, debugging, planning, documentation sync, prompt auditing, and repository workflow execution. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
+The content is oriented toward code review, debugging, planning, documentation sync, prompt auditing, agent-readiness analysis, deep research, teaching workspaces, and repository workflow execution. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
 
 ## repository layout
 
@@ -19,6 +19,7 @@ Plain Markdown prompts intended for explicit command-style invocation. These are
 #### analysis, audit, and debugging
 
 - `abstract.md` - targeted structural and maintainability review for a file or module
+- `agentify.md` - multi-agent repository analysis for LLM navigability, static traceability, context locality, and autonomous change safety
 - `audit.md` - change-set audit against callers, contracts, and regressions
 - `cleanup.md` - read-only audit for behavioral defects and unreachable code
 - `investigate.md` - root-cause investigation from workflow errors and intermediate output
@@ -38,6 +39,7 @@ Plain Markdown prompts intended for explicit command-style invocation. These are
 #### documentation and communication
 
 - `annotate.md` - synchronize README files, docstrings, and code comments with implementation
+- `handoff.md` - write a redacted temporary handoff document for a fresh agent, with artifact references and suggested skills
 - `mr.md` - write a merge request title and description from actual branch history and diff
 
 #### repository execution workflow
@@ -57,6 +59,8 @@ Current skills:
 - `plan.md` - implementation plan generation from confirmed findings
 - `prompts.md` - prompt and instruction audit against repository behavior
 - `repo-explorer.md` - external repository cloning and inspection using a reusable local cache
+- `research/` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
+- `teach/` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
 - `test_audit.md` - test-suite audit for coverage quality and isolation
 
 ### `agents/`
@@ -90,9 +94,13 @@ A large portion of the library is aimed at software delivery tasks such as:
 
 - investigating failures
 - auditing changes and tests
+- analyzing codebases for LLM navigability and agent modification safety
 - refining or applying plans
 - aligning docs with code
 - generating reviewer-facing summaries
+- handing off conversation state to a fresh agent without duplicating existing artifacts
+- building source-verified research briefs from parallel discovery, evidence extraction, and synthesis
+- building stateful teaching workspaces with lessons, references, resources, and learning records
 - completing branch-to-MR workflows
 
 ## how to use this repo
@@ -111,7 +119,9 @@ Examples:
 
 - use `commands/investigate.md` for CI failures or broken workflow output
 - use `commands/audit.md` to review a branch or diff for contract drift and regressions
+- use `commands/agentify.md` to score a repository's agent readiness and identify structural friction for LLM coding agents
 - use `commands/annotate.md` to update docs and comments without changing executable code
+- use `commands/handoff.md` to save a redacted session summary outside the workspace for a fresh agent
 - use `commands/yeet.md` only when you want the agent to drive the full commit and MR flow explicitly
 
 ### use a skill
@@ -124,7 +134,7 @@ Typical pattern:
 2. keep the front matter intact so the harness can read the skill name, description, and allowed tools,
 3. rely on the description text to route relevant natural-language requests to the right skill.
 
-Skills in this repo are best suited to recurring, high-signal workflows such as investigation, audits, planning, and documentation sync.
+Skills in this repo are best suited to recurring, high-signal workflows such as investigation, audits, planning, documentation sync, repository exploration, deep research, and stateful teaching.
 
 ### use the system prompt
 

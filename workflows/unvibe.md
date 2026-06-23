@@ -62,6 +62,16 @@ Subagent defaults:
 - Test and confirmation reviewers: verifier model, medium thinking. Escalate to high thinking when failures contradict the plan or expose hidden contracts.
 - Commit and PR helper: quick model, low thinking when the diff and validation are already complete.
 
+Parallelization defaults:
+
+- Do not use subagents for small, single-file, or clearly sequential work where coordination would cost more than direct execution.
+- Parallelize read-only audit work by independent entry-point domain, package, top-level module, or ownership boundary. Start with 2-4 audit scouts for medium or large repositories; use up to 6 only when the repository has enough independent domains and the coordinator can synthesize all outputs.
+- Keep planning and plan review mostly serial. Use one plan reviewer by default; use two only when separate high-risk domains need independent review.
+- Parallelize implementation only when work packages have non-overlapping files or each worker runs in an isolated git worktree. Use at most 2 concurrent implementation workers in one repository checkout; use up to 4 only with isolated worktrees and independent verification commands.
+- Run test, confirmation, and final-audit reviewers serially by default. Use at most 2 concurrent reviewers when they inspect disjoint changed areas or independent failing checks.
+- Never parallelize commit, push, PR, staging, or branch-management steps.
+- Prefer fewer subagents when contracts, schemas, generated artifacts, or shared utilities are involved, because those changes need one coordinator-owned integration path.
+
 ## phase gates
 
 A phase may advance only when its gate is satisfied.
@@ -156,6 +166,8 @@ Audit output format:
 Audit subagent pattern:
 
 - Coordinator assigns bounded modules with explicit entry points and known conventions.
+- Use 2-4 scouts for most parallel audits. Use 1 scout for a narrow audit and up to 6 only when domains are independent enough to keep findings bounded.
+- Each scout gets a non-overlapping scope and explicit unassessed boundaries. Do not assign multiple scouts to the same files unless independent review is intentionally requested.
 - Each audit scout returns only evidence-backed findings plus unassessed scope using the audit output format.
 - Coordinator deduplicates findings, rejects unsupported claims, ranks by impact, confidence, and effort, and produces the final audit report.
 
@@ -226,6 +238,8 @@ Implementation rules:
 Subagent use during implementation:
 
 - Use implementation subagents only for independent work packages with non-overlapping files or isolated git worktrees.
+- Run sequentially when packages touch shared contracts, schemas, generated artifacts, public APIs, or the same caller graph.
+- Limit implementation to 1-2 concurrent workers in the same checkout. Use up to 4 only with isolated worktrees, disjoint file ownership, and separate verification commands.
 - Give each subagent the accepted plan section, relevant audit evidence, expected files, non-goals, and verification command.
 - Require each subagent to report changed files, commands run, failures, and residual risks.
 - The coordinator reviews each diff before integrating it. Subagent output is not accepted without local verification.
