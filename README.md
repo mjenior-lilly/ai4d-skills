@@ -4,46 +4,52 @@ This is my public prompt library for use across LLM harness platforms.
 
 Many are my own creations, but a few are adapted or refactored from versions in a variety of different sources:
 
-- [teach & handoff](https://github.com/mattpocock)
-- [repo-explorer](https://github.com/t3dotgg)
+- [/teach & /handoff](https://github.com/mattpocock)
+- [/repo-explorer](https://github.com/t3dotgg)
 
-The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, and repository workflow execution. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
+The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, repository workflow execution, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
 
 ## repository layout
 
 ### `commands/`
 
-Plain Markdown prompts intended for explicit command-style invocation. These are the source prompts for task-specific workflows.
+Plain Markdown prompts intended for explicit slash command-style invocation. These are the source prompts for task-specific workflows.
 
 #### analysis, audit, and debugging
 
-- `abstract.md` - targeted structural and maintainability review for a file or module
-- `agentify.md` - multi-agent repository analysis for LLM navigability, static traceability, context locality, and autonomous change safety
-- `audit.md` - change-set audit against callers, contracts, and regressions
-- `cleanup.md` - read-only audit for behavioral defects and unreachable code
-- `investigate.md` - root-cause investigation from workflow errors and intermediate output
-- `prompts.md` - audit of prompts, agent instructions, and model-facing text against actual behavior
-- `test_audit.md` - test-suite audit for behavior coverage, reachability, isolation, and maintainability
+- `/abstract` - targeted structural and maintainability review for a file or module
+- `/agentify` - multi-agent repository analysis for LLM navigability, static traceability, context locality, and autonomous change safety
+- `/audit` - change-set audit against callers, contracts, and regressions
+- `/cleanup` - read-only audit for behavioral defects and unreachable code
+- `/investigate` - root-cause investigation from workflow errors and intermediate output
+- `/prompts` - audit of prompts, agent instructions, and model-facing text against actual behavior
+- `/test_audit` - test-suite audit for behavior coverage, reachability, isolation, and maintainability
 
 #### planning and implementation workflow
 
-- `apply.md` - update an implementation plan using findings and critique
-- `fit.md` - check whether a plan fits the current codebase and existing abstractions
-- `grill.md` - interactive pressure-test of a plan through focused questioning
-- `implement.md` - execute a provided plan in order with ongoing verification
-- `plan.md` - build an implementation plan from findings, diffs, diagnostics, or requests
-- `risks.md` - resolve plan risks, assumptions, and open questions back into the plan
+- `/apply` - update an implementation plan using findings and critique
+- `/fit` - check whether a plan fits the current codebase and existing abstractions
+- `/grill` - interactive pressure-test of a plan through focused questioning
+- `/implement` - execute a provided plan in order with ongoing verification
+- `/plan` - build an implementation plan from findings, diffs, diagnostics, or requests
+- `/risks` - resolve plan risks, assumptions, and open questions back into the plan
 
 #### documentation and communication
 
-- `annotate.md` - synchronize README files, docstrings, and code comments with implementation
-- `handoff.md` - write a redacted temporary handoff document for a fresh agent, with artifact references and suggested skills
-- `humanize.md` - rewrite target text into natural, concise, human-sounding prose while preserving meaning
-- `mr.md` - write a merge request title and description from actual branch history and diff
+- `/annotate` - synchronize README files, docstrings, and code comments with implementation
+- `/handoff` - write a redacted temporary handoff document for a fresh agent, with artifact references and suggested skills
+- `/humanize` - rewrite target text into natural, concise, human-sounding prose while preserving meaning
+- `/mr` - write a merge request title and description from actual branch history and diff
 
 #### repository execution workflow
 
-- `yeet.md` - end-to-end repository workflow for preflight, triage, commit, push, and merge request creation
+- `/yeet` - end-to-end repository workflow for preflight, triage, commit, push, and merge request creation
+
+### `prompts/`
+
+Copy-paste prompts intended for associated web page tools rather than slash-command or skill invocation.
+
+- `notebook_lm.md` - NotebookLM audio overview prompt for neutral, structured, technically precise summaries of machine learning, AI architecture, and computational research papers
 
 ### `skills/`
 
@@ -51,14 +57,14 @@ Skill files in the same general style as the existing `repo-explorer` skill: fro
 
 Current skills:
 
-- `annotate.md` - documentation and annotation synchronization
-- `audit.md` - change-set audit with caller and contract tracing
-- `fit.md` - plan-fit review against the existing codebase
-- `humanize.md` - natural, concise, human-sounding user-facing prose for non-trivial responses
-- `investigate.md` - workflow failure diagnosis from supplied evidence
-- `repo-explorer.md` - external repository cloning and inspection using a reusable local cache
-- `research/` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
-- `teach/` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
+- `annotate` - documentation and annotation synchronization
+- `audit` - change-set audit with caller and contract tracing
+- `fit` - plan-fit review against the existing codebase
+- `humanize` - natural, concise, human-sounding user-facing prose for non-trivial responses
+- `investigate` - workflow failure diagnosis from supplied evidence
+- `repo-explorer` - external repository cloning and inspection using a reusable local cache
+- `research` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
+- `teach` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
 
 ### `agents/`
 
@@ -72,8 +78,8 @@ System prompt text that defines the baseline agent behavior.
 
 End-to-end operating procedures that combine commands, skills, subagents, and verification into one larger workflow/loop.
 
-- `tester.md` - multi-agent benchmark generation workflow that analyzes a knowledge corpus, builds a distribution matrix, assigns parallel question-generation batches, and validates adversarial JSON evaluation items
-- `unvibe.md` - standalone automated audit-to-PR loop for broad simplification review, planning, plan review, implementation, confirmation, final audit, commit, push, and PR creation
+- `/kaplan` - multi-agent benchmark generation workflow that analyzes a knowledge corpus, builds a distribution matrix, assigns parallel question-generation batches, and validates adversarial JSON evaluation items
+- `/unvibe` - standalone automated audit-to-PR loop for broad simplification review, planning, plan review, implementation, confirmation, final audit, commit, push, and PR creation
 
 ## what kind of content lives here
 
@@ -102,6 +108,7 @@ A large portion of the library is aimed at software delivery tasks such as:
 - generating corpus-grounded benchmark datasets with adversarial evaluation items
 - building stateful teaching workspaces with lessons, references, resources, and learning records
 - completing branch-to-MR workflows
+- adapting web-page tools with reusable copy-paste prompts
 
 ## how to use this repo
 
@@ -117,13 +124,27 @@ Typical pattern:
 
 Examples:
 
-- use `commands/investigate.md` for CI failures or broken workflow output
-- use `commands/audit.md` to review a branch or diff for contract drift and regressions
-- use `commands/agentify.md` to score a repository's agent readiness and identify structural friction for LLM coding agents
-- use `commands/annotate.md` to update docs and comments without changing executable code
-- use `commands/handoff.md` to save a redacted session summary outside the workspace for a fresh agent
-- use `commands/humanize.md` to rewrite text so it sounds natural, concise, and less generated
-- use `commands/yeet.md` only when you want the agent to drive the full commit and MR flow explicitly
+- use `/investigate` for CI failures or broken workflow output
+- use `/audit` to review a branch or diff for contract drift and regressions
+- use `/agentify` to score a repository's agent readiness and identify structural friction for LLM coding agents
+- use `/annotate` to update docs and comments without changing executable code
+- use `/handoff` to save a redacted session summary outside the workspace for a fresh agent
+- use `/humanize` to rewrite text so it sounds natural, concise, and less generated
+- use `/yeet` only when you want the agent to drive the full commit and MR flow explicitly
+
+### use a web tool prompt
+
+Use files from `prompts/` when a web page expects pasted instructions rather than a registered command or skill.
+
+Typical pattern:
+
+1. choose the prompt file for the target web tool,
+2. paste it into the tool's instruction or customization field,
+3. attach or provide the source material the prompt expects.
+
+Example:
+
+- use `prompts/podcast.md` with NotebookLM to generate a measured technical audio overview of an attached AI or machine learning paper
 
 ### use a skill
 
@@ -162,7 +183,7 @@ Use a skill when:
 - the workflow benefits from automatic intent matching,
 - the instructions are stable and reusable.
 
-In this repo, `yeet.md` is a good example of something better kept as an explicit command, while `investigate.md`, `audit.md`, and `test_audit.md` translate well into skills.
+In this repo, `yeet.md` is a good example of something better kept as an explicit command, while `investigate.md`, `audit.md`, and `repo-explorer.md` translate well into skills.
 
 ## authoring conventions in this repo
 
