@@ -1,6 +1,6 @@
 # Source Register Format
 
-Use this format for `00_Meta/Sources/SOURCE-REGISTER.md`. The source register is the provenance ledger for documents, code, and other materials used to build the Obsidian vault.
+Use this format for `00_Meta/Sources/SOURCE-REGISTER.md`. The source register is the provenance ledger for documents, code, task-analysis outputs, and other materials used to build the Obsidian vault.
 
 ```md
 ---
@@ -25,13 +25,13 @@ updated: YYYY-MM-DD
 
 | source id | title or path | type | complexity | status | produced or updated notes |
 | --- | --- | --- | --- | --- | --- |
-| `SRC-0001` | `{title or relative path}` | `{paper | spec | docs | code | meeting-notes | book | dataset | image | other}` | `{simple | standard | complex | huge}` | `{queued | processing | processed | partial | skipped}` | `[[Note Title]]`, `[[Another Note]]` |
+| `SRC-0001` | `{title or relative path}` | `{paper | spec | docs | code | meeting-notes | task-notes | task-analysis | book | dataset | image | other}` | `{simple | standard | complex | huge}` | `{queued | processing | processed | partial | skipped}` | `[[Note Title]]`, `[[Another Note]]` |
 
 ## Source records
 
 ### SRC-0001: {source title or path}
 
-- Type: {paper | spec | docs | code | meeting-notes | book | dataset | image | other}
+- Type: {paper | spec | docs | code | meeting-notes | task-notes | task-analysis | book | dataset | image | other}
 - Location: `{path, URL, DOI, repository path, commit, or stable locator}`
 - Origin: {author, organization, project, repository, user-provided, unknown}
 - Date or version: {date, version, commit, release, unknown}
@@ -40,7 +40,7 @@ updated: YYYY-MM-DD
 - Complexity: {simple | standard | complex | huge}
 - Processing status: {queued | processing | processed | partial | skipped}
 - Access limits: {none, binary unreadable, OCR needed, truncated, generated, proprietary, unknown}
-- Obsidian handling: {source kept outside vault | copied to attachments | summarized only | code excluded from indexing | other}
+- Obsidian handling: {source kept outside vault | copied to attachments | summarized only | task analysis captured in vault | code excluded from indexing | other}
 
 #### Extraction scope
 
@@ -71,3 +71,4 @@ updated: YYYY-MM-DD
 - Keep skipped and rejected sources in the register when listing them prevents duplicate future work.
 - Use precise locators wherever possible. For code, prefer file path plus symbol or line range.
 - Do not mark a source `processed` until every note created or updated from it is inside the target vault, has source IDs in frontmatter, appears in the produced or updated notes list, and includes provenance in the body where needed.
+- For `task-analysis` sources, the produced or updated notes list must include the captured daily, weekly, monthly, or annual analysis file and any durable permanent notes extracted from it.

@@ -81,10 +81,10 @@ Field rules:
 ## Source handling conventions
 
 - Source register path: `00_Meta/Sources/SOURCE-REGISTER.md`.
-- Generated note placement: `{20_Permanent/ for evergreen notes | 30_Projects/ for time-bound notes | existing convention}`.
+- Generated note placement: `{20_Permanent/ for evergreen notes | 30_Projects/ for time-bound notes | 30_Projects/Task Reviews/ for task-analysis outputs | existing convention}`.
 - Source files copied into vault: `{yes | no | only selected}`.
 - Large source files or code repositories: `{keep outside vault | keep but exclude from Obsidian indexing | user decision needed}`.
-- Provenance requirement: every factual, scientific, technical, or code behavior claim must cite a source ID and locator.
+- Provenance requirement: every factual, scientific, technical, code behavior, or productivity-pattern claim must cite a source ID and locator.
 
 ## Tags and aliases
 
@@ -102,5 +102,5 @@ Field rules:
 
 - Last validation: YYYY-MM-DD
 - Validation scope: {changed notes, full vault, source cluster}
-- Known issues: {broken links, duplicate filenames, malformed YAML, orphan notes, missing provenance}
+- Known issues: {broken links, duplicate filenames, malformed YAML, orphan notes, missing provenance, task analyses outside review indexes}
 ````

@@ -1,12 +1,12 @@
 # Obsidian Knowledge Base Workflow
 
-Use this workflow to create, update, parse, or audit an Obsidian-compatible local knowledge base from user-provided technical/scientific documents, non-technical documents, and code collections. The coordinator owns all phase gates. Subagents are bounded workers; their outputs are advisory until the coordinator verifies them against source material, vault conventions, and Obsidian compatibility rules.
+Use this workflow to create, update, parse, or audit an Obsidian-compatible local knowledge base from user-provided technical/scientific documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. The coordinator owns all phase gates. Subagents are bounded workers; their outputs are advisory until the coordinator verifies them against source material, vault conventions, and Obsidian compatibility rules.
 
 ## Objectives
 
 - Convert varied source material into a coherent Obsidian vault with shallow folders, unique filenames, stable WikiLinks, strict YAML frontmatter, and centralized attachments.
 - When the user provides a target vault or knowledge base, create or update the output notes inside that vault and connect them to the existing graph rather than returning detached markdown artifacts.
-- Preserve provenance from source documents, code paths, pages, sections, line ranges, commits, or other locators.
+- Preserve provenance from source documents, code paths, pages, sections, line ranges, commits, task-note dates, analysis periods, or other locators.
 - Split long or complex sources into durable evergreen notes rather than source-shaped summaries.
 - Maintain a graph that is readable for humans and predictable for LLMs: clear note titles, explicit aliases, consistent tags, backlinks, and short concept notes.
 - Audit and repair Obsidian-specific risks: duplicate filenames, invalid YAML, broken WikiLinks, orphaned attachments, inconsistent tags, deep nesting, and indexer-heavy folders.
@@ -50,7 +50,7 @@ Use the smallest tier that can satisfy the phase gate.
 - Do not use subagents for fewer than 10 short files or a small single-topic update where coordination costs exceed direct work.
 - Use 2-4 source inventory scouts for 25-100 mixed files. Use up to 6 only when files split cleanly by document type, domain, project, or source folder.
 - For one very large file, split by sections, chapters, headings, page ranges, or code regions. Use 2-4 extractors for complex documents; use 1 extractor when the document is short or highly sequential.
-- For many smaller files, batch by source type and domain: scientific papers, manuals, meeting notes, policy documents, README/docs, source code, tests, configuration, and data schemas.
+- For many smaller files, batch by source type and domain: scientific papers, manuals, meeting notes, task analyses, policy documents, README/docs, source code, tests, configuration, and data schemas.
 - Assign code extractors by subsystem or entry-point boundary, not by arbitrary file count.
 - Keep note taxonomy, filename selection, merge decisions, and final link integration coordinator-owned to prevent duplicate concepts and inconsistent aliases.
 - Run verifier subagents after composition, not in parallel with note writers that are still changing the same files.
@@ -74,7 +74,7 @@ Use the smallest tier that can satisfy the phase gate.
 ### 0. Scope the vault and source collection
 
 1. Identify whether the user wants to create a new vault, update an existing vault, parse an existing vault, or audit/repair Obsidian compatibility.
-2. Identify the vault root and source locations. Sources may be PDFs, Markdown, text files, office documents converted to text, code repositories, API docs, notebooks, diagrams, meeting notes, or mixed folders.
+2. Identify the vault root and source locations. Sources may be PDFs, Markdown, text files, office documents converted to text, code repositories, API docs, notebooks, diagrams, meeting notes, task-analysis outputs from the `tasks` skill, or mixed folders.
 3. If the user provides a target vault or knowledge base, use that directory as the write target for every output note. Do not create parallel notes outside the vault unless the user explicitly requests a separate export.
 4. Inspect current vault conventions before writing. Check folder names, note naming, templates, frontmatter fields, aliases, tags, link style, attachment location, and `.obsidian/` settings when available.
 5. Ask one focused question only if the wrong assumption could cause overwritten notes, misplaced sources, incompatible link style, or a substantially different note granularity.
@@ -98,10 +98,11 @@ Use the smallest tier that can satisfy the phase gate.
 2. Prefer permanent notes for durable concepts, workflows, APIs, entities, algorithms, experimental findings, architecture decisions, and recurring terminology.
 3. Keep project-specific execution notes in `30_Projects/` and temporary import notes in `10_Fleeting/`.
 4. Define canonical note titles and vault-relative output paths before writing. Titles should be unique, descriptive, and stable.
-5. Define graph entry points for each note: related concept links, source links, project links, index/MOC links, or backlinks from existing notes.
-6. Define aliases for acronyms, synonyms, old names, paper-specific terms, and code symbols that users or agents may search for later.
-7. Define tags sparingly. Use tags for broad retrieval facets, not as a replacement for links.
-8. Decide merge vs create:
+5. For task-analysis outputs, preserve the period in the filename and place files under the existing vault convention for daily notes, reviews, or productivity logs. If no convention exists, use `30_Projects/Task Reviews/daily/`, `30_Projects/Task Reviews/weekly/`, `30_Projects/Task Reviews/monthly/`, or `30_Projects/Task Reviews/annual/`.
+6. Define graph entry points for each note: related concept links, source links, project links, index/MOC links, task review indexes, or backlinks from existing notes.
+7. Define aliases for acronyms, synonyms, old names, paper-specific terms, and code symbols that users or agents may search for later.
+8. Define tags sparingly. Use tags for broad retrieval facets, not as a replacement for links.
+9. Decide merge vs create:
    - merge when an existing note covers the same concept and the new source adds evidence, nuance, or updated behavior;
    - create when the concept is distinct, the existing title would become overloaded, or source terminology needs a separate bridge note.
 
@@ -120,15 +121,21 @@ Use the smallest tier that can satisfy the phase gate.
    - people, organizations, goals, decisions, timelines, obligations, definitions, and action-relevant context;
    - claims that affect interpretation of technical sources;
    - contradictions or unresolved ambiguity.
-4. For code, extract:
+4. For task-analysis outputs, preserve the generated analysis as a period-specific artifact and extract only:
+   - recurring execution patterns;
+   - durable planning rules or constraints;
+   - project-relevant commitments, blockers, and follow-up themes;
+   - links to related project notes, daily notes, or review indexes.
+   Do not promote every daily task into a permanent note.
+5. For code, extract:
    - entry points and exported surfaces;
    - module responsibilities;
    - data models, schemas, configuration, environment variables, and persisted formats;
    - runtime flows, state transitions, and integration boundaries;
    - tests and examples that reveal intended behavior;
    - stable symbols worth adding as aliases or backlinks.
-5. Record precise locators: section, heading, page, paragraph, line range, file path, function/class, commit, or test name.
-6. Mark uncertain or conflicting facts explicitly. Do not smooth contradictions into a false synthesis.
+6. Record precise locators: section, heading, page, paragraph, line range, file path, function/class, commit, test name, task-note date, or analysis period.
+7. Mark uncertain or conflicting facts explicitly. Do not smooth contradictions into a false synthesis.
 
 ### 4. Compose and integrate Obsidian notes
 
@@ -143,15 +150,16 @@ Use the smallest tier that can satisfy the phase gate.
 9. Include short code snippets only when they explain an API, schema, invariant, or non-obvious mechanism. Cite the source path and line range.
 10. Add a `Source grounding` section for claims that may need verification later.
 11. Add `Open questions` only for material ambiguity that affects retrieval, interpretation, or future updates.
-12. Integrate each note into the vault graph by adding or updating relevant links in existing index, project, source, or related concept notes when such notes exist. If no natural entry point exists, create the smallest useful index or source note rather than leaving the note orphaned.
-13. Update `00_Meta/Sources/SOURCE-REGISTER.md` so each processed source lists the notes it produced or updated.
+12. For task-analysis outputs, add frontmatter fields that support retrieval, such as `analysis_type`, `period_start`, `period_end`, `source_task_notes`, `projects`, `tags`, and `sources`, while preserving the analysis headings produced by the `tasks` skill.
+13. Integrate each note into the vault graph by adding or updating relevant links in existing index, project, source, task review, or related concept notes when such notes exist. If no natural entry point exists, create the smallest useful index or source note rather than leaving the note orphaned.
+14. Update `00_Meta/Sources/SOURCE-REGISTER.md` so each processed source lists the notes it produced or updated.
 
 ### 5. Update and maintain existing notes
 
 1. Before creating a note, search for existing titles, aliases, and backlinks that cover the concept.
 2. Preserve existing user-written content unless it is clearly obsolete, contradicted by newer source evidence, or duplicated by a cleaner integrated note.
 3. When updating, add source-backed changes in place rather than appending disconnected summaries.
-4. Update aliases, tags, backlinks, source lists, and index/project references with the same change.
+4. Update aliases, tags, backlinks, source lists, task review indexes, and index/project references with the same change.
 5. If two notes overlap, recommend a merge only when both note purposes are redundant. Otherwise add bridge links explaining the distinction.
 6. Record major convention changes in `00_Meta/VAULT-MANIFEST.md`.
 
@@ -166,11 +174,12 @@ Run the narrowest available checks for the touched scope:
 5. Missing aliases for common acronyms and source names.
 6. Orphan notes created by the workflow that should link into the graph.
 7. Processed sources missing produced-note entries in `SOURCE-REGISTER.md`.
-8. Generated notes written outside the target vault when a vault was provided.
-9. Attachments outside the configured attachments folder.
-10. Deeply nested folders beyond the vault convention.
-11. Large non-Markdown folders inside the vault that may slow the Obsidian indexer.
-12. Notes without source grounding when they contain technical, scientific, code, medical, legal, or factual claims.
+8. Task-analysis outputs missing expected period frontmatter, task-review index links, or source task-note provenance.
+9. Generated notes written outside the target vault when a vault was provided.
+10. Attachments outside the configured attachments folder.
+11. Deeply nested folders beyond the vault convention.
+12. Large non-Markdown folders inside the vault that may slow the Obsidian indexer.
+13. Notes without source grounding when they contain technical, scientific, code, medical, legal, productivity-pattern, or factual claims.
 
 Record results in `00_Meta/VAULT-AUDIT.md` using [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md) when the task is more than a trivial edit.
 

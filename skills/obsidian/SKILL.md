@@ -1,6 +1,6 @@
 ---
 name: obsidian
-description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, and code collections.
+description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs.
 argument-hint: "What documents, code, or vault should be converted or maintained?"
 ---
 
@@ -29,7 +29,8 @@ Create files lazily as they become useful, always under the vault root:
 - `00_Meta/Sources/SOURCE-REGISTER.md`: source inventory, provenance, processing status, and extraction coverage. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).
 - `00_Meta/VAULT-AUDIT.md`: validation findings for filenames, links, frontmatter, tags, attachments, duplicates, and indexer risks. Use [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md).
 - Permanent notes under `20_Permanent/`: evergreen, source-grounded Markdown notes. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md).
-- Project notes, meeting notes, or generated summary artifacts under the appropriate existing vault folder, or under `30_Projects/` when they are time-bound rather than evergreen.
+- Project notes, meeting notes, task analyses, or generated summary artifacts under the appropriate existing vault folder, or under `30_Projects/` when they are time-bound rather than evergreen.
+- Task-analysis outputs from the `tasks` skill under `30_Projects/Task Reviews/` by default when no existing daily-note, review, or productivity folder convention exists.
 
 ## Default posture
 
@@ -44,6 +45,7 @@ Create files lazily as they become useful, always under the vault root:
 - Do not dump entire long documents or source files into permanent notes. Extract stable concepts, claims, APIs, workflows, definitions, and decision-relevant relationships.
 - Keep source provenance explicit. Every important note should identify the source document, code path, section, page, line range, commit, or other locator that supports it.
 - For code collections, create human-readable concept, architecture, API, and workflow notes. Avoid copying large code blocks; use short snippets only when they clarify a stable interface or non-obvious mechanism.
+- For task-analysis outputs, preserve the generated daily, weekly, monthly, or annual analysis as a time-bound artifact; extract only durable planning principles, recurring patterns, or project-relevant commitments into permanent notes when they are useful beyond the reviewed period.
 
 ## When to ask before proceeding
 

@@ -38,7 +38,7 @@ updated: YYYY-MM-DD
 
 ### Finding 1: {short title}
 
-- Category: {broken-link | ambiguous-link | duplicate-filename | invalid-frontmatter | tag-drift | missing-provenance | source-register-drift | orphan-note | outside-target-vault | attachment-location | deep-nesting | indexer-risk | merge-candidate | other}
+- Category: {broken-link | ambiguous-link | duplicate-filename | invalid-frontmatter | tag-drift | missing-provenance | source-register-drift | task-analysis-integration | orphan-note | outside-target-vault | attachment-location | deep-nesting | indexer-risk | merge-candidate | other}
 - Severity: {high | medium | low}
 - Location: `{note path, folder path, attachment path, or source path}`
 - Evidence: {specific observed issue}
@@ -69,7 +69,7 @@ updated: YYYY-MM-DD
 
 | note or source | issue | action |
 | --- | --- | --- |
-| `{path or source id}` | `{outside target vault | orphan note | missing source-register produced-note entry | missing index/project link}` | {move with approval, link, update register, flag} |
+| `{path or source id}` | `{outside target vault | orphan note | missing source-register produced-note entry | missing index/project link | missing task-review index link | missing task-analysis period metadata}` | {move with approval, link, update register, add frontmatter, flag} |
 
 ## Attachment validation
 
@@ -85,5 +85,5 @@ updated: YYYY-MM-DD
 
 ## Residual risks
 
-- {Unverified source grounding, unreadable binaries, unresolved duplicate titles, user decisions needed}
+- {Unverified source grounding, unreadable binaries, unresolved duplicate titles, uncaptured task-analysis outputs, user decisions needed}
 ```

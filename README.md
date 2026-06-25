@@ -57,9 +57,10 @@ Current skills:
 - `humanize` - natural, concise, human-sounding user-facing prose for non-trivial responses
 - `investigate` - workflow failure diagnosis from supplied evidence
 - `notes` - meeting synthesis and action extraction from a meeting recording plus personal `.txt` notes
-- `obsidian` - Obsidian-compatible local knowledge-base construction, update, parsing, and validation from technical documents, non-technical documents, and code collections
+- `obsidian` - Obsidian-compatible local knowledge-base construction, update, parsing, and validation from technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs
 - `repo-explorer` - external repository cloning and inspection using a reusable local cache
 - `research` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
+- `tasks` - local-agent task-note triage with daily, weekly, monthly, and annual execution analysis, project context, and optional Obsidian integration
 - `teach` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
 
 ### `agents/`
@@ -109,8 +110,9 @@ A large portion of the library is aimed at software delivery tasks such as:
 - writing concise, natural user-facing responses without generic assistant artifacts
 - handing off conversation state to a fresh agent without duplicating existing artifacts
 - synthesizing meeting recordings and personal notes into markdown summaries, decisions, action items, and follow-up requirements
+- analyzing handwritten or digital task notes into local execution reviews, planning corrections, and longer-horizon productivity retrospectives
 - building source-verified research briefs from parallel discovery, evidence extraction, and synthesis
-- creating and maintaining Obsidian-compatible local knowledge bases from documents and code collections
+- creating and maintaining Obsidian-compatible local knowledge bases from documents, code collections, meeting summaries, and task-analysis outputs
 - generating corpus-grounded benchmark datasets with adversarial evaluation items
 - building stateful teaching workspaces with lessons, references, resources, and learning records
 - completing branch-to-MR workflows
