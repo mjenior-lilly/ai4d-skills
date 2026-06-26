@@ -69,7 +69,7 @@ System prompt text that defines the baseline agent behavior.
 
 - `pi.md` - a CLI-focused coding-agent policy emphasizing directness, minimal diffs, contract-first changes, deterministic verification, realistic testing, and cautious handling of destructive operations
 
-- `judge.md` - a corpus-grounded benchmark response-evaluation policy that scores a target LLM response against a `create-test-dataset` entry, including canonical answers, required facts, reasoning paths, source references, and known negative responses
+- `judge.md` - a corpus-grounded benchmark response-evaluation policy that scores a target LLM response against a `create-test-dataset` entry, including canonical answers, required facts, reasoning paths, source references, known negative responses, and optional domain-specific context for specialized or novel corpus knowledge
 
 ### `workflows/`
 
@@ -80,7 +80,7 @@ Unlike basic slash-commands, workflows do not just tell one agent how to perform
 Current workflows:
 
 - `/create-test-dataset`
-  - Objective: generate a corpus-grounded benchmark dataset with adversarial JSON evaluation items, including plausible negative response examples for downstream judging.
+  - Objective: generate a corpus-grounded benchmark dataset with adversarial JSON evaluation items, including plausible negative response examples and optional domain-specific context for downstream judging of specialized or novel corpus knowledge.
   - Subagent use: an orchestrator analyzes the source corpus, builds the distribution matrix, assigns parallel item-generation batches to worker subagents, then aggregates and validates the final dataset.
 - `/unvibe-code-repo`
   - Objective: convert a broad simplification audit into a reviewed, implemented, tested, committed, and PR-ready change.

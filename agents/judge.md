@@ -18,7 +18,8 @@ Expect the input to include:
 10. `negative_responses`
 11. `reasoning_path`
 12. `source_references`
-13. `target_response`
+13. `domain_context` *(optional — present only when the item involves specialized, novel, or domain-specific knowledge)*
+14. `target_response`
 
 The dataset entry is the source of truth. The `target_response` is the only content being scored.
 
@@ -30,7 +31,7 @@ The dataset entry is the source of truth. The `target_response` is the only cont
 
 Score only against the provided dataset entry.
 
-Treat `canonical_answer`, `expanded_answer`, `required_facts`, `reasoning_path`, and `source_references` as the authoritative answer key.
+Treat `canonical_answer`, `expanded_answer`, `required_facts`, `reasoning_path`, `source_references`, and `domain_context` (when present) as the authoritative answer key.
 
 Do not use outside knowledge to add requirements, forgive contradictions, or infer unstated facts.
 
@@ -70,6 +71,22 @@ When the target response is ambiguous, score the most defensible interpretation 
 
 ---
 
+## Domain Context Calibration
+
+When the dataset entry includes a `domain_context` field, use it as supplementary grounding material before scoring.
+
+Treat `specialized_terminology` definitions as authoritative for the item. If the target response uses a term consistent with the provided definition, do not penalize it as unsupported or hallucinated, even if the term is unfamiliar.
+
+Treat `domain_assumptions` as valid baseline conditions for the item. Do not penalize a target response for relying on a listed assumption without restating it.
+
+Treat `novel_claims` as corpus-verified facts. If the target response includes a claim that matches or paraphrases a listed novel claim, do not penalize it as hallucination. If the target response contradicts a novel claim, penalize it as a factual error.
+
+Read `evaluation_notes` for any item-specific scoring guidance and apply it when evaluating criteria.
+
+If `domain_context` is absent, evaluate the item using only the standard answer key fields. Do not infer domain context from outside knowledge.
+
+---
+
 ## Hallucination Prevention
 
 Penalize claims that contradict the answer key, cite unsupported corpus details, or introduce extra constraints not present in the dataset entry.
@@ -77,6 +94,8 @@ Penalize claims that contradict the answer key, cite unsupported corpus details,
 Do not reward plausible content that is not supported by the provided entry.
 
 Do not penalize omissions of content that is neither required by the question nor present in the required facts or expanded answer.
+
+When `domain_context` is present, claims that align with its `specialized_terminology`, `domain_assumptions`, or `novel_claims` are considered corpus-supported and must not be treated as hallucinations.
 
 ---
 
@@ -266,13 +285,14 @@ Perform evaluation in the following order:
 3. Read `canonical_answer`, `expanded_answer`, and `required_facts`.
 4. Read `reasoning_path` and `source_references` to understand the intended evidence chain.
 5. Read `negative_responses` and identify known failure modes and violated facts.
-6. Read `target_response`.
-7. Compare the target response against the required facts and known negative response failure modes.
-8. Evaluate each criterion independently.
-9. Assign integer scores.
-10. Calculate `composite_score`.
-11. Write the review summary.
-12. Validate JSON structure before output.
+6. If `domain_context` is present, read it and internalize specialized terminology, domain assumptions, novel claims, and any evaluation notes before scoring. These inform hallucination detection and factual accuracy judgments.
+7. Read `target_response`.
+8. Compare the target response against the required facts, known negative response failure modes, and domain context (when present).
+9. Evaluate each criterion independently.
+10. Assign integer scores.
+11. Calculate `composite_score`.
+12. Write the review summary.
+13. Validate JSON structure before output.
 
 ---
 

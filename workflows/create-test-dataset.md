@@ -101,7 +101,27 @@ For each generated item, you must output a single, self-contained JSON object fo
   "source_references": [
     "Section 3.2.1",
     "Page 45 / Paragraph 2"
-  ]
+  ],
+  "domain_context": {
+    "specialized_terminology": [
+      {
+        "term": "Domain-specific term used in the question or answer.",
+        "definition": "Corpus-grounded definition of the term.",
+        "source_reference": "Section or page reference."
+      }
+    ],
+    "domain_assumptions": [
+      "Convention, default, or baseline assumption specific to this corpus domain that a general-purpose judge may not know."
+    ],
+    "novel_claims": [
+      {
+        "claim": "A factual claim from the corpus that may appear novel, counterintuitive, or unsupported without corpus access.",
+        "evidence": "Direct supporting evidence from the corpus.",
+        "source_reference": "Section or page reference."
+      }
+    ],
+    "evaluation_notes": "Optional free-text guidance for the judge about domain-specific scoring considerations for this item."
+  }
 }
 ```
 
@@ -117,6 +137,19 @@ Each `negative_responses` entry must:
 
 For Hard and Expert items, prefer two negative responses when useful: one that misses a source constraint and one that makes an unsupported synthesis or overgeneralization.
 
+### Domain Context Requirements
+
+The `domain_context` field is optional per item. Include it when the item involves any of the following:
+
+* **Specialized terminology** that a general-purpose judge model is unlikely to know or may misinterpret. Document each term with its corpus-grounded definition and source reference.
+* **Domain assumptions** — conventions, defaults, units, naming schemes, or baseline expectations that are standard within the corpus domain but not common knowledge. A judge without this context may incorrectly flag valid claims as unsupported.
+* **Novel claims** — factual statements from the corpus that may appear counterintuitive, surprising, or hallucinated to a model without access to the source material. Each novel claim must include direct evidence and a source reference so the judge can accept it rather than penalize it.
+* **Evaluation notes** — free-text guidance when the item has domain-specific scoring considerations that do not fit the structured fields above. For example, noting that a particular field uses non-standard measurement units or that a procedure described in the corpus contradicts widely-held assumptions.
+
+Omit `domain_context` entirely when the item covers well-known concepts that any competent judge model can evaluate without supplementary context.
+
+When included, every entry in `specialized_terminology` and `novel_claims` must trace back to a specific corpus location. Do not use `domain_context` to smuggle in outside knowledge or to relax answer requirements — it exists solely to prevent false-positive hallucination penalties on correct, corpus-grounded responses.
+
 ---
 
 ## Phase 5: Aggregation & Validation (Orchestrator Only)
@@ -129,5 +162,6 @@ Required checks:
 * Every item has at least one `negative_responses` entry with `response`, `failure_mode`, and non-empty `violated_facts`.
 * Each negative response is actually incorrect under the corpus and is not a paraphrase of the canonical answer.
 * Required facts, reasoning paths, negative response explanations, and source references are mutually consistent.
+* If `domain_context` is present, every `specialized_terminology` and `novel_claims` entry includes a non-empty `source_reference` that maps to the corpus. `domain_context` does not contradict the item's canonical answer, required facts, or reasoning path.
 * IDs are unique and sequential within the benchmark namespace.
 * The final dataset matches the target size and distribution matrix unless a deviation is explicitly recorded.
