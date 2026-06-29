@@ -2,7 +2,7 @@
 
 This is my public prompt library for use across LLM harness platforms. 
 
-The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, repository workflow execution, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
+The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, repository workflow execution, lightweight classification for routing, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
 
 Many are my own creations, but a few are adapted or refactored from a couple different sources:
 
@@ -37,7 +37,7 @@ Plain Markdown prompts intended for explicit slash command-style invocation. The
 #### documentation and communication
 
 - `/annotate` - synchronize README files, docstrings, and code comments with implementation
-- `/specsheet` - write a redacted temporary specsheet document for a fresh agent, with artifact references and suggested skills
+- `/specs` - write a redacted temporary specsheet document for a fresh agent, with artifact references and suggested skills
 - `/humanize` - rewrite target text into natural, concise, human-sounding prose while preserving meaning
 - `/write-mr` - write a merge request title and description from actual branch history and diff
 
@@ -67,11 +67,13 @@ Current skills:
 
 System prompt text that defines the baseline agent behavior.
 
-- `pi.md` - a CLI-focused coding-agent policy emphasizing directness, minimal diffs, contract-first changes, deterministic verification, realistic testing, and cautious handling of destructive operations
+- `SYSTEM.md` - a CLI-focused coding-agent policy emphasizing directness, minimal diffs, contract-first changes, deterministic verification, realistic testing, and cautious handling of destructive operations
 
 - `judge.md` - a corpus-grounded benchmark response-evaluation policy that scores a target LLM response against a `create-test-dataset` entry, including canonical answers, required facts, reasoning paths, source references, known negative responses, and optional domain-specific context for specialized or novel corpus knowledge
 
 - `prompt_skeleton.md` - a reference guide for designing effective prompts for LLM-based agents, covering the core skeleton blocks (role, goal, rules, think, context, examples, audience, format), drift control for long chats, hybrid prompt styles, model alignment knobs, and ready-to-use templates for everyday and complex tasks
+
+- `classifier.md` - an example single-label classifier prompt that emits one routing label and nothing else. It illustrates a broadly useful pattern: a cheap, fast, small-model call placed in front of a pipeline to decide the downstream handoff, rather than burning a large model on triage. The prompt is deliberately constrained — strict label set, explicit precedence and tie-break rules, few-shot anchors, prompt-injection resistance over the classified content, and a single-token-style output contract — so the result is reliable enough to branch on. The specific labels here (the document subject areas) are just placeholder domain knowledge; the reusable idea is the shape of a constrained classifier that gates routing, escalation, or which specialized agent or skill runs next.
 
 ### `workflows/`
 
@@ -144,7 +146,7 @@ Examples:
 - use `/audit` to review a branch or diff for contract drift and regressions
 - use `/agentify` to score a repository's agent readiness and identify structural friction for LLM coding agents
 - use `/annotate` to update docs and comments without changing executable code
-- use `/specsheet` to save a redacted session summary outside the workspace for a fresh agent or team of agents
+- use `/specs` to save a redacted session summary outside the workspace for a fresh agent or team of agents
 - use `/humanize` to rewrite text so it sounds natural, concise, and less generated
 - use `/yeet` only when you want the agent to drive the full commit and MR flow explicitly
 
