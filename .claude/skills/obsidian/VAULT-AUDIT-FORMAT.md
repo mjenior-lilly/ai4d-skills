@@ -38,7 +38,7 @@ updated: YYYY-MM-DD
 
 ### Finding 1: {short title}
 
-- Category: {broken-link | ambiguous-link | duplicate-filename | invalid-frontmatter | untyped-property | tag-drift | missing-provenance | source-register-drift | task-analysis-integration | orphan-note | outside-target-vault | attachment-location | deep-nesting | indexer-risk | merge-candidate | base-error | canvas-error | other}
+- Category: {broken-link | ambiguous-link | duplicate-filename | invalid-frontmatter | tag-drift | missing-provenance | source-register-drift | task-analysis-integration | orphan-note | outside-target-vault | attachment-location | deep-nesting | indexer-risk | merge-candidate | other}
 - Severity: {high | medium | low}
 - Location: `{note path, folder path, attachment path, or source path}`
 - Evidence: {specific observed issue}
@@ -76,13 +76,6 @@ updated: YYYY-MM-DD
 | attachment | issue | linked from | action |
 | --- | --- | --- | --- |
 | `{path}` | `{outside attachment folder | orphaned | too large}` | `{note or none}` | {move with approval, link, compress, flag} |
-
-## Bases and Canvas validation
-
-| file | type | issue | action |
-| --- | --- | --- | --- |
-| `{path.base}` | base | `{invalid YAML | undefined property/formula | Duration math without field access | unguarded null formula}` | {fix or flag} |
-| `{path.canvas}` | canvas | `{invalid JSON | duplicate node/edge id | edge references missing node}` | {fix or flag} |
 
 ## Indexer risks
 

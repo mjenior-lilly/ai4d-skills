@@ -23,8 +23,6 @@ Use this workflow to create, update, parse, or audit an Obsidian-compatible loca
 8. In frontmatter, use arrays for `aliases`, `tags`, `sources`, and `related`. Do not prefix frontmatter tags with `#`.
 9. Quote YAML strings that contain colons, brackets, braces, hashes, dates that should remain strings, or other special characters.
 10. Do not store large generated folders, dependency directories, datasets, or code repositories as indexed knowledge notes. If they must remain in the vault, mark them as Obsidian indexer exclusions in the manifest or audit.
-11. Use the full Obsidian Flavored Markdown syntax in [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md) — heading and block references, embeds, and callouts — so notes are navigable, not flat. Use typed frontmatter properties so notes are queryable.
-12. Prefer a generated `.base` view ([references/BASES.md](./references/BASES.md)) for note listings that should stay current, and reserve `.canvas` ([references/CANVAS.md](./references/CANVAS.md)) for visual artifacts. Both are standard local files and keep the vault portable.
 
 ## Model and thinking tiers
 
@@ -101,7 +99,7 @@ Use the smallest tier that can satisfy the phase gate.
 3. Keep project-specific execution notes in `30_Projects/` and temporary import notes in `10_Fleeting/`.
 4. Define canonical note titles and vault-relative output paths before writing. Titles should be unique, descriptive, and stable.
 5. For task-analysis outputs, preserve the period in the filename and place files under the existing vault convention for daily notes, reviews, or productivity logs. If no convention exists, use `30_Projects/Task Reviews/daily/`, `30_Projects/Task Reviews/weekly/`, `30_Projects/Task Reviews/monthly/`, or `30_Projects/Task Reviews/annual/`.
-6. Define graph entry points for each note: related concept links, source links, project links, index/MOC links, task review indexes, or backlinks from existing notes. When a domain or source cluster needs a note listing, plan a generated `.base` index ([references/BASES.md](./references/BASES.md)) driven by frontmatter rather than a hand-maintained static index, so it stays current; embed it in a human-facing MOC with `![[Index.base]]`.
+6. Define graph entry points for each note: related concept links, source links, project links, index/MOC links, task review indexes, or backlinks from existing notes.
 7. Define aliases for acronyms, synonyms, old names, paper-specific terms, and code symbols that users or agents may search for later.
 8. Define tags sparingly. Use tags for broad retrieval facets, not as a replacement for links.
 9. Decide merge vs create:
@@ -141,7 +139,7 @@ Use the smallest tier that can satisfy the phase gate.
 
 ### 4. Compose and integrate Obsidian notes
 
-1. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md) for permanent notes and [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md) for Obsidian Flavored Markdown syntax (embeds, callouts, heading/block references, math, Mermaid).
+1. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md) for permanent notes.
 2. Write notes to their planned vault-relative paths. If a target vault was provided, all output notes must be created or updated inside it.
 3. Put frontmatter first and keep it valid YAML.
 4. Use a concise opening definition or claim so the note is useful in preview and graph contexts.
@@ -167,7 +165,7 @@ Use the smallest tier that can satisfy the phase gate.
 
 ### 6. Validate the vault
 
-Run the narrowest available checks for the touched scope. When Obsidian is running, the `obsidian` CLI ([references/OBSIDIAN-CLI.md](./references/OBSIDIAN-CLI.md)) is an optional, more reliable backend for link, backlink, tag, and render checks; otherwise perform the same checks via direct filesystem reads. Do not block the workflow on the CLI.
+Run the narrowest available checks for the touched scope:
 
 1. Duplicate filenames across the vault.
 2. Invalid or missing frontmatter in permanent notes.
@@ -182,8 +180,6 @@ Run the narrowest available checks for the touched scope. When Obsidian is runni
 11. Deeply nested folders beyond the vault convention.
 12. Large non-Markdown folders inside the vault that may slow the Obsidian indexer.
 13. Notes without source grounding when they contain technical, scientific, code, medical, legal, productivity-pattern, or factual claims.
-14. `.base` files: valid YAML, every referenced property/formula defined, Duration math accessing a numeric field before rounding, and null-guarded formulas (see [references/BASES.md](./references/BASES.md)).
-15. `.canvas` files: valid JSON, unique node and edge IDs, and every edge `fromNode`/`toNode` resolving to an existing node (see [references/CANVAS.md](./references/CANVAS.md)).
 
 Record results in `00_Meta/VAULT-AUDIT.md` using [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md) when the task is more than a trivial edit.
 

@@ -1,19 +1,12 @@
 ---
 name: obsidian
-description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Covers Obsidian Flavored Markdown syntax (wikilinks, embeds, callouts, block references, properties, tags), Bases (.base) index views, JSON Canvas (.canvas), and the Obsidian CLI.
+description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs.
 argument-hint: "What documents, code, or vault should be converted or maintained?"
 ---
 
 The user has asked you to work with an Obsidian-compatible local knowledge base. Optimize only for Obsidian vaults: local folders of Markdown files, Obsidian WikiLinks, YAML frontmatter, attachments, and Obsidian indexing behavior. Do not generalize the workflow for other note platforms, static-site generators, or publishing systems unless the user explicitly asks in a separate task.
 
 Use the workflow in [WORKFLOW.md](./WORKFLOW.md). It defines vault scoping, source inventory, extraction, note construction, subagent topology, model and thinking tiers, validation gates, and maintenance/audit procedures.
-
-Syntax and artifact references, loaded on demand:
-
-- [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md): Obsidian Flavored Markdown — wikilinks, heading/block references, embeds, callouts, tags, highlights, comments, footnotes, math, Mermaid. Consult when composing or repairing note bodies.
-- [references/BASES.md](./references/BASES.md): Obsidian Bases (`.base`) live index views. Use to replace hand-maintained MOC/index notes and static source tables with auto-updating queries over note frontmatter.
-- [references/CANVAS.md](./references/CANVAS.md): JSON Canvas (`.canvas`) visual artifacts — mind maps, architecture and concept diagrams that can embed vault notes.
-- [references/OBSIDIAN-CLI.md](./references/OBSIDIAN-CLI.md): the `obsidian` CLI as an optional, more reliable backend for live-vault interaction and validation when Obsidian is running.
 
 ## Obsidian workspace
 
@@ -43,9 +36,7 @@ Create files lazily as they become useful, always under the vault root:
 
 - Preserve Obsidian compatibility over general Markdown portability.
 - When the user provides a target knowledge base, integrate generated notes into that vault's graph: choose vault-relative paths, add frontmatter, use vault link conventions, update source provenance, and add backlinks or index links so the notes are discoverable.
-- Prefer WikiLinks in body text unless the existing vault manifest requires another Obsidian-supported convention. Use the full WikiLink, embed, callout, and block-reference syntax in [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md) to make notes navigable rather than flat.
-- Prefer a generated `.base` index ([references/BASES.md](./references/BASES.md)) over a hand-maintained static index/MOC when a domain or source cluster needs a note listing, so the index stays current automatically.
-- Use typed frontmatter properties (text, number, checkbox, date, date-time, list, link) so notes are queryable by Bases and Dataview, not just human-readable.
+- Prefer WikiLinks in body text unless the existing vault manifest requires another Obsidian-supported convention.
 - Keep filenames unique across the vault so `[[Note Title]]` links do not require brittle folder paths.
 - Keep folder nesting shallow, ideally no more than 2-3 levels below the vault root.
 - Put YAML frontmatter as the first content in each permanent note.

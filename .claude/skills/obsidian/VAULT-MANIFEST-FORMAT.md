@@ -45,7 +45,6 @@ updated: YYYY-MM-DD
 - Path style: shortest unique link when possible.
 - Required backlinks: {rules for source notes, concept notes, project notes, code notes, or index notes}.
 - Graph entry points: {index/MOC notes, project notes, source notes, or hub notes that new notes should be linked from}.
-- Index style: {generated `.base` views for note listings that should stay current | static MOC notes | both}. Record `.base` index file paths and what each lists.
 
 ## Frontmatter schema
 
@@ -72,7 +71,6 @@ Field rules:
 - `tags`: array without `#` prefixes.
 - `sources`: array of source IDs from `00_Meta/Sources/SOURCE-REGISTER.md`.
 - `status`: controlled vocabulary for note maturity.
-- Property typing: keep properties typed (text, number, checkbox, date `YYYY-MM-DD`, date-time, list/array, link `"[[Note]]"`) so notes are queryable by Bases and Dataview. Record any vault-specific custom properties and their types here.
 
 ## Attachment conventions
 

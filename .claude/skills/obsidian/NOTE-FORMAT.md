@@ -1,6 +1,6 @@
 # Obsidian Permanent Note Format
 
-Use this format for evergreen notes under `20_Permanent/`. Adapt headings only when the existing vault manifest defines a different convention. For Obsidian Flavored Markdown syntax in the body — embeds, callouts, heading and block references, math, Mermaid — see [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md).
+Use this format for evergreen notes under `20_Permanent/`. Adapt headings only when the existing vault manifest defines a different convention.
 
 ```md
 ---
@@ -51,8 +51,7 @@ One concise paragraph that defines the concept, claim, workflow, API, entity, or
 - `aliases` should include acronyms, source-specific names, old names, key code symbols, and common search terms.
 - `tags` should be broad retrieval facets without `#` prefixes. Prefer links over tag proliferation.
 - `sources` must list source IDs from `00_Meta/Sources/SOURCE-REGISTER.md`.
-- Frontmatter properties are typed. Obsidian recognizes text, number, checkbox (`true`/`false`), date (`YYYY-MM-DD`), date-time (`YYYY-MM-DDTHH:mm:ss`), list (YAML array), and link (`"[[Note]]"`, quoted). Use the correct type for any field you add — for example a numeric rating or a real date — so the note is queryable by Bases and Dataview, not just human-readable.
-- Use WikiLinks for internal links. Add a block ID (`^id`) to any claim a `Source grounding` row or another note will cite, then reference it with `[[Note#^id]]`.
+- Use WikiLinks for internal links.
 - Do not paste large source excerpts. Quote only the minimum text needed for fidelity or later verification.
 - For code notes, include short snippets only when they clarify a stable interface, schema, invariant, or non-obvious mechanism. Cite file path and line range.
 - For scientific notes, separate method, evidence, limitations, and interpretation when combining them would hide uncertainty.
