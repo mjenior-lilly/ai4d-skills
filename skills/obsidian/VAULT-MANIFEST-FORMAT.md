@@ -31,7 +31,7 @@ updated: YYYY-MM-DD
 | `10_Fleeting/` | Temporary notes, scratch imports, and triage. | {retention or cleanup rule} |
 | `20_Permanent/` | Evergreen concept notes. | {domain subfolders if used} |
 | `30_Projects/` | Time-bound or project-specific notes. | {project naming rule} |
-| `40_Opinions/` | Timestamped, append-only notes logging user-expressed opinions on in-scope topics. | {opinion-capture convention, or `not used`} |
+| `40_Project/` | Timestamped, append-only notes logging new and changing project-specific facts (confirmed ground truth). | {project-fact-capture convention, or `not used`} |
 
 ## Naming rules
 
@@ -75,34 +75,33 @@ Field rules:
 - `status`: controlled vocabulary for note maturity.
 - Property typing: keep properties typed (text, number, checkbox, date `YYYY-MM-DD`, date-time, list/array, link `"[[Note]]"`) so notes are queryable by Bases and Dataview. Record any vault-specific custom properties and their types here.
 
-## Opinion-capture conventions
+## Project-fact-capture conventions
 
-- Opinion folder: `40_Opinions/` unless overridden here.
+- Project-fact folder: `40_Project/` unless overridden here.
 - Capture posture: `{log automatically while the skill is active | confirm before logging | disabled}`.
 - Cross-session capture: `{CLAUDE.md/memory directive present | skill-scoped only}`. Ambient capture across all sessions requires a `CLAUDE.md` or memory directive; the skill alone only captures while active on a vault task.
-- Opinion frontmatter schema ([OPINION-FORMAT.md](./OPINION-FORMAT.md)):
+- Project-fact frontmatter schema ([PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md)):
 
 ```yaml
 ---
 id: YYYYMMDDHHMMSS-slug
-title: "Opinion: {short paraphrase}"
-type: opinion
+title: "Fact: {short paraphrase}"
+type: project-fact
 subject: "[[Topic Note]]"
 topics: []
-stance: "{one-line paraphrase}"
-polarity: favorable | critical | mixed | neutral
-confidence: tentative | held | strong
-origin: conversation
-expressed: YYYY-MM-DDTHH:mm:ss
-status: current | superseded | withdrawn
-supersedes: "[[Opinion: earlier stance]]"
-tags: [opinion]
+statement: "{one-line factual statement}"
+change: new | updated | corrected
+source: "{how the fact was established}"
+confirmed: YYYY-MM-DDTHH:mm:ss
+status: current | superseded | corrected
+supersedes: "[[Fact: earlier statement]]"
+tags: [project-fact]
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
 ```
 
-- Rules: append-only (a changed view is a new note that supersedes the prior one); at most one `current` note per `subject`; `expressed` is a typed `date-time`; opinions are never recorded in a permanent note's `Source grounding` or presented as fact.
+- Rules: ground truth only (never log speculation or hypotheticals); every fact carries a `source` provenance anchor; append-only (a changed or corrected fact is a new note that supersedes the prior one); at most one `current` note per distinct fact about a `subject`; `confirmed` is a typed `date-time`.
 
 ## Attachment conventions
 

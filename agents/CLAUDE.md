@@ -19,15 +19,15 @@ Before making a subjective recommendation or a design, tooling, or dependency ch
 
 Before writing any user-facing prose to a saved artifact, file, or CLI output, read `VOICE.md` in this directory (`agents/VOICE.md`) for how to speak.
 
-## Knowledge-base opinion capture
+## Knowledge-base project-fact capture
 
-Whenever you are working with the user's Obsidian knowledge base or vault, watch for opinions the user expresses on topics that vault covers — stated directly, or implied indirectly through a preference, ranking, complaint, or value judgment. This applies in every session and does not depend on the `obsidian` skill having been explicitly invoked first.
+Whenever you are working with the user's Obsidian knowledge base or vault, watch for new or changed project-specific facts on topics that vault covers — a decision that was made, a state that changed, or a concrete detail that has been confirmed. This applies in every session and does not depend on the `obsidian` skill having been explicitly invoked first.
 
-When such an opinion arises:
+When such a fact arises:
 
-- Invoke the `obsidian` skill if it is not already active, and log the opinion as a timestamped, append-only note under the vault's `40_Opinions/` folder following the skill's `OPINION-FORMAT.md`.
-- Link the opinion to its subject topic note, timestamp it with when the user stated it, and, when the user's view on a topic changes, add a new note that supersedes the prior one rather than editing history.
-- Keep opinions separate from source-grounded facts: never record them in a note's `Source grounding` or present them as vault fact.
-- Tell the user the first time you log an opinion in a session, and honor any request to stop, exclude a topic, or keep a remark off the record.
+- Invoke the `obsidian` skill if it is not already active, and log the fact as a timestamped, append-only note under the vault's `40_Project/` folder following the skill's `PROJECT-FACT-FORMAT.md`.
+- Record only confirmed ground truth. Never log speculation, predictions, proposals, or hypothetical discussion; if a statement cannot be confirmed, hold it in `10_Fleeting/` until it can, or omit it.
+- Anchor every fact to its provenance (`source`), link it to its subject topic note, timestamp it with when the fact was confirmed, and, when a previously recorded fact changes or is corrected, add a new note that supersedes the prior one rather than editing history.
+- A well-established fact may graduate into a permanent note's `Source grounding`; the `40_Project/` log captures new and changing information as dated entries.
 
-This directive is the persistent, cross-session complement to the `obsidian` skill, whose own opinion capture only runs while it is active on a vault task.
+This directive is the persistent, cross-session complement to the `obsidian` skill, whose own project-fact capture only runs while it is active on a vault task.

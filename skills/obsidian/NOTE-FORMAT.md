@@ -57,5 +57,5 @@ One concise paragraph that defines the concept, claim, workflow, API, entity, or
 - For code notes, include short snippets only when they clarify a stable interface, schema, invariant, or non-obvious mechanism. Cite file path and line range.
 - For scientific notes, separate method, evidence, limitations, and interpretation when combining them would hide uncertainty.
 - For non-technical notes, distinguish facts, decisions, obligations, preferences, timelines, and interpretations.
-- Do not record the user's subjective opinions or stances here. A permanent note holds source-grounded content; log user opinions as attributed, timestamped notes using [OPINION-FORMAT.md](./OPINION-FORMAT.md) and link them from this note's `Related` section instead of embedding them in `Source grounding`.
+- Do not record speculation, predictions, or unconfirmed hypotheticals here. A permanent note holds stable, source-grounded ground truth; log new and changing project-specific facts as timestamped, provenance-anchored notes using [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md) and link them from this note's `Related` section. A project fact can graduate into `Source grounding` once it is well-established.
 - Keep one note focused on one concept. If the title needs "and", "overview", or multiple unrelated aliases, consider splitting it.

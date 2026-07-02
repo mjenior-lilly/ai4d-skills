@@ -10,7 +10,7 @@ Use this workflow to create, update, parse, or audit an Obsidian-compatible loca
 - Split long or complex sources into durable evergreen notes rather than source-shaped summaries.
 - Maintain a graph that is readable for humans and predictable for LLMs: clear note titles, explicit aliases, consistent tags, backlinks, and short concept notes.
 - Audit and repair Obsidian-specific risks: duplicate filenames, invalid YAML, broken WikiLinks, orphaned attachments, inconsistent tags, deep nesting, and indexer-heavy folders.
-- Capture user-expressed opinions on in-scope topics as attributed, timestamped, append-only opinion notes, kept distinct from source-grounded facts.
+- Capture new and changing project-specific facts on in-scope topics as provenance-anchored, timestamped, append-only project-fact notes that record confirmed ground truth, not speculation.
 
 ## Obsidian compatibility rules
 
@@ -70,7 +70,7 @@ Use the smallest tier that can satisfy the phase gate.
 | note planning | Proposed notes have unique filenames, target folders inside the vault, aliases, tags, source IDs, graph entry points, and merge/update decisions. |
 | composition | Notes follow [NOTE-FORMAT.md](./NOTE-FORMAT.md), use Obsidian WikiLinks, include provenance, and are written to vault-relative paths. |
 | integration | New and updated notes are referenced from relevant index, project, source, or related concept notes, and `SOURCE-REGISTER.md` lists the produced notes. |
-| opinion capture | Any user opinion on an in-scope topic is logged under `40_Opinions/` with a resolved `subject` link, an `expressed` timestamp, `origin`, and `status`, append-only and outside any `Source grounding`. |
+| project-fact capture | Any new or changed project-specific fact on an in-scope topic is logged under `40_Project/` with a resolved `subject` link, a `confirmed` timestamp, a `source` provenance anchor, and `status`, append-only; only confirmed ground truth, never speculation. |
 | vault validation | Links, filenames, frontmatter, tags, attachments, nesting depth, and indexer risks have been checked and recorded in `00_Meta/VAULT-AUDIT.md` when useful. |
 
 ## Workflow loop
@@ -186,21 +186,21 @@ Run the narrowest available checks for the touched scope. When Obsidian is runni
 13. Notes without source grounding when they contain technical, scientific, code, medical, legal, productivity-pattern, or factual claims.
 14. `.base` files: valid YAML, every referenced property/formula defined, Duration math accessing a numeric field before rounding, and null-guarded formulas (see [references/BASES.md](./references/BASES.md)).
 15. `.canvas` files: valid JSON, unique node and edge IDs, and every edge `fromNode`/`toNode` resolving to an existing node (see [references/CANVAS.md](./references/CANVAS.md)).
-16. Opinion notes under `40_Opinions/`: each has `origin`, an `expressed` `date-time`, and a resolved `subject` link; at most one `current` note per `subject`; any superseded/withdrawn note retains a valid `supersedes` chain.
-17. No user opinion recorded in a permanent note's `Source grounding` table or presented as source-grounded fact.
+16. Project-fact notes under `40_Project/`: each has `source`, a `confirmed` `date-time`, and a resolved `subject` link; at most one `current` note per distinct fact about a `subject`; any superseded/corrected note retains a valid `supersedes` chain.
+17. No speculation or hypothetical discussion recorded as a project fact or presented as source-grounded fact.
 
 Record results in `00_Meta/VAULT-AUDIT.md` using [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md) when the task is more than a trivial edit.
 
-### Ongoing: capture user opinions
+### Ongoing: capture project facts
 
-This step is reactive rather than sequential: it runs whenever, during any phase, the user expresses an opinion, preference, judgment, or stance on a topic the vault covers — directly or indirectly.
+This step is reactive rather than sequential: it runs whenever, during any phase, a new or changed project-specific fact on a topic the vault covers is confirmed — a decision made, a state changed, or a concrete detail established.
 
-1. Detect the opinion. Direct: the user states a position on a named in-scope concept. Indirect: a preference, ranking, complaint, or value judgment that bears on an in-scope topic without naming it. Ignore passing remarks, task instructions, and opinions unrelated to the knowledge base.
-2. Resolve the `subject`. Match the opinion to an existing topic note via titles, aliases, and tags. If the topic is clearly implied but has no note, create a minimal stub under `20_Permanent/` or hold the opinion in `10_Fleeting/` until a topic note exists. Do not attach the opinion to an unrelated note.
-3. Compose an opinion note under `40_Opinions/` using [OPINION-FORMAT.md](./OPINION-FORMAT.md): faithful paraphrase, `subject` link, `origin: conversation`, an `expressed` `date-time`, `polarity`, `confidence`, and `status: current`. Timestamp with the moment the user stated it.
-4. Handle change over time append-only. If the user's view on a subject already has a `current` opinion note, write a new note with a `supersedes` link and set the prior note's `status` to `superseded` (or `withdrawn` if retracted without replacement). Never edit the substance of a past opinion in place.
-5. Keep opinions distinct from facts. Never record an opinion in a permanent note's `Source grounding` or convert it into a factual claim. If an opinion conflicts with a source-grounded note, note the tension in the opinion's `Context`; do not reconcile it silently.
-6. Tell the user the first time you log an opinion in a session, and honor any request to stop, exclude a topic, or keep a remark off the record.
+1. Detect the fact. A confirmed decision, state change, or concrete project detail on an in-scope topic. Ignore passing remarks, task instructions, and details unrelated to the knowledge base. Do not treat speculation, proposals, predictions, or open questions as facts.
+2. Confirm it is ground truth. Log only what is known to be true and can be anchored to a `source` — a reported decision, a document, an observed state, or the user's direct confirmation. If it cannot be confirmed, hold it in `10_Fleeting/` until it can, or omit it.
+3. Resolve the `subject`. Match the fact to an existing topic note via titles, aliases, and tags. If the topic is clearly implied but has no note, create a minimal stub under `20_Permanent/` or hold the fact in `10_Fleeting/` until a topic note exists. Do not attach the fact to an unrelated note.
+4. Compose a project-fact note under `40_Project/` using [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md): precise statement, `subject` link, `source` provenance anchor, a `confirmed` `date-time`, `change`, and `status: current`. Timestamp with when the fact became true or was confirmed.
+5. Handle change over time append-only. If a fact about a subject already has a `current` note and it changes or is corrected, write a new note with a `supersedes` link and set the prior note's `status` to `superseded` (or `corrected` if the earlier note stated something now known to be wrong). Never edit the substance of a past fact in place.
+6. Keep the record accurate. Never record speculation as fact. If a new fact contradicts a source-grounded note, log the confirmed fact and flag the tension for the coordinator to reconcile against source material; do not silently overwrite grounded content.
 
 ## Output to the user
 
@@ -209,7 +209,7 @@ Return a concise summary with:
 - vault path;
 - source count processed;
 - notes created, updated, and skipped;
-- opinions logged, with subject and supersession changes, when any were captured;
+- project facts logged, with subject and supersession changes, when any were captured;
 - validation performed and results;
 - unresolved source gaps, broken links, merge candidates, or indexer risks;
 - paths to the manifest, source register, audit, and notable notes.

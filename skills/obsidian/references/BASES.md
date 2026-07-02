@@ -9,7 +9,7 @@ Adapted from the Obsidian Bases documentation (https://help.obsidian.md/bases/sy
 - One base per domain folder under `20_Permanent/`, or one per source cluster, as a dynamic index instead of (or alongside) a static MOC.
 - A "recently updated" or "needs review" base over `status` to surface maintenance work.
 - A source-coverage base that lists notes by `sources` to complement `SOURCE-REGISTER.md`.
-- An opinion timeline over `40_Opinions/` that lists user opinions by `subject` and `expressed` date, filtered to `status == "current"` or grouped to show how a stance evolved (see the example below).
+- A project-fact timeline over `40_Project/` that lists project facts by `subject` and `confirmed` date, filtered to `status == "current"` or grouped to show how a fact changed over time (see the example below).
 
 Place index bases under `00_Meta/` or the relevant domain folder. Embed them in a human-facing MOC note with `![[Domain Index.base]]`.
 
@@ -160,28 +160,28 @@ views:
       - updated
 ```
 
-## Example: opinion timeline
+## Example: project-fact timeline
 
-Lists user opinions newest-first, with a second view for only the currently held stances. Assumes the [OPINION-FORMAT.md](../OPINION-FORMAT.md) frontmatter (`type: opinion`, `subject`, `expressed`, `polarity`, `status`).
+Lists project facts newest-first, with a second view for only the currently true facts. Assumes the [PROJECT-FACT-FORMAT.md](../PROJECT-FACT-FORMAT.md) frontmatter (`type: project-fact`, `subject`, `confirmed`, `change`, `status`).
 
 ```yaml
 filters:
   and:
-    - file.inFolder("40_Opinions")
-    - 'type == "opinion"'
+    - file.inFolder("40_Project")
+    - 'type == "project-fact"'
 
 views:
   - type: table
-    name: "Opinion Timeline"
+    name: "Project Fact Timeline"
     order:
-      - expressed
+      - confirmed
       - subject
-      - polarity
+      - change
       - status
       - file.name
 
   - type: table
-    name: "Currently Held"
+    name: "Currently True"
     filters:
       and:
         - 'status == "current"'
@@ -190,9 +190,9 @@ views:
       direction: ASC
     order:
       - subject
-      - stance
-      - polarity
-      - expressed
+      - statement
+      - change
+      - confirmed
 ```
 
 ## Validation
