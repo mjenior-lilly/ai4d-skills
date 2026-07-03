@@ -60,6 +60,7 @@ Current skills:
 - `obsidian` - Obsidian-compatible local knowledge-base construction, update, parsing, and validation from technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs
 - `repo-explorer` - external repository cloning and inspection using a reusable local cache
 - `research` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
+- `task-triage` - script-backed GTD analysis of timestamped handwritten checklist photos, where the agent performs OCR and analysis while a bundled stdlib Python script handles date math, sync detection, and the daily → weekly → monthly → annual cascade triggers
 - `tasks` - local-agent task-note triage with daily, weekly, monthly, and annual execution analysis, project context, and optional Obsidian integration
 - `teach` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
 
