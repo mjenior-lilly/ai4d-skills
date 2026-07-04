@@ -130,6 +130,7 @@ A large portion of the library is aimed at software delivery tasks such as:
 Copy-paste prompts intended for associated web page tools rather than slash-command or skill invocation.
 
 - `podcast` - NotebookLM audio overview prompt for neutral, structured, technically precise summaries of machine learning, AI architecture, and computational research papers
+- `infographic` - NotebookLM infographic prompt for dense, quantitative, diagram-first visual summaries of machine learning, AI architecture, and computational research papers
 
 ## how to use this repo
 
@@ -166,6 +167,7 @@ Typical pattern:
 Example:
 
 - use `prompts/podcast.md` with NotebookLM to generate a measured technical audio overview of an attached AI or machine learning paper
+- use `prompts/infographic.md` with NotebookLM to generate an information-dense technical infographic of an attached AI or machine learning paper
 
 ### use a skill
 
@@ -181,7 +183,7 @@ Skills in this repo are best suited to recurring, high-signal workflows such as 
 
 ### use the system prompt
 
-Use `system/pi.md` as a base policy for a coding agent when you want a direct, low-noise, verification-first operating style.
+Use `agents/SYSTEM.md` as a base policy for a coding agent when you want a direct, low-noise, verification-first operating style.
 
 It is most useful when the agent has:
 
@@ -205,15 +207,3 @@ Use a skill when:
 - the instructions are stable and reusable.
 
 In this repo, `yeet.md` is a good example of something better kept as an explicit command, while `investigate.md`, `audit.md`, and `repo-explorer.md` translate well into skills.
-
-## authoring conventions in this repo
-
-Files here generally follow these conventions:
-
-- tell the agent what evidence to gather before concluding
-- define what is in scope and out of scope
-- separate method from required output shape
-- avoid broad speculative refactors
-- prefer concrete verification over intuition
-
-That makes the prompts easier to reuse across different harness platforms without changing their core operational behavior.
