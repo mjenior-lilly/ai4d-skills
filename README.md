@@ -63,6 +63,7 @@ Current skills:
 - `task-triage` - script-backed GTD analysis of timestamped handwritten checklist photos, where the agent performs OCR and analysis while a bundled stdlib Python script handles date math, sync detection, and the daily → weekly → monthly → annual cascade triggers
 - `tasks` - local-agent task-note triage with daily, weekly, monthly, and annual execution analysis, project context, and optional Obsidian integration
 - `teach` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
+- `tldr` - structured technical document summarization with per-type templates (publication, internal document, README, general), plus optional multi-document executive synthesis, gap analysis with web research, reorganization/stylistic polishing, and rubric-based summary quality scoring
 
 ### `agents/`
 
@@ -117,6 +118,7 @@ A large portion of the library is aimed at software delivery tasks such as:
 - synthesizing meeting recordings and personal notes into markdown summaries, decisions, action items, and follow-up requirements
 - analyzing handwritten or digital task notes into local execution reviews, planning corrections, and longer-horizon productivity retrospectives
 - building source-verified research briefs from parallel discovery, evidence extraction, and synthesis
+- summarizing publications, internal documents, and READMEs into structured, audience-ready summaries with optional synthesis, enrichment, and quality scoring
 - creating and maintaining Obsidian-compatible local knowledge bases from documents, code collections, meeting summaries, and task-analysis outputs
 - generating corpus-grounded benchmark datasets with adversarial evaluation items
 - building stateful teaching workspaces with lessons, references, resources, and learning records
