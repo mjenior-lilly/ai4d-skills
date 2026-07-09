@@ -1,6 +1,6 @@
 # Agent Prompt Skeleton
 
-This is a reference guide for designing effective prompts for LLM-based agents. Use it to structure prompts consistently, avoid common pitfalls, and choose the right hybrid style for each task type.
+This is a reference guide for designing effective prompts for LLM-based sub-agents. Use it to structure prompts consistently, avoid common pitfalls, and choose the right hybrid style for each task type.
 
 ---
 

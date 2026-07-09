@@ -1,8 +1,8 @@
 # agent-skills
 
-This is my public prompt library for use across LLM harness platforms. 
+This is my public prompt library for use across LLM harness platforms.
 
-The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, repository workflow execution, lightweight classification for routing, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
+The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, knowledge-base construction, task triage, document summarization, repository workflow execution, lightweight classification for routing, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
 
 Many are my own creations, but a few are adapted or refactored from a couple different sources:
 
@@ -11,86 +11,34 @@ Many are my own creations, but a few are adapted or refactored from a couple dif
 
 ## repository layout
 
-### `commands/`
+Each subdirectory has its own README covering its contents, file structure, and usage patterns in detail.
 
-Plain Markdown prompts intended for explicit slash command-style invocation. These are the source prompts for task-specific workflows.
+### [`commands/`](commands/README.md)
 
-#### analysis, audit, and debugging
+Plain Markdown prompts intended for explicit slash command-style invocation. Grouped into analysis/audit/debugging (`/abstract`, `/agentify`, `/audit`, `/cleanup`, `/investigate`, `/prompts`, `/test-audit`), a plan lifecycle (`/plan`, `/fit`, `/grill`, `/risks`, `/apply`, `/implement`), documentation and communication (`/annotate`, `/specs`, `/humanize`, `/write-mr`), and full repository execution (`/yeet`).
 
-- `/abstract` - targeted structural and maintainability review for a file or module
-- `/agentify` - multi-agent repository analysis for LLM navigability, static traceability, context locality, and autonomous change safety
-- `/audit` - change-set audit against callers, contracts, and regressions
-- `/cleanup` - read-only audit for behavioral defects and unreachable code
-- `/investigate` - root-cause investigation from workflow errors and intermediate output
-- `/prompts` - audit of prompts, agent instructions, and model-facing text against actual behavior
-- `/test-audit` - test-suite audit for behavior coverage, reachability, isolation, and maintainability
+### [`skills/`](skills/README.md)
 
-#### planning and implementation workflow
+Reusable skills for harnesses that route from natural-language intent rather than explicit slash commands. Single-file skills cover bounded tasks (`annotate`, `audit`, `fit`, `humanize`, `investigate`, `notes`, `repo-explorer`, `resolve`); multi-file skill directories encode larger workflows through a `SKILL.md` entry point plus on-demand workflow, format, reference, and script files:
 
-- `/apply` - update an implementation plan using findings and critique
-- `/fit` - check whether a plan fits the current codebase and existing abstractions
-- `/grill` - interactive pressure-test of a plan through focused questioning
-- `/implement` - execute a provided plan in order with ongoing verification
-- `/plan` - build an implementation plan from findings, diffs, diagnostics, or requests
-- `/risks` - resolve plan risks, assumptions, and open questions back into the plan
+- `knowledge-graph/` - Obsidian-compatible knowledge-base construction, update, audit, and append-only project-fact capture
+- `research/` - deep research with parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
+- `task-triage/` - script-backed GTD analysis of handwritten checklist photos with a daily → weekly → monthly → annual cascade
+- `tasks/` - local-agent task-note triage with execution analysis, project context, and optional Obsidian integration
+- `teach/` - stateful teaching workspace with mission-grounded lessons, learning records, references, and reusable assets
+- `tldr/` - structured document summarization with per-type templates and optional synthesis, gap research, polishing, and scoring
 
-#### documentation and communication
+### [`agents/`](agents/README.md)
 
-- `/annotate` - synchronize README files, docstrings, and code comments with implementation
-- `/specs` - write a redacted temporary specsheet document for a fresh agent, with artifact references and suggested skills
-- `/humanize` - rewrite target text into natural, concise, human-sounding prose while preserving meaning
-- `/write-mr` - write a merge request title and description from actual branch history and diff
+System prompt text and layered policy files that define baseline agent behavior: a CLI-focused coding-agent system prompt (`SYSTEM.md`), a `CLAUDE.md` entry point with on-demand companion policies for coding practices (`CODE.md`), subjective preferences (`OPINIONS.md`), and prose voice (`VOICE.md`), plus a benchmark response judge (`judge.md`), a constrained routing classifier example (`classifier.md`), and a prompt-design reference (`prompt_skeleton.md`).
 
-#### repository execution workflow
+### [`workflows/`](workflows/README.md)
 
-- `/yeet` - end-to-end repository workflow for preflight, triage, commit, push, and merge request creation
+End-to-end operating procedures for multi-phase, coordinator-plus-subagent tasks that need more than a single command invocation: corpus-grounded benchmark dataset generation (`create-test-dataset`) and simplification-audit-to-PR conversion (`unvibe-code-repo`). A workflow defines the objective, phase gates, subagent topology, model and thinking tiers, verification requirements, and stopping conditions.
 
-### `skills/`
+### [`notebooklm/`](notebooklm/README.md)
 
-These are meant for harnesses that support reusable skills selected from natural-language intent rather than explicit slash commands.
-
-Current skills:
-
-- `annotate` - documentation and annotation synchronization
-- `audit` - change-set audit with caller and contract tracing
-- `fit` - plan-fit review against the existing codebase
-- `humanize` - natural, concise, human-sounding user-facing prose for non-trivial responses
-- `investigate` - workflow failure diagnosis from supplied evidence
-- `notes` - meeting synthesis and action extraction from a meeting recording plus personal `.txt` notes
-- `obsidian` - Obsidian-compatible local knowledge-base construction, update, parsing, and validation from technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs
-- `repo-explorer` - external repository cloning and inspection using a reusable local cache
-- `research` - deep research workflow skill for goal-setting, parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
-- `task-triage` - script-backed GTD analysis of timestamped handwritten checklist photos, where the agent performs OCR and analysis while a bundled stdlib Python script handles date math, sync detection, and the daily → weekly → monthly → annual cascade triggers
-- `tasks` - local-agent task-note triage with daily, weekly, monthly, and annual execution analysis, project context, and optional Obsidian integration
-- `teach` - stateful teaching workspace skill for creating mission-grounded lessons, learning records, reference documents, resources, and reusable lesson assets
-- `tldr` - structured technical document summarization with per-type templates (publication, internal document, README, general), plus optional multi-document executive synthesis, gap analysis with web research, reorganization/stylistic polishing, and rubric-based summary quality scoring
-
-### `agents/`
-
-System prompt text that defines the baseline agent behavior.
-
-- `SYSTEM.md` - a CLI-focused coding-agent policy emphasizing directness, minimal diffs, contract-first changes, deterministic verification, realistic testing, and cautious handling of destructive operations
-
-- `judge.md` - a corpus-grounded benchmark response-evaluation policy that scores a target LLM response against a `create-test-dataset` entry, including canonical answers, required facts, reasoning paths, source references, known negative responses, and optional domain-specific context for specialized or novel corpus knowledge
-
-- `prompt_skeleton.md` - a reference guide for designing effective prompts for LLM-based agents, covering the core skeleton blocks (role, goal, rules, think, context, examples, audience, format), drift control for long chats, hybrid prompt styles, model alignment knobs, and ready-to-use templates for everyday and complex tasks
-
-- `classifier.md` - an example single-label classifier prompt that emits one routing label and nothing else. It illustrates a broadly useful pattern: a cheap, fast, small-model call placed in front of a pipeline to decide the downstream handoff, rather than burning a large model on triage. The prompt is deliberately constrained — strict label set, explicit precedence and tie-break rules, few-shot anchors, prompt-injection resistance over the classified content, and a single-token-style output contract — so the result is reliable enough to branch on. The specific labels here (the document subject areas) are just placeholder domain knowledge; the reusable idea is the shape of a constrained classifier that gates routing, escalation, or which specialized agent or skill runs next.
-
-### `workflows/`
-
-End-to-end operating procedures for tasks that need more than a single command invocation. A workflow defines the objective, phase gates, subagent topology, model and thinking tiers, verification requirements, and stopping conditions for a long-running loop.
-
-Unlike basic slash-commands, workflows do not just tell one agent how to perform a bounded action. They describe how a coordinator should split work across subagents, keep subagent outputs advisory until verified, sequence dependent phases, and decide when the overall objective is complete.
-
-Current workflows:
-
-- `/create-test-dataset`
-  - Objective: generate a corpus-grounded benchmark dataset with adversarial JSON evaluation items, including plausible negative response examples and optional domain-specific context for downstream judging of specialized or novel corpus knowledge.
-  - Subagent use: an orchestrator analyzes the source corpus, builds the distribution matrix, assigns parallel item-generation batches to worker subagents, then aggregates and validates the final dataset.
-- `/unvibe-code-repo`
-  - Objective: convert a broad simplification audit into a reviewed, implemented, tested, committed, and PR-ready change.
-  - Subagent use: a coordinator may use bounded audit scouts, plan reviewers, implementation workers, and confirmation reviewers, while retaining responsibility for evidence checks, integration decisions, verification, and branch operations.
+Copy-paste prompts for NotebookLM rather than slash-command or skill invocation: a neutral, technically precise Audio Overview prompt (`podcast.md`) and a dense, diagram-first infographic prompt (`infographic.md`), both for machine learning and computational research papers.
 
 ## what kind of content lives here
 
@@ -105,94 +53,11 @@ Common characteristics across the files:
 - direct output formats designed for practical engineering work
 - separation between read-only review workflows and mutating implementation workflows
 
-A large portion of the library is aimed at software delivery tasks such as:
-
-- investigating failures
-- auditing changes and tests
-- analyzing codebases for LLM navigability and agent modification safety
-- refining or applying plans
-- aligning docs with code
-- generating reviewer-facing summaries
-- writing concise, natural user-facing responses without generic assistant artifacts
-- handing off conversation state to a fresh agent without duplicating existing artifacts
-- synthesizing meeting recordings and personal notes into markdown summaries, decisions, action items, and follow-up requirements
-- analyzing handwritten or digital task notes into local execution reviews, planning corrections, and longer-horizon productivity retrospectives
-- building source-verified research briefs from parallel discovery, evidence extraction, and synthesis
-- summarizing publications, internal documents, and READMEs into structured, audience-ready summaries with optional synthesis, enrichment, and quality scoring
-- creating and maintaining Obsidian-compatible local knowledge bases from documents, code collections, meeting summaries, and task-analysis outputs
-- generating corpus-grounded benchmark datasets with adversarial evaluation items
-- building stateful teaching workspaces with lessons, references, resources, and learning records
-- completing branch-to-MR workflows
-- adapting web-page tools with reusable copy-paste prompts
-
-### `prompts/`
-
-Copy-paste prompts intended for associated web page tools rather than slash-command or skill invocation.
-
-- `podcast` - NotebookLM audio overview prompt for neutral, structured, technically precise summaries of machine learning, AI architecture, and computational research papers
-- `infographic` - NotebookLM infographic prompt for dense, quantitative, diagram-first visual summaries of machine learning, AI architecture, and computational research papers
-
-## how to use this repo
-
-### use a command prompt
-
-Use files from `commands/` when your harness supports explicit user-invoked slash commands or named prompt templates.
-
-Typical pattern:
-
-1. choose a command file that matches the task,
-2. register it in your harness as a slash command or reusable prompt,
-3. invoke it with the relevant repo context, plan file, diff, or logs.
-
-Examples:
-
-- use `/investigate` for CI failures or broken workflow output
-- use `/audit` to review a branch or diff for contract drift and regressions
-- use `/agentify` to score a repository's agent readiness and identify structural friction for LLM coding agents
-- use `/annotate` to update docs and comments without changing executable code
-- use `/specs` to save a redacted session summary outside the workspace for a fresh agent or team of agents
-- use `/humanize` to rewrite text so it sounds natural, concise, and less generated
-- use `/yeet` only when you want the agent to drive the full commit and MR flow explicitly
-
-### use a web tool prompt
-
-Use files from `prompts/` when a web page expects pasted instructions rather than a registered command or skill.
-
-Typical pattern:
-
-1. choose the prompt file for the target web tool,
-2. paste it into the tool's instruction or customization field,
-3. attach or provide the source material the prompt expects.
-
-Example:
-
-- use `prompts/podcast.md` with NotebookLM to generate a measured technical audio overview of an attached AI or machine learning paper
-- use `prompts/infographic.md` with NotebookLM to generate an information-dense technical infographic of an attached AI or machine learning paper
-
-### use a skill
-
-Use files from `skills/` when your platform supports skill selection based on task intent.
-
-Typical pattern:
-
-1. place the skill file where your harness expects reusable skills,
-2. keep the front matter intact so the harness can read the skill name, description, and allowed tools,
-3. rely on the description text to route relevant natural-language requests to the right skill.
-
-Skills in this repo are best suited to recurring, high-signal workflows such as investigation, audits, planning, documentation sync, response style control, repository exploration, deep research, and stateful teaching.
-
-### use the system prompt
-
-Use `agents/SYSTEM.md` as a base policy for a coding agent when you want a direct, low-noise, verification-first operating style.
-
-It is most useful when the agent has:
-
-- shell access,
-- repository read and edit tools,
-- a need to run tests or validations,
-- responsibility for making narrowly scoped engineering changes.
+A large portion of the library is aimed at software delivery tasks such as investigating failures, auditing changes and tests, refining or applying plans, aligning docs with code, generating reviewer-facing summaries, and completing branch-to-MR workflows. The rest supports personal knowledge and productivity systems: research briefs, knowledge bases, task analysis, meeting synthesis, document summarization, and teaching workspaces. Each subdirectory README describes its content in full.
 
 ## choosing commands vs skills
+
+Several prompts exist in both forms (`annotate`, `audit`, `fit`, `humanize`, `investigate`).
 
 Use a command when:
 

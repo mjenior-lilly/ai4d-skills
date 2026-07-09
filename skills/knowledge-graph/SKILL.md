@@ -1,5 +1,5 @@
 ---
-name: obsidian
+name: knowledge-graph
 description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Also captures new and changing project-specific facts as timestamped, append-only project-fact notes that record confirmed ground truth, not speculation. Covers Obsidian Flavored Markdown syntax (wikilinks, embeds, callouts, block references, properties, tags), Bases (.base) index views, JSON Canvas (.canvas), and the Obsidian CLI.
 argument-hint: "What documents, code, or vault should be converted or maintained?"
 ---
