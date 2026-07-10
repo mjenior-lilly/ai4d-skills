@@ -40,25 +40,6 @@ Deep research workflow treating every question as an evidence-building exercise,
 - `WORKFLOW.md` - goal decision phase, subagent topology, model and thinking tiers, parallelization limits, verification gates, skeptic review points, synthesis requirements
 - `GOAL-FORMAT.md`, `SOURCE-REGISTER-FORMAT.md`, `CLAIMS-MATRIX-FORMAT.md`, `SYNTHESIS-FORMAT.md` - templates for the research goal, the canonical source register, the claim-to-source evidence ledger, and the final research brief
 
-### `task-triage/`
-
-Script-backed GTD analysis of timestamped handwritten checklist photos (`YYYYMMDD_HHMMSS.png`). The agent performs OCR, analysis, and codebase summarization; the bundled stdlib-only `scripts/triage.py` handles all date math, sync detection, and the daily → weekly → monthly → annual cascade triggers — the agent never recomputes those by hand. Each analysis level is written as a `.triaged.txt` file, and project codebase summaries can be injected as context into daily analyses.
-
-- `SKILL.md` - entry point: workflow steps (sync/OCR, daily analyses, automatic cascade, project context)
-- `scripts/triage.py` - deterministic helper: `scan`, `pending`, `collect-week`, `collect-month`, `collect-year`, `context-scan`, `context-mark`
-- `references/input-format.md` - notes schema, task notation (✓ ✗ * ↳), filename conventions, OCR transcription rules, edge cases
-- `references/daily-analysis.md`, `weekly-analysis.md`, `monthly-analysis.md`, `annual-analysis.md` - full methodology and output template per cascade level
-- `references/project-context.md` - codebase summarization and context injection into daily notes
-
-### `tasks/`
-
-Local-agent task-note triage: the agent itself owns ingestion, OCR/transcription, daily/weekly/monthly/annual execution analysis, project context collection, and validation — no external CLI or API workflow assumed. Analyzes execution, planning realism, and task-system quality (candid, non-judgmental), grounding every observation in the supplied notes, and can write its analyses into an Obsidian vault following the `knowledge-graph` skill's conventions.
-
-- `SKILL.md` - entry point: workspace structure (`raw/`, `daily/`, `weekly/`, `monthly/`, `annual/`, `context/`), default posture, Obsidian awareness, safety rules
-- `WORKFLOW.md` - workspace setup, note ingestion, OCR expectations, analysis cascade, project context collection, validation
-- `ANALYSIS-FORMATS.md` - daily, weekly, monthly, annual, and project-context output structures
-- `WORKSPACE-FORMAT.md` - the `TASK-MANIFEST.md` workspace manifest template
-
 ### `teach/`
 
 Stateful teaching workspace for learning a topic over multiple sessions. Grounds every lesson in a mission (why the user wants to learn), tracks progress via numbered learning records used to calculate the zone of proximal development, and separates knowledge acquisition (difficulty is the enemy) from skill practice (difficulty is the tool: retrieval practice, spacing, interleaving). Lessons are self-contained HTML files built from reusable components in `./assets/`, alongside printable reference documents and a resource register of high-trust sources.

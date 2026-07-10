@@ -18,8 +18,6 @@ Reusable skills for harnesses that route from natural-language intent rather tha
 
 - `knowledge-graph/` - Obsidian-compatible knowledge-base construction, update, audit, and append-only project-fact capture
 - `research/` - deep research with parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
-- `task-triage/` - script-backed GTD analysis of handwritten checklist photos with a daily → weekly → monthly → annual cascade
-- `tasks/` - local-agent task-note triage with execution analysis, project context, and optional Obsidian integration
 - `teach/` - stateful teaching workspace with mission-grounded lessons, learning records, references, and reusable assets
 - `tldr/` - structured document summarization with per-type templates and optional synthesis, gap research, polishing, and scoring
 
