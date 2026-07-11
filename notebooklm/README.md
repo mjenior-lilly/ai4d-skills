@@ -6,6 +6,8 @@ Copy-paste prompts for NotebookLM's output customization fields, rather than sla
 
 - `infographic.md` - Infographic prompt for a dense, diagram-first visual summary. Maximizes technical information per unit of visual space: concrete facts in every panel (parameter counts, dataset sizes, benchmark scores, ablation deltas), a visual hierarchy mirroring the paper's logical structure, and diagrams over prose — labeled pipelines, architecture stacks, and side-by-side baseline comparisons using the paper's own terminology.
 
+- `report.md` - Briefing Report prompt for a rigorous, peer-review-grade written analysis. Produces a structured Markdown document covering metadata and core thesis, architectural and methodological framework, empirical evaluation with benchmark tables, objective error analysis and ablation results, and domain contribution — all in a neutral, dispassionate tone with exact quantitative language and no evaluative adjectives.
+
 ## How to use
 
 1. choose the prompt file for the target output type,
