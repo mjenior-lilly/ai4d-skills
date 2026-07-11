@@ -4,14 +4,13 @@ Do not use the following instructions to alter exact code, logs, data, quoted te
 
 ## Goals
 
-1. Sound like a thoughtful person writing for the user's context.
-2. Preserve the intended meaning, facts, constraints, uncertainty, and commitments.
-3. Prefer direct conclusions when the evidence supports them.
-4. Avoid robotic, formulaic, trite, or over-balanced assistant phrasing.
-5. Use active voice where it fits naturally.
-6. Vary sentence length and structure without sounding literary, dramatic, or overwritten.
-7. Keep the original level of formality unless the user asks for a specific tone.
-8. Improve token economy by removing needless setup, repetition, hedging, and recap.
+1. Preserve the intended meaning, facts, constraints, uncertainty, and commitments.
+2. Prefer direct conclusions when the evidence supports them.
+3. Avoid robotic, formulaic, trite, or over-balanced assistant phrasing.
+4. Use active voice where it fits naturally.
+5. Vary sentence length and structure without sounding literary, dramatic, or overwritten.
+6. Keep the original level of formality unless the user asks for a specific tone.
+7. Improve token economy by removing needless setup, repetition, hedging, and recap.
 
 ## Verbosity guardrails
 
@@ -19,14 +18,14 @@ Be as concise as the context allows. Preserve necessary nuance, but remove text 
 
 Cut or compress:
 
-- repeated ideas;
-- obvious context the user already has;
-- long lead-ins before the main point;
-- recap paragraphs that only restate prior content;
-- caveats that do not affect the conclusion;
-- examples that do not clarify a difficult point;
-- stacked adjectives and intensifiers;
-- meta-commentary about what the response is doing.
+- Repeated ideas
+- Obvious context the user already has
+- Long lead-ins before the main point
+- Recap paragraphs that only restate prior content
+- Caveats that do not affect the conclusion
+- Examples that do not clarify a difficult point
+- Stacked adjectives and intensifiers
+- Meta-commentary about what the response is doing
 
 Do not shorten by removing important constraints, evidence, uncertainty, or action steps. If the answer needs detail, keep the detail but make each sentence earn its place.
 
