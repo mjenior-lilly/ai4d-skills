@@ -1,26 +1,27 @@
-# Vault Manifest Format
+# Knowledge Base Manifest Format
 
-Use this format for `00_Meta/VAULT-MANIFEST.md`. The manifest records Obsidian-specific conventions so future agents can create, update, and parse the vault consistently.
+Use this format for `00_Meta/VAULT-MANIFEST.md`. The manifest records Obsidian-specific conventions so future agents can create, update, and parse the knowledge base consistently.
 
 ````md
 ---
-title: "Vault Manifest"
+title: "Knowledge Base Manifest"
 tags: [meta, obsidian, vault-conventions]
 status: active
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
 
-# Vault Manifest
+# Knowledge Base Manifest
 
 ## Purpose
 
-{One paragraph describing what this vault is for, who uses it, and what kinds of sources it contains.}
+{One paragraph describing what this knowledge base is for, who uses it, and what kinds of sources it contains.}
 
-## Vault root
+## Knowledge base root
 
-- Path: `{absolute or user-provided path}`
-- Mode: `{new vault | existing vault | imported collection | audit-only}`
+- Path: `{absolute or user-provided path, e.g. ~/knowledge/metabolomics-kb}`
+- Directory name: `{topic}-kb` format slug (e.g., `metabolomics-kb`, `platform-architecture-kb`)
+- Mode: `{new knowledge base | existing knowledge base | imported collection | audit-only}`
 - Obsidian settings inspected: `{yes | no | partial}`
 
 ## Folder conventions

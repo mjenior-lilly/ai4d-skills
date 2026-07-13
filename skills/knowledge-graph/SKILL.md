@@ -17,11 +17,13 @@ Syntax and artifact references, loaded on demand:
 
 ## Obsidian workspace
 
-Treat the user-named vault directory as the workspace and write all generated or updated notes inside that vault. Do not leave note artifacts in the current working directory, a temporary folder, or chat output when the user has provided a target vault or knowledge base.
+Treat the user-named directory as the workspace and write all generated or updated notes inside it. Do not leave note artifacts in the current working directory, a temporary folder, or chat output when the user has provided a target knowledge base.
 
-If the user has not named a vault and the current directory looks like an Obsidian vault, use it. A directory looks like a vault when it contains `.obsidian/`, a meaningful set of `.md` files, or an obvious vault structure such as `00_Meta/`, `10_Fleeting/`, `20_Permanent/`, or `30_Projects/`.
+If the user has not named a directory and the current directory looks like an Obsidian knowledge base, use it. A directory looks like a knowledge base when it contains `.obsidian/`, a meaningful set of `.md` files, or an obvious structure such as `00_Meta/`, `10_Fleeting/`, `20_Permanent/`, or `30_Projects/`.
 
-When creating a new vault, use this default structure unless the user provides an existing convention:
+When creating a new knowledge base, name the top-level directory `{{topic}}-kb` (e.g., `metabolomics-kb`, `platform-architecture-kb`, `drug-discovery-kb`) so the purpose is immediately clear from the directory name alone. Use a short, lowercase, hyphenated slug derived from the domain or project the knowledge base covers. Do not use generic names like `vault/`, `notes/`, `kb/`, or `knowledge-base/` without a qualifying topic prefix. If the user provides an explicit directory name, use that instead.
+
+Use this default internal structure unless the user provides an existing convention:
 
 - `00_Meta/Templates/`: reusable note templates.
 - `00_Meta/Attachments/`: images, PDFs, diagrams, and other binary files.
@@ -31,7 +33,7 @@ When creating a new vault, use this default structure unless the user provides a
 - `30_Projects/`: project-specific or time-bound notes.
 - `40_Project/`: timestamped, append-only notes logging new and changing project-specific facts — confirmed ground truth, not speculation.
 
-Create files lazily as they become useful, always under the vault root:
+Create files lazily as they become useful, always under the knowledge base root:
 
 - `00_Meta/VAULT-MANIFEST.md`: vault conventions, folder roles, filename rules, link style, required frontmatter fields, and known exclusions. Use [VAULT-MANIFEST-FORMAT.md](./VAULT-MANIFEST-FORMAT.md).
 - `00_Meta/Sources/SOURCE-REGISTER.md`: source inventory, provenance, processing status, and extraction coverage. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).

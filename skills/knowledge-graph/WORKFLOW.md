@@ -63,7 +63,7 @@ Use the smallest tier that can satisfy the phase gate.
 
 | phase | gate |
 | --- | --- |
-| vault scope | Vault root, creation/update mode, source locations, and modification permissions are known or explicitly assumed. |
+| vault scope | Knowledge base root (named `{{topic}}-kb` for new builds), creation/update mode, source locations, and modification permissions are known or explicitly assumed. |
 | vault conventions | `00_Meta/VAULT-MANIFEST.md` exists or current conventions are recorded before new notes are written. |
 | source inventory | `00_Meta/Sources/SOURCE-REGISTER.md` lists source IDs, types, locations, sizes, complexity, and processing status. |
 | extraction | Extracted claims, concepts, code facts, and relationships cite source IDs and precise locators where available. |
@@ -76,14 +76,15 @@ Use the smallest tier that can satisfy the phase gate.
 
 ## Workflow loop
 
-### 0. Scope the vault and source collection
+### 0. Scope the knowledge base and source collection
 
-1. Identify whether the user wants to create a new vault, update an existing vault, parse an existing vault, or audit/repair Obsidian compatibility.
-2. Identify the vault root and source locations. Sources may be PDFs, Markdown, text files, office documents converted to text, code repositories, API docs, notebooks, diagrams, meeting notes, task-analysis outputs from the `tasks` skill, or mixed folders.
-3. If the user provides a target vault or knowledge base, use that directory as the write target for every output note. Do not create parallel notes outside the vault unless the user explicitly requests a separate export.
-4. Inspect current vault conventions before writing. Check folder names, note naming, templates, frontmatter fields, aliases, tags, link style, attachment location, and `.obsidian/` settings when available.
-5. Ask one focused question only if the wrong assumption could cause overwritten notes, misplaced sources, incompatible link style, or a substantially different note granularity.
-6. Write or update `00_Meta/VAULT-MANIFEST.md` using [VAULT-MANIFEST-FORMAT.md](./VAULT-MANIFEST-FORMAT.md).
+1. Identify whether the user wants to create a new knowledge base, update an existing one, parse an existing one, or audit/repair Obsidian compatibility.
+2. Identify the knowledge base root and source locations. Sources may be PDFs, Markdown, text files, office documents converted to text, code repositories, API docs, notebooks, diagrams, meeting notes, task-analysis outputs from the `tasks` skill, or mixed folders.
+3. When creating a new knowledge base, name the top-level directory `{{topic}}-kb` (e.g., `metabolomics-kb`, `platform-architecture-kb`) so the purpose is immediately clear from the directory name. Use the user's explicit name if they provide one.
+4. If the user provides a target knowledge base, use that directory as the write target for every output note. Do not create parallel notes outside it unless the user explicitly requests a separate export.
+5. Inspect current conventions before writing. Check folder names, note naming, templates, frontmatter fields, aliases, tags, link style, attachment location, and `.obsidian/` settings when available.
+6. Ask one focused question only if the wrong assumption could cause overwritten notes, misplaced sources, incompatible link style, or a substantially different note granularity.
+7. Write or update `00_Meta/VAULT-MANIFEST.md` using [VAULT-MANIFEST-FORMAT.md](./VAULT-MANIFEST-FORMAT.md).
 
 ### 1. Inventory sources
 

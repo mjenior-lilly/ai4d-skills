@@ -17,7 +17,7 @@ Plain Markdown prompts intended for explicit slash command-style invocation. Gro
 Reusable skills for harnesses that route from natural-language intent rather than explicit slash commands. Single-file skills cover bounded tasks (`annotate`, `audit`, `fit`, `humanize`, `investigate`, `notes`, `repo-explorer`, `resolve`, `sub-agents`); multi-file skill directories encode larger workflows through a `SKILL.md` entry point plus on-demand workflow, format, reference, and script files:
 
 - `code-review/` - two-axis diff review (standards compliance + spec compliance) using parallel sub-agents, with issue-tracker integration and a smell baseline
-- `knowledge-graph/` - Obsidian-compatible knowledge-base construction, update, audit, and append-only project-fact capture
+- `knowledge-graph/` - Obsidian-compatible knowledge-base construction, update, audit, coverage gap analysis, and append-only project-fact capture
 - `research/` - deep research with parallel source discovery, source verification, claim extraction, skeptic review, and synthesis
 - `teach/` - stateful teaching workspace with mission-grounded lessons, learning records, references, and reusable assets
 - `tldr/` - structured document summarization with per-type templates and optional synthesis, gap research, polishing, and scoring

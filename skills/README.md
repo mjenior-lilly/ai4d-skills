@@ -23,11 +23,11 @@ Skills come in two shapes:
 
 ### `knowledge-graph/`
 
-Create, update, audit, and parse Obsidian-compatible local knowledge bases from technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Also captures new and changing project-specific facts as timestamped, append-only notes recording confirmed ground truth (never speculation) under a vault's `40_Project/` folder. Defines a default vault structure (`00_Meta/`, `10_Fleeting/`, `20_Permanent/`, `30_Projects/`, `40_Project/`), safety rules for editing existing vaults, and a preference for generated `.base` index views over hand-maintained MOC notes.
+Create, update, audit, and parse Obsidian-compatible local knowledge bases from technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Also captures new and changing project-specific facts as timestamped, append-only notes recording confirmed ground truth (never speculation) under a vault's `40_Project/` folder. After initial creation or major ingestion, analyzes coverage gaps to identify concept clusters with thin or missing source grounding, source concentration risks, and prioritized recommendations for additional resources — classifying the knowledge base's readiness to ground agent responses per topic area. Defines a default vault structure (`00_Meta/`, `10_Fleeting/`, `20_Permanent/`, `30_Projects/`, `40_Project/`), safety rules for editing existing vaults, and a preference for generated `.base` index views over hand-maintained MOC notes.
 
-- `SKILL.md` - entry point: workspace conventions, default posture, project-fact capture rules, safety rules
-- `WORKFLOW.md` - vault scoping, source inventory, extraction, note construction, subagent topology, model and thinking tiers, validation gates, maintenance and audit procedures
-- `NOTE-FORMAT.md`, `PROJECT-FACT-FORMAT.md`, `SOURCE-REGISTER-FORMAT.md`, `VAULT-MANIFEST-FORMAT.md`, `VAULT-AUDIT-FORMAT.md` - templates for permanent notes, project-fact log entries, source provenance registers, vault convention manifests, and validation reports
+- `SKILL.md` - entry point: workspace conventions, default posture, project-fact capture rules, coverage gap analysis, safety rules
+- `WORKFLOW.md` - vault scoping, source inventory, extraction, note construction, subagent topology, model and thinking tiers, validation gates, coverage analysis, maintenance and audit procedures
+- `NOTE-FORMAT.md`, `PROJECT-FACT-FORMAT.md`, `SOURCE-REGISTER-FORMAT.md`, `VAULT-MANIFEST-FORMAT.md`, `VAULT-AUDIT-FORMAT.md`, `COVERAGE-ANALYSIS-FORMAT.md` - templates for permanent notes, project-fact log entries, source provenance registers, vault convention manifests, validation reports, and coverage gap analysis
 - `references/OBSIDIAN-SYNTAX.md` - Obsidian Flavored Markdown: wikilinks, heading/block references, embeds, callouts, tags, footnotes, math, Mermaid
 - `references/BASES.md` - Obsidian Bases (`.base`) live index views over note frontmatter
 - `references/CANVAS.md` - JSON Canvas (`.canvas`) visual artifacts: mind maps and architecture diagrams that embed vault notes
