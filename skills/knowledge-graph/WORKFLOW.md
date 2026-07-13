@@ -72,6 +72,7 @@ Use the smallest tier that can satisfy the phase gate.
 | integration | New and updated notes are referenced from relevant index, project, source, or related concept notes, and `SOURCE-REGISTER.md` lists the produced notes. |
 | project-fact capture | Any new or changed project-specific fact on an in-scope topic is logged under `40_Project/` with a resolved `subject` link, a `confirmed` timestamp, a `source` provenance anchor, and `status`, append-only; only confirmed ground truth, never speculation. |
 | vault validation | Links, filenames, frontmatter, tags, attachments, nesting depth, and indexer risks have been checked and recorded in `00_Meta/VAULT-AUDIT.md` when useful. |
+| coverage analysis | Concept clusters are mapped, source grounding is rated per cluster, cross-cutting gaps and source concentration risks are identified, prioritized recommendations specify resource types, and agent grounding readiness is classified. Results recorded in `00_Meta/COVERAGE-ANALYSIS.md`. |
 
 ## Workflow loop
 
@@ -202,6 +203,49 @@ This step is reactive rather than sequential: it runs whenever, during any phase
 5. Handle change over time append-only. If a fact about a subject already has a `current` note and it changes or is corrected, write a new note with a `supersedes` link and set the prior note's `status` to `superseded` (or `corrected` if the earlier note stated something now known to be wrong). Never edit the substance of a past fact in place.
 6. Keep the record accurate. Never record speculation as fact. If a new fact contradicts a source-grounded note, log the confirmed fact and flag the tension for the coordinator to reconcile against source material; do not silently overwrite grounded content.
 
+### 7. Analyze coverage and identify gaps
+
+Run this phase after initial vault creation from a collection of resources, after a major source-ingestion batch, or when the user explicitly asks for a coverage assessment. The goal is to evaluate whether the knowledge base provides sufficient grounding for agent responses across its domain, and to surface specific areas that need additional resources.
+
+1. **Map concept clusters**. Analyze WikiLink connectivity, shared tags, co-occurring frontmatter properties, and folder proximity to identify natural groupings of related notes. A cluster is a set of notes that together should enable an agent to answer questions about one sub-domain.
+
+2. **Assess source grounding per cluster**. For each cluster:
+   - Count independent sources referenced across its notes (via `sources` frontmatter and `Source grounding` sections).
+   - Evaluate whether core claims have verifiable backing or rely on single-source extraction without corroboration.
+   - Check whether the grounding covers definitions, mechanisms, constraints, edge cases, and relationships — or only surface-level facts.
+
+3. **Rate coverage**. Apply the rating scale from [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md):
+   - ◆ Strong: multiple independent sources, cross-referenced, suitable for confident grounding.
+   - ◇ Adequate: at least one quality source with grounded claims.
+   - △ Thin: single source, shallow extraction, or missing mechanisms/constraints.
+   - ▽ Critical gap: implied coverage with no substantive source-backed content.
+
+4. **Identify cross-cutting gaps**. Look for:
+   - Missing relationships between clusters that should connect (e.g., a "methods" cluster that never links to a "data models" cluster in the same system).
+   - Contradictions between notes sourced from different materials.
+   - Temporal staleness: sources with version numbers, publication dates, or API versions that may have changed.
+   - Scope boundaries that are unclear — where the vault implies coverage but silently stops.
+
+5. **Assess source quality and concentration**. Check for:
+   - Single-point-of-failure sources that ground a disproportionate fraction of notes.
+   - Missing source types (e.g., all review articles but no primary research; all documentation but no implementation source).
+   - Sources with narrow coverage applied broadly across many notes.
+
+6. **Generate prioritized recommendations**. For each gap, recommend:
+   - The specific *type* of resource that would fill it (textbook chapter, API spec, primary paper, source code, expert review, dataset documentation, etc.).
+   - *Why* that resource type addresses the specific gap (not generic "more sources").
+   - The expected improvement in agent grounding quality.
+   - Priority based on: critical gaps in likely query areas > thin core concepts > source diversity > staleness.
+
+7. **Assess agent grounding readiness**. Classify the vault's topics into:
+   - Ready for confident grounding (agent can answer reliably).
+   - Ready with caveats (agent should hedge or cite uncertainty).
+   - Not ready (high hallucination risk if agent treats vault as authoritative).
+
+8. **Write results** to `00_Meta/COVERAGE-ANALYSIS.md` using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
+
+Use the **standard** model/thinking tier for small-to-medium vaults (under 50 notes). Use the **complex** tier for large vaults, highly technical domains, or when source-grounding verification requires deep reading. Use **quick** tier only for re-running the analysis on a vault that has changed minimally since the last assessment.
+
 ## Output to the user
 
 Return a concise summary with:
@@ -211,5 +255,7 @@ Return a concise summary with:
 - notes created, updated, and skipped;
 - project facts logged, with subject and supersession changes, when any were captured;
 - validation performed and results;
+- coverage analysis performed and key findings: cluster count, gaps identified, agent grounding readiness;
 - unresolved source gaps, broken links, merge candidates, or indexer risks;
-- paths to the manifest, source register, audit, and notable notes.
+- prioritized recommendations for additional resources to strengthen grounding;
+- paths to the manifest, source register, audit, coverage analysis, and notable notes.

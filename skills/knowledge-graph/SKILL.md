@@ -1,6 +1,6 @@
 ---
 name: knowledge-graph
-description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Also captures new and changing project-specific facts as timestamped, append-only project-fact notes that record confirmed ground truth, not speculation. Covers Obsidian Flavored Markdown syntax (wikilinks, embeds, callouts, block references, properties, tags), Bases (.base) index views, JSON Canvas (.canvas), and the Obsidian CLI.
+description: Create, update, audit, and parse Obsidian-compatible local knowledge bases from user-provided technical documents, non-technical documents, code collections, meeting summaries, and task-analysis outputs. Also captures new and changing project-specific facts as timestamped, append-only project-fact notes that record confirmed ground truth, not speculation. Analyzes coverage gaps to identify areas with thin or missing source grounding and recommends additional resources to strengthen the vault as an agent grounding source. Covers Obsidian Flavored Markdown syntax (wikilinks, embeds, callouts, block references, properties, tags), Bases (.base) index views, JSON Canvas (.canvas), and the Obsidian CLI.
 argument-hint: "What documents, code, or vault should be converted or maintained?"
 ---
 
@@ -36,6 +36,7 @@ Create files lazily as they become useful, always under the vault root:
 - `00_Meta/VAULT-MANIFEST.md`: vault conventions, folder roles, filename rules, link style, required frontmatter fields, and known exclusions. Use [VAULT-MANIFEST-FORMAT.md](./VAULT-MANIFEST-FORMAT.md).
 - `00_Meta/Sources/SOURCE-REGISTER.md`: source inventory, provenance, processing status, and extraction coverage. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).
 - `00_Meta/VAULT-AUDIT.md`: validation findings for filenames, links, frontmatter, tags, attachments, duplicates, and indexer risks. Use [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md).
+- `00_Meta/COVERAGE-ANALYSIS.md`: coverage gap analysis identifying concept clusters with thin or missing source grounding, source concentration risks, and prioritized recommendations for additional resources to strengthen agent grounding. Use [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
 - Permanent notes under `20_Permanent/`: evergreen, source-grounded Markdown notes. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md).
 - Project-fact notes under `40_Project/`: timestamped, append-only records of new and changed project-specific facts on in-scope topics. Use [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md).
 - Project notes, meeting notes, task analyses, or generated summary artifacts under the appropriate existing vault folder, or under `30_Projects/` when they are time-bound rather than evergreen.
@@ -70,6 +71,20 @@ While working with the user's vault, watch for new or changed project-specific f
 - Log only facts that bear on in-scope topics. Skip passing remarks, task instructions, and details unrelated to the knowledge base.
 
 Activation limit: this behavior applies while this skill is active on a vault task. It does not make project-fact capture ambient across every conversation or session. For always-on capture regardless of whether the skill is invoked, the user must also add a directive to their `CLAUDE.md` or persistent memory (a shell hook cannot detect facts semantically). Recommend this when the user wants capture to persist beyond skill-scoped work.
+
+## Coverage gap analysis
+
+After initial vault creation from a collection of resources, or when the user asks for an assessment, analyze the knowledge base to identify areas where source grounding is thin, missing, or concentrated in a single source. The purpose is to ensure the vault can reliably serve as a grounding source for agent responses across its domain.
+
+Run this analysis by:
+1. Mapping concept clusters via WikiLink connectivity, tags, and frontmatter relationships.
+2. Rating each cluster's source grounding (strong / adequate / thin / critical gap).
+3. Identifying cross-cutting gaps: missing inter-cluster relationships, contradictions, staleness, and unclear scope boundaries.
+4. Assessing source quality and concentration risk (single-point-of-failure sources, missing source types).
+5. Generating prioritized recommendations for specific resource types that would fill identified gaps.
+6. Classifying the vault's agent grounding readiness per topic area.
+
+Write results to `00_Meta/COVERAGE-ANALYSIS.md` using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md). The output tells the user exactly where the vault is strong enough for confident agent grounding, where it should hedge, and where additional resources are needed to prevent hallucination.
 
 ## When to ask before proceeding
 
