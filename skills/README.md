@@ -17,6 +17,7 @@ Skills come in two shapes:
 - `notes.md` - enrich handwritten Supernote meeting notes (per-page `.png` images synced via notesync) into a polished markdown artifact by mining the meeting audio recording for decisions, action items, owners, dates, risks, and follow-ups the notes missed; daily checklist pages are identified and excluded
 - `repo-explorer.md` - clone and inspect external repositories in a reusable local cache (`~/.explore/repos`) without cluttering the active workspace
 - `resolve.md` - resolve an in-progress git merge or rebase conflict by tracing each conflicting change back to its original intent, preserving both intents where possible, and finishing with the project's automated checks
+- `sub-agents.md` - select the right model, thinking level, and prompt structure when delegating work to sub-agents via the Agent tool, Workflow tool, or Codex CLI
 
 ## Multi-file skills
 
@@ -47,6 +48,16 @@ Stateful teaching workspace for learning a topic over multiple sessions. Grounds
 - `SKILL.md` - entry point: workspace files, teaching philosophy, lesson design, assets, mission handling, knowledge/skills/wisdom split
 - `MISSION-FORMAT.md`, `RESOURCES-FORMAT.md`, `LEARNING-RECORD-FORMAT.md`, `GLOSSARY-FORMAT.md` - templates for the mission document, resource register, learning records, and topic glossaries
 
+### `code-review/`
+
+Two-axis review of a diff between `HEAD` and a user-supplied fixed point (commit, branch, tag, or merge-base). Runs a **Standards** axis (does the code follow this repo's documented coding standards and a smell baseline?) and a **Spec** axis (does the code match what the originating issue/PRD asked for?) as parallel sub-agents, then aggregates their findings side by side without merging or reranking across axes.
+
+- `SKILL.md` - entry point: fixed-point resolution, spec source detection, standards discovery, sub-agent prompts, aggregation rules, rationale for two-axis separation
+- `SMELL-BASELINE.md` - default code-smell checklist applied as judgement calls (never hard violations) when no repo standard addresses a concern
+- `ISSUE-TRACKER-GITHUB.md` - workflow for fetching issue/PR spec content from GitHub remotes
+- `ISSUE-TRACKER-GITLAB.md` - workflow for fetching issue/MR spec content from GitLab remotes
+- `ISSUE-TRACKER-LOCAL.md` - workflow for locating spec content in local `.scratch/` files when no remote tracker is detected
+
 ### `tldr/`
 
 Structured technical document summarization: classify each source as `publication`, `document`, `readme`, or `other`, then summarize with that type's fixed template — reading only the reference file for the stage being executed. Shared guardrails enforce completeness over brevity, all template sections present, objectivity, and a tone suited to cross-functional technical readers. Optional downstream stages: multi-document executive synthesis, gap analysis with web research, reorganization/stylistic polishing, and rubric-based summary quality scoring.
@@ -64,4 +75,4 @@ Structured technical document summarization: classify each source as `publicatio
 2. keep the front matter intact so the harness can read the skill name, description, and allowed tools,
 3. rely on the description text to route relevant natural-language requests to the right skill.
 
-Skills in this repo are best suited to recurring, high-signal workflows such as investigation, audits, planning, documentation sync, response style control, repository exploration, deep research, knowledge-base maintenance, task triage, document summarization, and stateful teaching.
+Skills in this repo are best suited to recurring, high-signal workflows such as investigation, audits, planning, documentation sync, response style control, repository exploration, deep research, knowledge-base maintenance, sub-agent orchestration, task triage, document summarization, and stateful teaching.

@@ -19,44 +19,33 @@ Before making a subjective recommendation or a design, tooling, or dependency ch
 
 Before writing any user-facing prose to a saved artifact, file, or CLI output, read `VOICE.md` in this directory (`agents/VOICE.md`) for how to speak.
 
-## Sub-agent model selection
+## Sub-agent delegation
 
-Whenever you delegate work to a sub-agent (Agent tool, Workflow, or Codex CLI), pick its model using this section. Do not default to your own model or to whatever a skill suggests without checking here first.
+Whenever you delegate work to a sub-agent (Agent tool, Workflow, or Codex CLI), follow the `sub-agents` skill (`skills/sub-agents.md`) for model selection, thinking level, and prompt structure. Do not default to your own model or to whatever another skill suggests without checking that file first.
 
-### Ratings
+Quick reference (the skill is authoritative if these diverge):
 
-Higher = better. **Cost** reflects what I actually pay, not list price (so a higher score = cheaper for me). **Intelligence** is how hard a problem the model can handle unsupervised. **Taste** covers UI/UX, code quality, API design, and copy.
+| Model | Cost | Intelligence | Taste | Speed |
+| --- | --- | --- | --- | --- |
+| gpt-5.5 | 6 | 8 | 5 | 6 |
+| sonnet-5 | 5 | 5 | 7 | 7 |
+| opus-4.8 | 4 | 7 | 8 | 5 |
+| haiku-4.5 | 10 | 3 | 3 | 10 |
 
-| model | cost | intelligence | taste |
-| --- | --- | --- | --- |
-| gpt-5.5 | 9 | 8 | 5 |
-| sonnet-5 | 5 | 5 | 7 |
-| opus-4.8 | 4 | 7 | 8 |
-| fable-5 | 2 | 9 | 9 |
+Selection rules (first match wins):
 
-### Selection procedure
+1. **Quick classification or text evaluation** (no code generation) → **haiku-4.5**
+2. **Bulk/mechanical work** → **gpt-5.5**
+3. **User-facing output** (taste ≥ 7 required) → **opus-4.8**
+4. **Review of plans or implementations** → **opus-4.8**
+5. **Everything else** → cheapest model clearing the intelligence bar
 
-Classify the task, then apply the first rule that matches:
+Hard constraints:
+- Haiku is classification-only — never for code generation, implementation, or review.
+- Never downgrade below what the rules prescribe to save cost.
+- Always escalate freely if output misses the bar.
 
-1. **Bulk or mechanical work** (implementation against a clear spec, data analysis, migrations, refactors with defined scope): **gpt-5.5**.
-2. **User-facing output** (UI, copy, API design — anything a human will see or call): requires taste ≥ 7, so **fable-5** or **opus-4.8**; sonnet-5 only if the task is also simple.
-3. **Reviews of plans or implementations**: **fable-5** or **opus-4.8**. Optionally add gpt-5.5 as a second, independent reviewer — as a supplement, never the sole reviewer.
-4. **Everything else**: match intelligence to task difficulty; prefer the cheapest model that clears the bar.
-
-Tie-breaking: for anything that ships, intelligence > taste > cost. Cost only breaks ties between models that both clear the intelligence and taste bars.
-
-Hard rule: **never use Haiku**, for anything, even trivial work.
-
-### Overriding
-
-These are defaults, not limits. You have standing permission to escalate without asking: if a chosen model's output doesn't meet the bar, rerun or redo the work with a smarter model. Judge the output, not the price tag — escalating costs less than shipping mediocre work. Never *downgrade* below what the rules above prescribe just to save cost.
-
-### Mechanics (how to invoke each model)
-
-- **gpt-5.5** is only reachable through the Codex CLI (`codex exec` / `codex review`; my `~/.codex/config.toml` defaults to gpt-5.5). Prefer the codex-implementation, codex-review, and codex-computer-use skills; for work they don't cover (investigation, data analysis), run `codex exec -s read-only` directly with a self-contained prompt.
-- **Claude models** (sonnet-5, opus-4.8, fable-5) run via the `model` parameter on the Agent/Workflow tool.
-
-After selecting the model, when writing the sub-agent's prompt, read `prompt-skeleton.md` in this directory (`agents/prompt-skeleton.md`) for guidance on effective prompt guardrails.
+Default thinking level: **medium** for all sub-agents. Use low only for haiku classification; escalate to high only when medium demonstrably fails.
 
 ## Knowledge-base project-fact capture
 
