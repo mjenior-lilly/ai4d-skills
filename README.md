@@ -1,6 +1,6 @@
-# skills
+# AI4D - Skills
 
-My personal prompt library for use across LLM harness platforms.
+My personal prompt library to use across LLM harness platforms for work within the AI4Discovery group.
 
 The content is oriented toward code review, debugging, planning, documentation sync, response style control, prompt auditing, agent-readiness analysis, deep research, benchmark generation, teaching workspaces, knowledge-base construction, task triage, document summarization, repository workflow execution, lightweight classification for routing, and copy-paste prompts for web tools. Most files are written as operational instructions for an agent working in a real repository with access to code, tests, diffs, and shell tools.
 
