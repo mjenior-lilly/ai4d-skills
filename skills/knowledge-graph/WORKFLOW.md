@@ -73,7 +73,7 @@ Use the smallest tier that can satisfy the phase gate.
 | reference migration | Processed source files with `status: processed` are migrated to the `50_Reference/` archive with `source-id` prefix filenames, the source register's `Archived location` field is updated, and `50_Reference/` is listed in the vault manifest's indexer exclusions. |
 | project-fact capture | Any new or changed project-specific fact on an in-scope topic is logged under `40_Project/` with a resolved `subject` link, a `confirmed` timestamp, a `source` provenance anchor, and `status`, append-only; only confirmed ground truth, never speculation. |
 | vault validation | Links, filenames, frontmatter, tags, attachments, nesting depth, and indexer risks have been checked and recorded in `00_Meta/VAULT-AUDIT.md` when useful. |
-| coverage analysis | Concept clusters are mapped, source grounding is rated per cluster, cross-cutting gaps and source concentration risks are identified, prioritized recommendations specify resource types, and agent grounding readiness is classified. Results recorded in `00_Meta/COVERAGE-ANALYSIS.md`. |
+| coverage analysis | Concept clusters are mapped, source grounding is rated per cluster, cross-cutting gaps and source concentration risks are identified, prioritized recommendations specify resource types, and agent grounding readiness is classified. Results recorded in `COVERAGE-ANALYSIS.md` at the same level as the vault root directory. |
 | vault abstract | `00_Meta/VAULT-ABSTRACT.md` synthesizes domain scope, concept taxonomy, source profile, coverage strengths, known gaps, explicit scope boundaries, and semantic descriptors from the manifest, source register, and coverage analysis into a concise LLM-optimized summary for retrieval routing. |
 
 ## Workflow loop
@@ -262,7 +262,7 @@ Run this phase after initial vault creation from a collection of resources, afte
    - Ready with caveats (agent should hedge or cite uncertainty).
    - Not ready (high hallucination risk if agent treats vault as authoritative).
 
-8. **Write results** to `00_Meta/COVERAGE-ANALYSIS.md` using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
+8. **Write results** to `COVERAGE-ANALYSIS.md` at the same level as the vault root directory (not inside the vault) using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
 
 Use the **standard** model/thinking tier for small-to-medium vaults (under 50 notes). Use the **complex** tier for large vaults, highly technical domains, or when source-grounding verification requires deep reading. Use **quick** tier only for re-running the analysis on a vault that has changed minimally since the last assessment.
 
@@ -273,7 +273,7 @@ Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](
 1. **Read inputs**. Synthesize from:
    - `00_Meta/VAULT-MANIFEST.md` → domain description, scope, intended purpose.
    - `00_Meta/Sources/SOURCE-REGISTER.md` → source count, types, authorities, temporal range.
-   - `00_Meta/COVERAGE-ANALYSIS.md` → concept clusters, coverage ratings, readiness assessment, known gaps.
+   - `COVERAGE-ANALYSIS.md` (sibling to vault root) → concept clusters, coverage ratings, readiness assessment, known gaps.
    If `COVERAGE-ANALYSIS.md` does not exist (e.g., parsing a vault not built by this skill), derive what you can from direct vault inspection: note count, tags, link connectivity, and note titles. Mark the abstract `status: provisional`.
 
 2. **Compose the abstract**. Follow the template in [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md). Target ≤120 lines. Prioritize:

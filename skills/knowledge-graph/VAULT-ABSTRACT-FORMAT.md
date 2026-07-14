@@ -21,7 +21,7 @@ temporal_start: {{YYYY-MM-DD or YYYY — earliest source material date}}
 temporal_end: {{YYYY-MM-DD or YYYY — latest source material date}}
 note_count: {{total permanent notes}}
 source_count: {{total sources in SOURCE-REGISTER}}
-cluster_count: {{concept clusters identified in COVERAGE-ANALYSIS}}
+cluster_count: {{concept clusters identified in COVERAGE-ANALYSIS.md (sibling to vault root)}}
 generated: {{YYYY-MM-DD — first creation date}}
 updated: {{YYYY-MM-DD — last full regeneration date}}
 vault_modified: {{YYYY-MM-DD — last known vault content change at generation time}}
@@ -84,7 +84,7 @@ This vault does NOT cover:
 1. Generate this file after `COVERAGE-ANALYSIS.md` exists (or is being generated in the same run), since the abstract synthesizes from three inputs:
    - `00_Meta/VAULT-MANIFEST.md` → domain description, scope, folder conventions
    - `00_Meta/Sources/SOURCE-REGISTER.md` → source count, types, temporal range, key authorities
-   - `00_Meta/COVERAGE-ANALYSIS.md` → cluster map, coverage ratings, readiness assessment, gaps
+   - `COVERAGE-ANALYSIS.md` (sibling to vault root) → cluster map, coverage ratings, readiness assessment, gaps
 2. The abstract is a **synthesis**, not a copy. Do not reproduce full sections from its input artifacts. Distill each into the minimal information an LLM needs for relevance routing.
 3. Target length: **≤120 lines** including frontmatter. If the vault is large, summarize clusters by top-level grouping rather than listing every sub-cluster.
 4. The `scope_keywords` array in frontmatter should contain 10–20 terms optimized for retrieval matching — include domain nouns, key method names, organisms, technologies, frameworks, or other distinguishing vocabulary.
@@ -97,4 +97,4 @@ This vault does NOT cover:
    - On parse or audit: generate if missing; regenerate if `stale_since` is set.
    - An LLM reading a stale abstract should still trust the content that IS present but should not assume completeness.
 9. Update this file in place when regenerating. Do not archive prior versions unless the user explicitly requests history.
-10. If `COVERAGE-ANALYSIS.md` does not yet exist (e.g., during a parse of a vault that was not built by this skill), derive what you can from direct vault inspection: count notes, identify clusters from tags and link connectivity, infer scope from note titles and frontmatter. Mark the abstract `status: provisional` and note in the Domain section that a full coverage analysis has not been performed.
+10. If `COVERAGE-ANALYSIS.md` does not yet exist as a sibling to the vault root (e.g., during a parse of a vault that was not built by this skill), derive what you can from direct vault inspection: count notes, identify clusters from tags and link connectivity, infer scope from note titles and frontmatter. Mark the abstract `status: provisional` and note in the Domain section that a full coverage analysis has not been performed.

@@ -40,7 +40,7 @@ Create files lazily as they become useful, always under the knowledge base root:
 - `00_Meta/VAULT-MANIFEST.md`: vault conventions, folder roles, filename rules, link style, required frontmatter fields, and known exclusions. Use [VAULT-MANIFEST-FORMAT.md](./VAULT-MANIFEST-FORMAT.md).
 - `00_Meta/Sources/SOURCE-REGISTER.md`: source inventory, provenance, processing status, and extraction coverage. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).
 - `00_Meta/VAULT-AUDIT.md`: validation findings for filenames, links, frontmatter, tags, attachments, duplicates, and indexer risks. Use [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md).
-- `00_Meta/COVERAGE-ANALYSIS.md`: coverage gap analysis identifying concept clusters with thin or missing source grounding, source concentration risks, and prioritized recommendations for additional resources to strengthen agent grounding. Use [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
+- `COVERAGE-ANALYSIS.md` (sibling to vault root): coverage gap analysis identifying concept clusters with thin or missing source grounding, source concentration risks, and prioritized recommendations for additional resources to strengthen agent grounding. Use [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
 - `00_Meta/VAULT-ABSTRACT.md`: LLM-optimized vault content summary for relevance determination and grounding search routing. Synthesizes scope, taxonomy, source profile, coverage strengths, known gaps, and semantic descriptors so a retrieval system or grounding agent can decide in one pass whether this vault is the correct resource for a given query. Use [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md).
 - Permanent notes under `20_Permanent/`: evergreen, source-grounded Markdown notes. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md).
 - Project-fact notes under `40_Project/`: timestamped, append-only records of new and changed project-specific facts on in-scope topics. Use [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md).
@@ -141,7 +141,7 @@ Run this analysis by:
 5. Generating prioritized recommendations for specific resource types that would fill identified gaps.
 6. Classifying the vault's agent grounding readiness per topic area.
 
-Write results to `00_Meta/COVERAGE-ANALYSIS.md` using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md). The output tells the user exactly where the vault is strong enough for confident agent grounding, where it should hedge, and where additional resources are needed to prevent hallucination.
+Write results to `COVERAGE-ANALYSIS.md` at the same level as the vault root directory (not inside the vault) using [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md). The output tells the user exactly where the vault is strong enough for confident agent grounding, where it should hedge, and where additional resources are needed to prevent hallucination.
 
 ## When to ask before proceeding
 

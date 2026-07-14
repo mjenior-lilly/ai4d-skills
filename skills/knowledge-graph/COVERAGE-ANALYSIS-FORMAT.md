@@ -1,6 +1,6 @@
 # Coverage Analysis Format
 
-Template for `00_Meta/COVERAGE-ANALYSIS.md`. Use this format when analyzing an existing knowledge base to identify areas with poor reference coverage, shallow understanding, or missing context that would benefit from additional source material. The goal is to ensure the vault can serve as a comprehensive grounding resource for domain-specific agent responses.
+Template for `COVERAGE-ANALYSIS.md`, written as a sibling to the vault root directory (not inside the vault). Use this format when analyzing an existing knowledge base to identify areas with poor reference coverage, shallow understanding, or missing context that would benefit from additional source material. The goal is to ensure the vault can serve as a comprehensive grounding resource for domain-specific agent responses.
 
 ---
 
