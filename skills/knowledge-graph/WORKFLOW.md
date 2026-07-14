@@ -70,6 +70,7 @@ Use the smallest tier that can satisfy the phase gate.
 | note planning | Proposed notes have unique filenames, target folders inside the vault, aliases, tags, source IDs, graph entry points, and merge/update decisions. |
 | composition | Notes follow [NOTE-FORMAT.md](./NOTE-FORMAT.md), use Obsidian WikiLinks, include provenance, and are written to vault-relative paths. |
 | integration | New and updated notes are referenced from relevant index, project, source, or related concept notes, and `SOURCE-REGISTER.md` lists the produced notes. |
+| reference migration | Processed source files with `status: processed` are migrated to the `50_Reference/` archive with `source-id` prefix filenames, the source register's `Archived location` field is updated, and `50_Reference/` is listed in the vault manifest's indexer exclusions. |
 | project-fact capture | Any new or changed project-specific fact on an in-scope topic is logged under `40_Project/` with a resolved `subject` link, a `confirmed` timestamp, a `source` provenance anchor, and `status`, append-only; only confirmed ground truth, never speculation. |
 | vault validation | Links, filenames, frontmatter, tags, attachments, nesting depth, and indexer risks have been checked and recorded in `00_Meta/VAULT-AUDIT.md` when useful. |
 | coverage analysis | Concept clusters are mapped, source grounding is rated per cluster, cross-cutting gaps and source concentration risks are identified, prioritized recommendations specify resource types, and agent grounding readiness is classified. Results recorded in `00_Meta/COVERAGE-ANALYSIS.md`. |
@@ -161,7 +162,23 @@ Use the smallest tier that can satisfy the phase gate.
 13. Integrate each note into the vault graph by adding or updating relevant links in existing index, project, source, task review, or related concept notes when such notes exist. If no natural entry point exists, create the smallest useful index or source note rather than leaving the note orphaned.
 14. Update `00_Meta/Sources/SOURCE-REGISTER.md` so each processed source lists the notes it produced or updated.
 
-### 5. Update and maintain existing notes
+### 5. Migrate reference files
+
+After integration is complete and source records show `status: processed`, migrate original source files into the structured `50_Reference/` archive so they remain accessible for provenance verification without cluttering the active workspace or degrading Obsidian indexing.
+
+1. Identify sources eligible for migration: `status: processed` (or `status: partial` with all intended extraction explicitly complete), not actively edited by the user, and not living in a version-controlled repository the user works in.
+2. Create the appropriate type subfolder under `50_Reference/` if it does not exist: `papers/`, `specs/`, `docs/`, `code/`, `meetings/`, `data/`, `media/`, or `other/`. Add a domain subfolder only when the type folder already exceeds ~15 files.
+3. Copy or move the file into its target folder using the naming convention `{source-id}_{descriptive-slug}.{ext}` (e.g., `SRC-0003_smith-2024-enzyme-kinetics.pdf`).
+4. Confirm the action with the user before deleting the original location. Default to copying; move only with explicit approval.
+5. Update the source register entry:
+   - Set `Archived location` to the vault-relative path (e.g., `50_Reference/papers/SRC-0003_smith-2024-enzyme-kinetics.pdf`).
+   - Set or append `Obsidian handling` to `archived to 50_Reference`.
+6. Ensure `50_Reference/` appears in `00_Meta/VAULT-MANIFEST.md` under indexer exclusions if not already listed.
+7. For sources that cannot be migrated (external URLs, active repositories, user-managed files), record a stable reference (path, URL, commit, DOI) in the source register's `Location` field and set `Archived location` to `N/A — external reference`.
+
+Use the **quick** model/thinking tier. Migration is mechanical file handling, not analysis.
+
+### 6. Update and maintain existing notes
 
 1. Before creating a note, search for existing titles, aliases, and backlinks that cover the concept.
 2. Preserve existing user-written content unless it is clearly obsolete, contradicted by newer source evidence, or duplicated by a cleaner integrated note.
@@ -170,7 +187,7 @@ Use the smallest tier that can satisfy the phase gate.
 5. If two notes overlap, recommend a merge only when both note purposes are redundant. Otherwise add bridge links explaining the distinction.
 6. Record major convention changes in `00_Meta/VAULT-MANIFEST.md`.
 
-### 6. Validate the vault
+### 7. Validate the vault
 
 Run the narrowest available checks for the touched scope. When Obsidian is running, the `obsidian` CLI ([references/OBSIDIAN-CLI.md](./references/OBSIDIAN-CLI.md)) is an optional, more reliable backend for link, backlink, tag, and render checks; otherwise perform the same checks via direct filesystem reads. Do not block the workflow on the CLI.
 
@@ -191,6 +208,7 @@ Run the narrowest available checks for the touched scope. When Obsidian is runni
 15. `.canvas` files: valid JSON, unique node and edge IDs, and every edge `fromNode`/`toNode` resolving to an existing node (see [references/CANVAS.md](./references/CANVAS.md)).
 16. Project-fact notes under `40_Project/`: each has `source`, a `confirmed` `date-time`, and a resolved `subject` link; at most one `current` note per distinct fact about a `subject`; any superseded/corrected note retains a valid `supersedes` chain.
 17. No speculation or hypothetical discussion recorded as a project fact or presented as source-grounded fact.
+18. Migrated reference files in `50_Reference/` have matching `Archived location` entries in the source register; no processed source with a missing or broken archive path.
 
 Record results in `00_Meta/VAULT-AUDIT.md` using [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md) when the task is more than a trivial edit.
 
@@ -205,7 +223,7 @@ This step is reactive rather than sequential: it runs whenever, during any phase
 5. Handle change over time append-only. If a fact about a subject already has a `current` note and it changes or is corrected, write a new note with a `supersedes` link and set the prior note's `status` to `superseded` (or `corrected` if the earlier note stated something now known to be wrong). Never edit the substance of a past fact in place.
 6. Keep the record accurate. Never record speculation as fact. If a new fact contradicts a source-grounded note, log the confirmed fact and flag the tension for the coordinator to reconcile against source material; do not silently overwrite grounded content.
 
-### 7. Analyze coverage and identify gaps
+### 8. Analyze coverage and identify gaps
 
 Run this phase after initial vault creation from a collection of resources, after a major source-ingestion batch, or when the user explicitly asks for a coverage assessment. The goal is to evaluate whether the knowledge base provides sufficient grounding for agent responses across its domain, and to surface specific areas that need additional resources.
 
@@ -248,7 +266,7 @@ Run this phase after initial vault creation from a collection of resources, afte
 
 Use the **standard** model/thinking tier for small-to-medium vaults (under 50 notes). Use the **complex** tier for large vaults, highly technical domains, or when source-grounding verification requires deep reading. Use **quick** tier only for re-running the analysis on a vault that has changed minimally since the last assessment.
 
-### 8. Generate vault abstract
+### 9. Generate vault abstract
 
 Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md). This file is a concise, LLM-optimized summary that enables retrieval systems and grounding agents to determine in one pass whether this vault is the correct resource for a given query.
 

@@ -33,6 +33,7 @@ Use this default internal structure unless the user provides an existing convent
 - `20_Permanent/`: evergreen concept notes intended for long-term retrieval.
 - `30_Projects/`: project-specific or time-bound notes.
 - `40_Project/`: timestamped, append-only notes logging new and changing project-specific facts — confirmed ground truth, not speculation.
+- `50_Reference/`: structured archive for processed source files, excluded from Obsidian indexing.
 
 Create files lazily as they become useful, always under the knowledge base root:
 
@@ -75,6 +76,58 @@ While working with the user's vault, watch for new or changed project-specific f
 - Log only facts that bear on in-scope topics. Skip passing remarks, task instructions, and details unrelated to the knowledge base.
 
 Activation limit: this behavior applies while this skill is active on a vault task. It does not make project-fact capture ambient across every conversation or session. For always-on capture regardless of whether the skill is invoked, the user must also add a directive to their `CLAUDE.md` or persistent memory (a shell hook cannot detect facts semantically). Recommend this when the user wants capture to persist beyond skill-scoped work.
+
+## Reference file migration
+
+After source documents are processed and their content integrated into vault notes, migrate the original reference files into a structured archive folder system so they remain accessible for future verification, re-extraction, or provenance audits without cluttering the active workspace. This archive lives outside the vault's indexed note space to avoid polluting Obsidian's search and graph.
+
+### Archive root
+
+Create a `50_Reference/` folder at the vault root. This folder should be added to Obsidian's indexer exclusions (record in `00_Meta/VAULT-MANIFEST.md`) so binary files, large documents, and code snapshots do not degrade vault performance.
+
+### Folder structure
+
+Organize migrated references by type and domain:
+
+- `50_Reference/papers/` — published research, preprints, white papers.
+- `50_Reference/specs/` — specifications, standards, RFCs, schemas.
+- `50_Reference/docs/` — technical documentation, manuals, guides, API references.
+- `50_Reference/code/` — code snapshots, repositories, notebooks, scripts.
+- `50_Reference/meetings/` — meeting notes, transcripts, recordings.
+- `50_Reference/data/` — datasets, data dictionaries, sample files.
+- `50_Reference/media/` — presentations, diagrams, videos, images not used as note attachments.
+- `50_Reference/other/` — anything that does not fit the above categories.
+
+Within each type folder, add domain or project subfolders only when the collection exceeds ~15 files in a single type and a clear grouping exists. Keep nesting to one level below the type folder (e.g., `50_Reference/papers/metabolomics/`, not deeper).
+
+### Naming convention
+
+Rename migrated files to a predictable pattern that supports future lookup:
+
+```
+{source-id}_{descriptive-slug}.{ext}
+```
+
+Examples: `SRC-0003_smith-2024-enzyme-kinetics.pdf`, `SRC-0012_api-gateway-openapi.yaml`.
+
+The `source-id` prefix ties the file directly to its SOURCE-REGISTER entry. The descriptive slug uses lowercase, hyphens, and no spaces.
+
+### Migration rules
+
+- Migrate a source file only after its SOURCE-REGISTER entry shows `status: processed` or `status: partial` with all intended extraction complete.
+- Record the migration destination in the source register's `Archived location` field (see [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md)).
+- Do not migrate files the user is actively editing or that live in a version-controlled repository the user works in — record a stable reference (path, URL, commit) instead.
+- Do not delete original source files without explicit user approval. Migration means copying or moving to the archive; confirm the action with the user.
+- When a source is updated (new version, revision, erratum), place the new version alongside the old with a version suffix (`SRC-0003_smith-2024-enzyme-kinetics_v2.pdf`) and update the source register.
+- Binary files that cannot be indexed by Obsidian (PDFs, videos, compiled binaries) belong in `50_Reference/`, not `00_Meta/Attachments/`. Reserve `00_Meta/Attachments/` for images and small files embedded in notes.
+
+### Reflecting migration in SOURCE-REGISTER.md
+
+Every migrated file must have its source record updated with:
+- `Archived location`: the vault-relative path in `50_Reference/`.
+- `Obsidian handling`: set to `archived to 50_Reference` (or append if other handling notes exist).
+
+This ensures the provenance chain from vault note → source ID → physical file remains unbroken for future re-extraction or audit.
 
 ## Coverage gap analysis
 

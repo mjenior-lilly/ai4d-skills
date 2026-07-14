@@ -18,6 +18,7 @@ updated: YYYY-MM-DD
 - Total sources: {number}
 - Processed: {number}
 - Partially processed: {number}
+- Archived to 50_Reference: {number}
 - Skipped: {number}
 - Last updated: YYYY-MM-DD
 
@@ -40,7 +41,8 @@ updated: YYYY-MM-DD
 - Complexity: {simple | standard | complex | huge}
 - Processing status: {queued | processing | processed | partial | skipped}
 - Access limits: {none, binary unreadable, OCR needed, truncated, generated, proprietary, unknown}
-- Obsidian handling: {source kept outside vault | copied to attachments | summarized only | task analysis captured in vault | code excluded from indexing | other}
+- Obsidian handling: {source kept outside vault | copied to attachments | archived to 50_Reference | summarized only | task analysis captured in vault | code excluded from indexing | other}
+- Archived location: `{vault-relative path in 50_Reference/, or N/A if not yet migrated}`
 
 #### Extraction scope
 
@@ -71,5 +73,6 @@ updated: YYYY-MM-DD
 - Keep skipped and rejected sources in the register when listing them prevents duplicate future work.
 - Use precise locators wherever possible. For code, prefer file path plus symbol or line range.
 - Do not mark a source `processed` until every note created or updated from it is inside the target vault, has source IDs in frontmatter, appears in the produced or updated notes list, and includes provenance in the body where needed.
+- When a processed source file is migrated to `50_Reference/`, update its `Archived location` field with the vault-relative destination path and set `Obsidian handling` to `archived to 50_Reference`. The `source-id` prefix in the archived filename must match the register entry.
 - For `task-analysis` sources, the produced or updated notes list must include the captured daily, weekly, monthly, or annual analysis file and any durable permanent notes extracted from it.
 - Use the `conversation` type for project-specific facts the user confirms in chat that are logged as project-fact notes ([PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md)). Set `Origin: user-provided`, use the confirmation date/time as the locator, and list the produced `40_Project/` notes. The user's confirmation is the provenance anchor for each fact; record only confirmed ground truth, never speculation the user floated without confirming.
