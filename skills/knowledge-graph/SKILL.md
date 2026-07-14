@@ -10,6 +10,7 @@ Use the workflow in [WORKFLOW.md](./WORKFLOW.md). It defines vault scoping, sour
 
 Syntax and artifact references, loaded on demand:
 
+- [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md): LLM-optimized vault abstract — concise scope, taxonomy, source profile, coverage strengths, known gaps, and semantic descriptors for retrieval routing. Use after coverage analysis to generate `00_Meta/VAULT-ABSTRACT.md`.
 - [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md): Obsidian Flavored Markdown — wikilinks, heading/block references, embeds, callouts, tags, highlights, comments, footnotes, math, Mermaid. Consult when composing or repairing note bodies.
 - [references/BASES.md](./references/BASES.md): Obsidian Bases (`.base`) live index views. Use to replace hand-maintained MOC/index notes and static source tables with auto-updating queries over note frontmatter.
 - [references/CANVAS.md](./references/CANVAS.md): JSON Canvas (`.canvas`) visual artifacts — mind maps, architecture and concept diagrams that can embed vault notes.
@@ -39,6 +40,7 @@ Create files lazily as they become useful, always under the knowledge base root:
 - `00_Meta/Sources/SOURCE-REGISTER.md`: source inventory, provenance, processing status, and extraction coverage. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).
 - `00_Meta/VAULT-AUDIT.md`: validation findings for filenames, links, frontmatter, tags, attachments, duplicates, and indexer risks. Use [VAULT-AUDIT-FORMAT.md](./VAULT-AUDIT-FORMAT.md).
 - `00_Meta/COVERAGE-ANALYSIS.md`: coverage gap analysis identifying concept clusters with thin or missing source grounding, source concentration risks, and prioritized recommendations for additional resources to strengthen agent grounding. Use [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md).
+- `00_Meta/VAULT-ABSTRACT.md`: LLM-optimized vault content summary for relevance determination and grounding search routing. Synthesizes scope, taxonomy, source profile, coverage strengths, known gaps, and semantic descriptors so a retrieval system or grounding agent can decide in one pass whether this vault is the correct resource for a given query. Use [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md).
 - Permanent notes under `20_Permanent/`: evergreen, source-grounded Markdown notes. Use [NOTE-FORMAT.md](./NOTE-FORMAT.md).
 - Project-fact notes under `40_Project/`: timestamped, append-only records of new and changed project-specific facts on in-scope topics. Use [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md).
 - Project notes, meeting notes, task analyses, or generated summary artifacts under the appropriate existing vault folder, or under `30_Projects/` when they are time-bound rather than evergreen.

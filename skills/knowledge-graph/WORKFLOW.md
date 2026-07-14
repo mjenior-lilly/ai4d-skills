@@ -73,6 +73,7 @@ Use the smallest tier that can satisfy the phase gate.
 | project-fact capture | Any new or changed project-specific fact on an in-scope topic is logged under `40_Project/` with a resolved `subject` link, a `confirmed` timestamp, a `source` provenance anchor, and `status`, append-only; only confirmed ground truth, never speculation. |
 | vault validation | Links, filenames, frontmatter, tags, attachments, nesting depth, and indexer risks have been checked and recorded in `00_Meta/VAULT-AUDIT.md` when useful. |
 | coverage analysis | Concept clusters are mapped, source grounding is rated per cluster, cross-cutting gaps and source concentration risks are identified, prioritized recommendations specify resource types, and agent grounding readiness is classified. Results recorded in `00_Meta/COVERAGE-ANALYSIS.md`. |
+| vault abstract | `00_Meta/VAULT-ABSTRACT.md` synthesizes domain scope, concept taxonomy, source profile, coverage strengths, known gaps, explicit scope boundaries, and semantic descriptors from the manifest, source register, and coverage analysis into a concise LLM-optimized summary for retrieval routing. |
 
 ## Workflow loop
 
@@ -247,6 +248,33 @@ Run this phase after initial vault creation from a collection of resources, afte
 
 Use the **standard** model/thinking tier for small-to-medium vaults (under 50 notes). Use the **complex** tier for large vaults, highly technical domains, or when source-grounding verification requires deep reading. Use **quick** tier only for re-running the analysis on a vault that has changed minimally since the last assessment.
 
+### 8. Generate vault abstract
+
+Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md). This file is a concise, LLM-optimized summary that enables retrieval systems and grounding agents to determine in one pass whether this vault is the correct resource for a given query.
+
+1. **Read inputs**. Synthesize from:
+   - `00_Meta/VAULT-MANIFEST.md` → domain description, scope, intended purpose.
+   - `00_Meta/Sources/SOURCE-REGISTER.md` → source count, types, authorities, temporal range.
+   - `00_Meta/COVERAGE-ANALYSIS.md` → concept clusters, coverage ratings, readiness assessment, known gaps.
+   If `COVERAGE-ANALYSIS.md` does not exist (e.g., parsing a vault not built by this skill), derive what you can from direct vault inspection: note count, tags, link connectivity, and note titles. Mark the abstract `status: provisional`.
+
+2. **Compose the abstract**. Follow the template in [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md). Target ≤120 lines. Prioritize:
+   - Clear domain and scope statement with explicit boundaries.
+   - Concept taxonomy distilled to cluster names and coverage ratings.
+   - Source profile summarized to types and temporal range.
+   - Coverage strengths as confident-grounding topics.
+   - Known gaps and explicit scope boundaries (what the vault does NOT cover) — these are as important as strengths for retrieval routing.
+   - Dense semantic descriptors for keyword and embedding matching.
+
+3. **Set staleness fields**. On full generation: `stale_since: null`, `updated: {{today}}`, `vault_modified: {{today}}`. On incremental updates that do not materially change vault scope: set `stale_since: {{update date}}` in the existing abstract without regenerating.
+
+4. **When to regenerate vs. mark stale**:
+   - **Regenerate**: on vault creation, after major source ingestion batches, when new sources expand into previously uncovered domains, or when the user requests it.
+   - **Mark stale**: on incremental single-note updates, minor source additions within existing scope, or routine maintenance edits.
+   - **On parse/audit**: generate if missing; regenerate if `stale_since` is set.
+
+Use the **quick** model/thinking tier. The abstract is a synthesis of already-validated artifacts, not a primary analysis.
+
 ## Output to the user
 
 Return a concise summary with:
@@ -259,4 +287,4 @@ Return a concise summary with:
 - coverage analysis performed and key findings: cluster count, gaps identified, agent grounding readiness;
 - unresolved source gaps, broken links, merge candidates, or indexer risks;
 - prioritized recommendations for additional resources to strengthen grounding;
-- paths to the manifest, source register, audit, coverage analysis, and notable notes.
+- paths to the manifest, source register, audit, coverage analysis, vault abstract, and notable notes.
