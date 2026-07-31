@@ -10,7 +10,7 @@ Each subdirectory has its own README covering its contents, file structure, and 
 
 ### [`commands/`](commands/README.md)
 
-Plain Markdown prompts intended for explicit slash command-style invocation. Grouped into analysis/audit/debugging (`/abstract`, `/agentify`, `/audit`, `/cleanup`, `/investigate`, `/prompts`, `/test-audit`), a plan lifecycle (`/plan`, `/fit`, `/grill`, `/risks`, `/apply`, `/implement`), documentation and communication (`/annotate`, `/specs`, `/humanize`, `/write-mr`), and full repository execution (`/yeet`).
+Plain Markdown prompts intended for explicit slash command-style invocation. Grouped into analysis/audit/debugging (`/abstract-codebase`, `/cleanup-repo`, `/investigate-issue`, `/inspect-prompts`, `/test-audit`), a plan lifecycle (`/create-plan`, `/fit-plan-to-codebase`, `/grill-this-plan`, `/apply-plan-updates`, `/implement-plan`, `/audit-plan-implementation`), documentation and communication (`/annotate-code`, `/humanize-text`, `/write-mr`, `/agent-handoff`), and full repository execution (`/yeet`).
 
 ### [`skills/`](skills/README.md)
 
@@ -51,7 +51,7 @@ A large portion of the library is aimed at software delivery tasks such as inves
 
 ## choosing commands vs skills
 
-Several prompts exist in both forms (`annotate`, `audit`, `fit`, `humanize`, `investigate`).
+Several prompts exist in both forms: skills `annotate`, `audit`, `fit`, `humanize`, `investigate` pair with commands `annotate-code`, `audit-plan-implementation`, `fit-plan-to-codebase`, `humanize-text`, `investigate-issue`.
 
 Use a command when:
 
@@ -66,3 +66,7 @@ Use a skill when:
 - the instructions are stable and reusable.
 
 In this repo, `yeet.md` is a good example of something better kept as an explicit command, while `investigate.md`, `audit.md`, and `repo-explorer.md` translate well into skills.
+
+### session handoff
+
+`agent-handoff.md` has no skill counterpart: it writes a redacted handoff document outside the workspace for a fresh agent or agent team, which is inherently a one-off, explicitly invoked action rather than a recurring intent to route.

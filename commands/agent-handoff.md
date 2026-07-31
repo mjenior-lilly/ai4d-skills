@@ -1,4 +1,4 @@
-# handoff
+# agent-handoff
 
 # Role & Objective
 Act as a principal software engineer. Generate a concise, structured handoff document summarizing the state of the current conversation so a fresh AI agent (or team of agents) can seamlessly resume the workflow in a new session. This skill handles two distinct scenarios:

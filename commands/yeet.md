@@ -1,8 +1,8 @@
 # yeet
 
-Run from the **git repository root**. Requires `task` (go-task) and `uv` on `PATH`. If either tool is not found, stop and report the missing tool. Do not attempt to install it. Request network access when running `task preflight`, `task preflight:no-lock`, `git fetch`, `git pull --rebase`, `git push`, `glab mr create`, or `gh pr create`.
+Run from the **git repository root**. Requires `task` (go-task) and `uv` on `PATH`. If either tool is not found, stop and report the missing tool. Do not attempt to install it. Request network access when running `task preflight`, `task preflight:no-lock`, `git fetch`, `git pull --rebase`, `git push`, or `gh pr create`.
 
-Default posture: complete the full flow with minimal user interruption. If the repository is already on a non-`main`/`master` feature branch, use that branch. If the repository is still on `main` or `master`, do not push that branch; create an appropriately named feature branch before pushing and continue the normal push and merge request flow there. Prefer automatically resolving ordinary git, upstream, formatting, lint, type, test, hook, push, and merge request issues when the fix is local, bounded, and does not require destructive history edits or product judgment.
+Default posture: complete the full flow with minimal user interruption. If the repository is already on a non-`main`/`master` feature branch, use that branch. If the repository is still on `main` or `master`, do not push that branch; create an appropriately named feature branch before pushing and continue the normal push and pull request flow there. Prefer automatically resolving ordinary git, upstream, formatting, lint, test, hook, push, and pull request issues when the fix is local, bounded, and does not require destructive history edits or product judgment.
 
 ## Mandatory flow
 
@@ -16,8 +16,8 @@ Follow this order. Do not skip ahead after preflight passes:
 6. Gather final inspection output.
 7. Create a feature branch if still on `main`/`master`, then stage only triage-approved paths with explicit `git add <paths>`.
 8. Commit, confirm **post-commit status**, then push.
-9. Open a new merge request.
-10. Report preflight, triage, branch/upstream, commits, push result, merge request URL, and exclusions.
+9. Open a new pull request.
+10. Report preflight, triage, branch/upstream, commits, push result, pull request URL, and exclusions.
 
 ## 1. Environment
 
@@ -39,7 +39,7 @@ Before running any mutating validation:
 
 Run `task preflight:no-lock` by default and **wait for it to finish** (do not background it).
 
-Use `task preflight` only when the user explicitly requested a dependency refresh, lock drift requires it, or you have a concrete reason to upgrade dependencies. `task preflight` is **lock-mutating**: it runs `uv lock --upgrade`, then `uv sync` from the updated lockfile, then Ruff format, Ruff lint auto-fixes, mypy, and pytest. Both preflight variants are **file-mutating** (format and lint-fix write changes to disk); the difference is solely whether the lockfile is upgraded.
+Use `task preflight` only when the user explicitly requested a dependency refresh, lock drift requires it, or you have a concrete reason to upgrade dependencies. `task preflight` is **lock-mutating**: it runs `uv lock --upgrade`, then `uv sync`, then Ruff lint auto-fixes, Ruff format, and pytest. Both preflight variants are **file-mutating** (format and lint-fix write changes to disk); the difference is solely whether the lockfile is upgraded.
 
 When `uv.lock` changes:
 
@@ -49,13 +49,12 @@ When `uv.lock` changes:
 
 If preflight fails:
 
-1. Identify which step failed from the task output. go-task prints the subtask name in brackets (e.g. `task: [typecheck] ...` or `task: Failed to run task "typecheck"`). Match against: `install`, `lock`, `format`, `lint-fix`, `typecheck`, `test`.
+1. Identify which step failed from the task output. go-task prints the subtask name in brackets (e.g. `task: [test] ...` or `task: Failed to run task "test"`). Match against: `install`, `upgrade`, `format`, `lint:fix`, `test`.
 2. Apply the smallest fix for **that** layer:
-   - **install** — environment sync failure; if `--frozen` fails and the issue looks like stale lock metadata, automatically try `task preflight` once instead of `task preflight:no-lock`. Ask the user only if the lock update introduces unrelated dependency churn or still fails.
-   - **lock** — dependency/version resolution; do not guess with unrelated code edits.
-   - **format** / **lint-fix** — accept or apply the reported auto-fixes.
-   - **typecheck** — fix types; avoid broad `Any` silencing.
-   - **test** — fix behavior or tests; if schema snapshot tests fail, run `task export-schemas` and include updates under `protocol_scheduler_diagnostics/schemas/`.
+   - **install** — environment sync failure; if `uv sync` fails and the issue looks like stale lock metadata, automatically try `task preflight` once instead of `task preflight:no-lock`. Ask the user only if the lock update introduces unrelated dependency churn or still fails.
+   - **upgrade** — dependency/version resolution; do not guess with unrelated code edits.
+   - **format** / **lint:fix** — accept or apply the reported auto-fixes.
+   - **test** — fix behavior or tests.
 3. Rerun the same preflight task you started with.
 
 Do **not** stop just because a failing check touches an in-scope feature-branch file that was already dirty at baseline; treat that file as eligible branch work and fix it if the change is consistent with the current branch behavior.
@@ -74,14 +73,14 @@ For read-only validation without lock upgrades or auto-fixes, use `task check` a
 After preflight passes:
 
 1. Run `git status --short` and `git diff` as the **post-preflight status** and diff. Distinguish **session/feature** edits from **tool** edits (format, lint-fix, lock), and compare against the baseline dirty state captured before preflight.
-2. Identify untracked files created during validation. Exclude local debug output such as `artifacts/`, `htmlcov/`, `.scheduler_diagnostics/`, `tmp*/`, or cache directories unless the user explicitly requested them.
+2. Identify untracked files created during validation. Exclude local debug output such as `dist/`, `htmlcov/`, `.pytest_cache/`, `tmp*/`, or cache directories unless the user explicitly requested them.
 3. Default to finishing the current branch's tracked work. Use the triage gate to exclude things, not to disqualify the branch's own modified tracked files.
 
 ### Determine eligible paths
 
 Anchor "this change" before staging anything. Files are eligible to commit in this priority order:
 
-- Paths you edited in **this conversation** for the user’s stated task.
+- Paths you edited in **this conversation** for the user's stated task.
 - Else tracked paths already modified on the current non-`main`/`master` feature branch at baseline, plus tracked paths mutated by preflight or the bounded fix loop to make that same branch pass.
 - Else paths changed on the branch since merge-base with the default branch. Resolve the default branch and merge-base in this order:
   ```bash
@@ -112,10 +111,10 @@ For inspection only, gather these outputs before staging:
 
 Before staging:
 
-- Do **not** commit secrets (`.env`, `.env.*` except `.env.template`), local-only artifacts, or **protected** / **unknown** / unrelated user changes.
-- Do **not** stage local debug output such as `artifacts/`, `htmlcov/`, `.scheduler_diagnostics/`, `tmp*/`, or cache directories.
-- Include **lock** changes only when `task preflight` ran `task: lock` and they belong to this push.
-- For ambiguous untracked files, prefer excluding them silently unless they look like intentional source, test, docs, schema, or config changes needed for this branch. Only ask when excluding them would likely omit real work.
+- Do **not** commit secrets (`.env`, `.env.*` except `.env.example`), local-only artifacts, or **protected** / **unknown** / unrelated user changes.
+- Do **not** stage local debug output such as `dist/`, `htmlcov/`, `.pytest_cache/`, `tmp*/`, or cache directories.
+- Include **lock** changes only when `task preflight` ran `task: upgrade` and they belong to this push.
+- For ambiguous untracked files, prefer excluding them silently unless they look like intentional source, test, docs, or config changes needed for this branch. Only ask when excluding them would likely omit real work.
 - Prefer committing the current feature branch's tracked local changes when they pass the triage gate; do not exclude them solely because they existed in the baseline dirty state.
 
 Stage only paths approved by triage (§3):
@@ -128,7 +127,7 @@ Do **not** use `git add .` or `git commit -a`.
 
 Confirm the current branch and upstream. If the current branch is `main` or `master`, create and switch to a new branch before staging or committing:
 
-1. Derive a concise branch name from the intended commit or merge request title.
+1. Derive a concise branch name from the intended commit or pull request title.
 2. Use the repository's existing branch naming style when it is obvious from recent local or remote branch names. Otherwise use lowercase kebab-case with a meaningful prefix such as `fix/`, `docs/`, `test/`, `chore/`, or `feature/`.
 3. Run `git switch -c <branch-name>`.
 4. Re-check `git status` and the current branch before staging.
@@ -149,7 +148,7 @@ Repeat per split-commit group from §3.
 
 If `git commit` is rejected before creating a commit, fix the issue, rerun the relevant validation, restage only approved paths, and run `git commit` again. Do **not** amend. If a commit succeeds but a hook auto-modified files afterward, follow the active amend safety rules before deciding whether amend is allowed.
 
-Prefer exhausting bounded local retries before surfacing a commit failure. Ordinary examples include formatting/lint hook rewrites, a fixable test assertion, or a type error in an in-scope branch file.
+Prefer exhausting bounded local retries before surfacing a commit failure. Ordinary examples include formatting/lint hook rewrites, a fixable test assertion, or a lint error in an in-scope branch file.
 
 Run `git status` as the **post-commit status** after each commit to confirm success and see remaining unstaged paths.
 
@@ -168,26 +167,28 @@ If push is rejected due to ordinary feature-branch divergence, handle it automat
 
 Do not surface routine successful recoveries as blockers. If fetch, upstream setup, rebase, or retry-push succeeds, continue and report only the final successful state plus a brief note that recovery was automatic.
 
-## 6. Merge request
+## 6. Pull request
 
-After the push succeeds, open a new merge request for the pushed branch.
+After the push succeeds, open a new pull request for the pushed branch.
 
 1. Review the full commit message history of the current branch:
    ```bash
    git log --oneline
    ```
 2. If this command reveals a significant number of apparently diverse commits, also investigate the actual code changes associated with the messages in question.
-3. Based on this collective context, write a descriptive merge request description in active voice, in past tense, and using varied sentence structure. Avoid common LLM-associated characters or phrasing. Include a descriptive title.
-4. Use the repository's hosting CLI for creation. For GitLab remotes, use `glab mr create --title "<title>" --description "$(cat <<'EOF'
-<description>
+3. Based on this collective context, write a descriptive pull request description in active voice, in past tense, and using varied sentence structure. Avoid common LLM-associated characters or phrasing. Include a descriptive title.
+4. Use GitHub CLI for creation:
 
-EOF
-)"`. For GitHub remotes, use `gh pr create --title "<title>" --body "$(cat <<'EOF'
-<description>
+   ```bash
+   gh pr create --title "<title>" --body "$(cat <<'EOF'
+   <description>
 
-EOF
-)"`. Request network access for the command when needed.
-5. If the hosting CLI is unavailable or authentication fails, stop and report the exact blocker plus the title and description you prepared. Do not claim the merge request was opened.
+   EOF
+   )"
+   ```
+
+   Request network access for the command when needed.
+5. If the GitHub CLI is unavailable or authentication fails, stop and report the exact blocker plus the title and description you prepared. Do not claim the pull request was opened.
 
 ## 7. Report
 
@@ -198,6 +199,6 @@ Return a short summary:
 - Branch and upstream
 - Commit SHAs and messages (all commits if split)
 - Push: success or rejected (with message)
-- Merge request: URL, or blocker if creation failed
+- Pull request: URL, or blocker if creation failed
 - **Excluded untracked paths** (if any)
 - **Excluded modified but unstaged paths** (unknown, deferred, or intentionally left out)

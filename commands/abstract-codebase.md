@@ -1,4 +1,4 @@
-# abstract
+# abstract-codebase
 
 Analyze the target file or module in focus for structural and maintainability problems. 
 

@@ -1,4 +1,4 @@
-# implement
+# implement-plan
 
 Review the provided plan file, understand its purpose and fit within the existing codebase, then implement the plan's to-do items in order.
 

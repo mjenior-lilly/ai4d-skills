@@ -1,4 +1,4 @@
-# fit
+# fit-plan-to-codebase
 
 Evaluate this plan against the existing codebase and revise it for fit, simplicity, and traceability.
 

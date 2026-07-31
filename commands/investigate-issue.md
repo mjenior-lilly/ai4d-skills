@@ -1,4 +1,4 @@
-# investigate
+# investigate-issue
 
 Investigate the provided workflow error messages and intermediate output to identify the most likely root causes for each reported issue. Treat as a "reported issue" any failure, error, or anomaly that is explicitly flagged or that clearly broke the workflow. If no error output is available in context, state that and ask for it instead of speculating.
 

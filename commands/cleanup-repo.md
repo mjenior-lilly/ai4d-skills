@@ -1,4 +1,4 @@
-# cleanup
+# cleanup-repo
 
 Audit this repository for behavioral defects and unreachable code that limit production quality or extensibility. This is a read-only review: do not modify any files.
 

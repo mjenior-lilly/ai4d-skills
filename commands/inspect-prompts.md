@@ -1,4 +1,4 @@
-# prompts
+# inspect-prompts
 
 Audit the prompts, agent instructions, system messages, workflow guidance, and model-facing text in the current repository for mismatches with the repository's actual behavior.
 

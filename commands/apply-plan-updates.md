@@ -1,4 +1,4 @@
-# apply
+# apply-plan-updates
 
 Review the findings, recommendations, and unresolved items from the previous investigation, fit review, risk review, user feedback, or other scoped critique, then update the associated plan file so it reflects the best current evidence.
 
