@@ -152,7 +152,19 @@ Prefer exhausting bounded local retries before surfacing a commit failure. Ordin
 
 Run `git status` as the **post-commit status** after each commit to confirm success and see remaining unstaged paths.
 
-## 5. Push
+## 5. Version bump
+
+After committing, bump the project version using `bump-my-version` via task commands. Choose the bump level based on the scale of committed changes:
+
+- **`task bump:patch`** — bug fixes, formatting, doc updates, dependency refreshes, small refactors that do not change public API behavior. This is the default for most pushes.
+- **`task bump:minor`** — new features, new modules, meaningful behavioral changes, or non-trivial refactors that alter internal contracts (but remain backward-compatible at the public API level).
+- **`task bump:major`** — breaking changes to public API signatures, removal of existing features, or changes that require downstream consumers to update their code.
+
+Use `task bump:dry -- <part>` to preview before applying. Use `task version` to confirm the current version if needed.
+
+Run the selected bump command after the commit(s) from §4 succeed. The bump tool creates its own commit automatically — do **not** amend or squash it into the feature commit.
+
+## 6. Push
 
 Immediately before pushing, re-check the current branch. If it is still `main` or `master`, create and switch to a new branch using the naming rules from §4, then re-check `git status` and the current branch before pushing.
 
@@ -167,7 +179,7 @@ If push is rejected due to ordinary feature-branch divergence, handle it automat
 
 Do not surface routine successful recoveries as blockers. If fetch, upstream setup, rebase, or retry-push succeeds, continue and report only the final successful state plus a brief note that recovery was automatic.
 
-## 6. Pull request
+## 7. Pull request
 
 After the push succeeds, open a new pull request for the pushed branch.
 
@@ -190,7 +202,7 @@ After the push succeeds, open a new pull request for the pushed branch.
    Request network access for the command when needed.
 5. If the GitHub CLI is unavailable or authentication fails, stop and report the exact blocker plus the title and description you prepared. Do not claim the pull request was opened.
 
-## 7. Report
+## 8. Report
 
 Return a short summary:
 
