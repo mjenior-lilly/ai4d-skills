@@ -1,17 +1,18 @@
 # audit-plan-implementation
 
-Audit all code changes associated with the provided plan or chat history.
+Audit the current state of the codebase in the workspace against the provided plan to verify that every change the plan specifies has been completely and correctly implemented.
 
-If no such plan is identifiable, ask which change set to audit (e.g., `git diff`, a specific PR, or a named feature) before proceeding — do not guess.
+If no plan is identifiable in the conversation or linked context, ask the user to supply one (e.g., a plan file, PR description, or named feature spec) before proceeding — do not guess.
 
 ## Scope
 
-1. Establish the change set explicitly. Prefer `git status` + `git diff` against the merge base, plus the files named in the originating plan. State the scope in one sentence before auditing.
-2. For each changed symbol (function, class, type, constant, config key, route, schema field), enumerate:
-   - its **definition site** (is it complete and consistent with how it is used?),
-   - its **direct call sites and importers** (one hop), and
-   - any **boundary contracts** it crosses (public API, serialized payload, persisted schema, env/config, CLI/MCP surface).
-3. Stop at one hop unless a contract change at the boundary forces deeper tracing. Note any deeper traces and why.
+1. Establish the expected change set by reading the plan, then compare it against the actual workspace state using `git status` + `git diff` against the merge base, plus the files named in the plan. State the scope in one sentence before auditing.
+2. For each change the plan prescribes, verify in the codebase that:
+   - the corresponding symbol (function, class, type, constant, config key, route, schema field) exists at its **definition site** and is complete and consistent with both the plan's intent and how it is used elsewhere,
+   - its **direct call sites and importers** (one hop) correctly reference the new or updated symbol, and
+   - any **boundary contracts** it crosses (public API, serialized payload, persisted schema, env/config, CLI/MCP surface) have been updated to match.
+3. Additionally, identify any plan-specified changes that are **absent** from the workspace (not yet implemented or partially implemented).
+4. Stop at one hop unless a contract change at the boundary forces deeper tracing. Note any deeper traces and why.
 
 ## Sub-agent strategy
 
@@ -71,11 +72,13 @@ After Tier 1 completes (or after manual tracing for small diffs), deduplicate fi
 
 Classify each finding into exactly one bucket:
 
-- **Missing/insufficient**: a symbol, branch, error path, or migration is referenced but not defined, or is defined but does not satisfy its documented/observed contract.
-- **Interface drift**: a signature, return shape, exception type, schema, or config key changed but at least one caller/consumer/test/doc was not updated.
+- **Unimplemented**: a change specified in the plan has no corresponding implementation in the current workspace — the code, config, schema, or test is entirely absent.
+- **Incomplete/insufficient**: a plan-specified change is partially implemented but missing branches, error paths, migrations, or other elements the plan requires.
+- **Interface drift**: a signature, return shape, exception type, schema, or config key changed but at least one caller/consumer/test/doc was not updated to match.
 - **Behavioral regression**: a code path that previously produced behavior X now produces behavior Y, where Y is not explicitly intended by the plan. Include test failures, type/lint errors, and removed validations.
+- **Incorrect implementation**: the code exists but its logic, structure, or behavior diverges from what the plan specifies.
 
-For each finding, record: file:line, bucket, one-sentence evidence, and proposed action.
+For each finding, record: file:line (or plan section if unimplemented), bucket, one-sentence evidence, and proposed action.
 
 ## Action policy
 
@@ -91,4 +94,4 @@ As a final step, assess whether any symbols or contract types were not covered b
 
 ## Output
 
-Produce a todo list with one item per finding, grouped by bucket and ordered by severity (broken contracts > regressions > missing pieces > cleanup). Mark each item as `fixed`, `needs-decision`, or `flagged`. End with the verification results and any unresolved questions.
+Produce a todo list with one item per finding, grouped by bucket and ordered by severity (unimplemented > incorrect > broken contracts > regressions > incomplete > cleanup). Mark each item as `fixed`, `needs-decision`, or `flagged`. End with a plan-coverage summary (what percentage of plan items are fully, partially, or not implemented), the verification results, and any unresolved questions.
