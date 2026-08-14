@@ -15,6 +15,18 @@ Execution topology:
 
 The resulting dataset pairs with `agents/judge.md`, which scores a target LLM's responses against each entry's canonical answers, required facts, reasoning paths, source references, and known negative responses.
 
+## `map-repository.md`
+
+Create or update an agent-optimized `AGENTS.md` repository map. The workflow inventories the repository, delegates evidence-gathering missions to specialized read-only subagents, reconciles contradictions, and validates the resulting navigation guidance through cold-start task rehearsals.
+
+Key mechanics:
+
+- **Evidence-first reconnaissance**: captures topology, runtime paths, commands, conventions, contracts, configuration, tests, history, landmines, and domain vocabulary with path, symbol, or execution evidence.
+- **Scale-aware subagent topology**: selects and shards reconnaissance missions based on repository size, applies explicit budgets and ignore lists, and uses targeted follow-up agents only for unresolved high-value questions.
+- **Agent-focused synthesis**: prioritizes a fast-path task index, verified commands, runtime traces, landmines, diagnostic guidance, and high-value negative space instead of general onboarding documentation.
+- **Safe, idempotent output**: writes a SHA-stamped generated block without overwriting human-authored `AGENTS.md` content, splits monorepo-specific guidance by package, and records confidence, coverage gaps, and invalidation triggers.
+- **Validation**: checks cited paths, command status, secret handling, and map utility through realistic feature, debugging, testing, and configuration rehearsals before writing.
+
 ## `unvibe-code-repo.md`
 
 Convert a broad simplification audit into a reviewed, implemented, tested, committed, and PR-ready change. Run from the repository root; the file is the complete workflow definition, and subagent output remains advisory until the coordinator verifies it against repository evidence.

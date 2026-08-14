@@ -39,8 +39,8 @@ Review the provided plan file, understand its purpose and fit within the existin
 
    Sub-agent parameters for trivial batches:
    - Agents: 1–3
-   - Model: haiku
-   - Effort: low
+   - Model: sonnet
+   - Effort: medium
    - Isolation: worktree
 
    Sub-agent parameters for file-disjoint parallel:
@@ -53,7 +53,7 @@ Review the provided plan file, understand its purpose and fit within the existin
 
    Sub-agent parameters:
    - Agents: 2–3 per verification pass
-   - Model: haiku
+   - Model: sonnet
    - Effort: low
    - Isolation: none (read-only verification)
 

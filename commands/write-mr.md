@@ -20,13 +20,15 @@ Write a high-quality merge request title and description for the current branch.
 
 ## Output
 
-Return only the MR message:
+Return only the MR message, formatted in markdown notation so it renders correctly in GitLab/GitHub MR description fields:
 
-1. **Title**: one concise sentence fragment in imperative or active style. Name the concrete outcome, not the implementation mechanism.
-2. **Summary**: 2-4 bullets explaining the most important changes and why they matter.
-3. **Details**: include only when the branch needs more context than the summary can carry. Use short outline bullets grouped by topic.
-4. **Validation**: list tests, checks, or manual verification that were actually run or clearly evidenced. If none are known, write `Not documented in branch context.`
-5. **Risks / Notes**: include only real migration concerns, rollout risks, follow-up work, or reviewer context.
+1. **Title**: one concise sentence fragment in imperative or active style. Name the concrete outcome, not the implementation mechanism. Present this as a top-level markdown heading (`#`).
+2. **Summary**: 2-4 bullets explaining the most important changes and why they matter. Use a `## Summary` heading and markdown list syntax (`-`).
+3. **Details**: include only when the branch needs more context than the summary can carry. Use a `## Details` heading with short outline bullets grouped by topic. Use nested lists or bold text for sub-groupings where helpful.
+4. **Validation**: list tests, checks, or manual verification that were actually run or clearly evidenced. Use a `## Validation` heading and markdown list syntax. If none are known, write `Not documented in branch context.`
+5. **Risks / Notes**: include only real migration concerns, rollout risks, follow-up work, or reviewer context. Use a `## Risks / Notes` heading.
+
+Use markdown formatting throughout: backticks for inline code references (file names, function names, config keys), fenced code blocks where short snippets add clarity, and bold/italic for emphasis where it aids scannability.
 
 ## Style
 
