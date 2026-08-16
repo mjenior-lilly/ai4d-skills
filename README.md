@@ -10,7 +10,7 @@ Each subdirectory has its own README covering its contents, file structure, and 
 
 ### [`commands/`](commands/README.md)
 
-Plain Markdown prompts intended for explicit slash command-style invocation. Grouped into analysis/audit/debugging (`/abstract-codebase`, `/cleanup-repo`, `/investigate-issue`, `/inspect-prompts`, `/test-audit`), a plan lifecycle (`/create-plan`, `/fit-plan-to-codebase`, `/grill-this-plan`, `/apply-plan-updates`, `/implement-plan`, `/audit-plan-implementation`), documentation and communication (`/annotate-code`, `/humanize-text`, `/write-mr`, `/agent-handoff`), and full repository execution (`/yeet`).
+Plain Markdown prompts intended for explicit slash command-style invocation. Grouped into analysis/audit/debugging (`/abstract-codebase`, `/cleanup-repo`, `/investigate-issue`, `/inspect-prompts`, `/test-audit`), a plan lifecycle (`/create-plan`, `/fit-plan-to-codebase`, `/cross-examine`, `/apply-plan-updates`, `/implement-plan`, `/audit-plan-implementation`), documentation and communication (`/annotate-code`, `/humanize-text`, `/write-mr`, `/agent-handoff`), and full repository execution (`/yeet`).
 
 ### [`skills/`](skills/README.md)
 
@@ -28,7 +28,7 @@ System prompt text and layered policy files that define baseline agent behavior:
 
 ### [`workflows/`](workflows/README.md)
 
-End-to-end operating procedures for multi-phase, coordinator-plus-subagent tasks that need more than a single command invocation: corpus-grounded benchmark dataset generation (`create-test-dataset`) and simplification-audit-to-PR conversion (`unvibe-code-repo`). A workflow defines the objective, phase gates, subagent topology, model and thinking tiers, verification requirements, and stopping conditions.
+End-to-end operating procedures for multi-phase, coordinator-plus-subagent tasks that need more than a single command invocation: corpus-grounded benchmark dataset generation (`create-test-dataset`), agent-optimized repository mapping (`map-repository`), read-only construction-quality and navigability triage (`unslopify`), and simplification-audit-to-PR conversion (`simplification-audit-to-pr`). A workflow defines the objective, phase gates, subagent topology, model and thinking tiers, verification requirements, and stopping conditions.
 
 ### [`notebooklm/`](notebooklm/README.md)
 

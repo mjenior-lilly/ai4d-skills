@@ -12,11 +12,11 @@ Plain Markdown prompts intended for explicit slash command-style invocation. The
 
 ## planning and implementation workflow
 
-These commands form a plan lifecycle: build a plan (`/create-plan`), check it against the codebase (`/fit-plan-to-codebase`), pressure-test it (`/grill-this-plan`), fold findings back in (`/apply-plan-updates`), execute it (`/implement-plan`), then audit the resulting change set against the plan (`/audit-plan-implementation`).
+These commands form a plan lifecycle: build a plan (`/create-plan`), check it against the codebase (`/fit-plan-to-codebase`), pressure-test it (`/cross-examine`), fold findings back in (`/apply-plan-updates`), execute it (`/implement-plan`), then audit the resulting change set against the plan (`/audit-plan-implementation`).
 
 - `/create-plan` - build an implementation plan from findings, diffs, diagnostics, or requests
 - `/fit-plan-to-codebase` - check whether a plan fits the current codebase and existing abstractions
-- `/grill-this-plan` - interactive pressure-test of a plan through focused questioning
+- `/cross-examine` - interactive pressure-test of a plan through focused questioning
 - `/apply-plan-updates` - update a plan using findings from investigation, fit review, risk review, or user feedback
 - `/implement-plan` - execute a provided plan in order with ongoing verification
 - `/audit-plan-implementation` - audit a plan's resulting code changes against callers, contracts, and regressions
