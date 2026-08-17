@@ -13,7 +13,7 @@ Each content directory listed below has a README with its inventory and usage de
 Explicit slash command-style prompts for bounded or intentionally stateful tasks:
 
 - investigation and audits: `/investigate-issue`, `/test-audit`, `/slop-search`
-- planning and implementation: `/create-plan`, `/cross-examine`, `/implement-plan`, `/audit-plan-implementation`
+- planning and implementation: `/create-plan`, `/cross-examine`, `/implement-plan`, `/audit-implementation`
 - repository and benchmark artifacts: `/create-test-dataset`, `/map-repository`
 - documentation and communication: `/annotate-code`, `/humanize-text`, `/write-branch-mr`, `/agent-handoff`
 - branch-to-pull-request execution: `/yeet`

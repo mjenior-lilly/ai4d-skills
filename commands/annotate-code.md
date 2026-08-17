@@ -1,4 +1,4 @@
-# annotate-code
+# Annotate undocumented code
 
 Update documentation, docstrings, and code comments to match the current implementation.
 

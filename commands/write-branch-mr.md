@@ -1,4 +1,4 @@
-# write-branch-mr
+# Write MR message for current branch
 
 Draft a merge request title and description for the current branch. Base both on the branch's actual commits and code changes rather than assumptions or generic release-note phrasing.
 

@@ -1,4 +1,4 @@
-# humanize-text
+# Humanize target text
 
 Rewrite the target text so it sounds natural, human, and context-appropriate while preserving the original meaning.
 

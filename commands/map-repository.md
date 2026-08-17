@@ -1,4 +1,4 @@
-# map repository into `AGENTS.md`
+# Map repository into `AGENTS.md`
 
 > **Usage:** paste the block below as the opening instruction to an orchestrator agent with sub-agent spawning, file read, shell, and git access, rooted in the target workspace. Replace `{{REPO_ROOT}}` if the agent cannot infer it.
 

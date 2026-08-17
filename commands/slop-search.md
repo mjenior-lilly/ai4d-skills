@@ -1,4 +1,4 @@
-# code quality audit workflow
+# Code quality audit workflow
 
 Audit all in-scope first-party code for objectively evidenced construction, maintainability, and navigation problems, including the categories defined below. Produce one ranked Markdown report on every run and no other output.
 

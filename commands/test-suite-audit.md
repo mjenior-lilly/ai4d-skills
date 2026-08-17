@@ -1,4 +1,4 @@
-# test audit
+# Test suite audit
 
 Critically audit this repository's test suite for behavior coverage, reachability, isolation, and maintainability. Optimize for a smaller, higher-signal suite, not for deleting tests by count alone. Do not assume problems exist; prove each finding from the test code and the production path it exercises, and cite the test name and file for every finding.
 

@@ -5,7 +5,7 @@ Plain Markdown prompts intended for explicit slash command-style invocation. Eac
 ## Investigation and audits
 
 - `/investigate-issue` (`investigate-issue.md`) - diagnose workflow failures from supplied errors, logs, intermediate output, and relevant repository evidence.
-- `/test-audit` (`test-audit.md`) - review a test suite for behavioral coverage, production-path reachability, isolation, duplication, and maintainability; it returns findings without editing tests unless edits are explicitly requested.
+- `/test-suite-audit` (`test-suite-audit.md`) - review a test suite for behavioral coverage, production-path reachability, isolation, duplication, and maintainability; it returns findings without editing tests unless edits are explicitly requested.
 - `/slop-search` (`slop-search.md`) - run a repository-wide, read-only construction-quality audit and write one ranked report with explicit coverage and evidence. The command does not plan, implement, commit, or open a PR.
 
 ## Planning and implementation
@@ -13,11 +13,11 @@ Plain Markdown prompts intended for explicit slash command-style invocation. Eac
 - `/create-plan` (`create-plan.md`) - turn requests, findings, diffs, and diagnostics into a sequenced implementation plan saved as Markdown.
 - `/cross-examine` (`cross-examine.md`) - pressure-test a plan through focused interview rounds using the installed `ask-user` skill and `ask_user` tool, then record decisions needed for implementation readiness.
 - `/implement-plan` (`implement-plan.md`) - use read-only reconnaissance subagents to gather context, resequence and implement a supplied plan, isolate parallel writes in worktrees, verify changes, and run a fresh-context audit.
-- `/audit-plan-implementation` (`audit-plan.md`) - compare a workspace with a supplied plan, checking definitions, direct callers, boundary contracts, regressions, and omitted work.
+- `/audit-plan-implementation` (`audit-implementation.md`) - compare a workspace with a supplied plan, checking definitions, direct callers, boundary contracts, regressions, and omitted work.
 
 ## Repository and benchmark artifacts
 
-- `/create-test-dataset` (`create-test-dataset.md`) - orchestrate corpus analysis and parallel item generation to produce a corpus-grounded adversarial benchmark dataset for use with `agents/judge.md`.
+- `/generate-test-dataset` (`generate-test-dataset.md`) - orchestrate corpus analysis and parallel item generation to produce a corpus-grounded adversarial benchmark dataset for use with `agents/judge.md`.
 - `/map-repository` (`map-repository.md`) - orchestrate evidence gathering, synthesis, and validation to create or update an agent-focused `AGENTS.md` repository map.
 
 ## Documentation and communication

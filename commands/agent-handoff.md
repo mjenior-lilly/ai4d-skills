@@ -1,4 +1,4 @@
-# agent-handoff
+# Generate agent handoff artifact
 
 # Objective
 Write a concise, structured handoff so another AI agent or agent team can resume the work in a new session. Choose one format:

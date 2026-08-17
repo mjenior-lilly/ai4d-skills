@@ -1,4 +1,4 @@
-# create-plan
+# Create implementation plan
 
 Review all findings from the recent investigation and any referenced files, diffs, diagnostics, or errors. Create an implementation plan that fully addresses every highlighted issue, recommended update, and unresolved hypothesis.
 
@@ -9,7 +9,7 @@ Review all findings from the recent investigation and any referenced files, diff
 3. Enumerate the issues or requested updates the plan must cover. For each one, note the evidence that it is in scope and whether it is confirmed, likely, or still uncertain.
 4. When multiple implementation options exist, select the option most likely to produce a correct, maintainable result in this codebase. Justify the selection in one sentence, including the key trade-off.
 5. Produce a sequenced implementation plan with concrete files, modules, tests, and verification commands where they are known. Include migration, compatibility, documentation, or observability work only when the requested behavior or affected contracts require it.
-6. Identify risks, assumptions, and open questions that could change the plan. Do not resolve material risks inside this command; defer risk resolution to `apply-plan-updates.md`. For each open question, state the fastest evidence needed to resolve it.
+6. Identify risks, assumptions, and open questions that could change the plan. For each open question, state the fastest evidence needed to resolve it.
 
 ## Output
 
