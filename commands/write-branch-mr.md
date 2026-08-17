@@ -1,6 +1,6 @@
-# write-mr
+# write-branch-mr
 
-Write a high-quality merge request title and description for the current branch. Ground the message in the branch's actual commits and code changes, not in assumptions or generic release-note phrasing.
+Draft a merge request title and description for the current branch. Base both on the branch's actual commits and code changes rather than assumptions or generic release-note phrasing.
 
 ## Guardrails
 
@@ -15,12 +15,12 @@ Write a high-quality merge request title and description for the current branch.
 1. Identify the branch base and review the full commit history for the branch, including commit subjects and bodies where useful.
 2. Inspect the branch diff against the base branch. If the commit history is long, diverse, rewritten, or unclear, rely on the diff and relevant files as the source of truth.
 3. Separate the change into user-facing behavior, internal implementation, tests, docs, migrations, configuration, and operational impact. Include only categories that are actually present.
-4. Look for the "why" behind the work: the problem solved, workflow improved, bug removed, risk reduced, or capability added. Do not merely restate filenames or commit subjects.
+4. Identify the problem solved, workflow changed, bug removed, risk reduced, or capability added. Do not merely restate filenames or commit subjects.
 5. Note important validation performed if it is visible from commits, test changes, or command output. If validation is unknown, do not invent it.
 
 ## Output
 
-Return only the MR message, formatted in markdown notation so it renders correctly in GitLab/GitHub MR description fields:
+Return only the MR message, formatted as Markdown so it renders correctly in GitLab/GitHub MR description fields:
 
 1. **Title**: one concise sentence fragment in imperative or active style. Name the concrete outcome, not the implementation mechanism. Present this as a top-level markdown heading (`#`).
 2. **Summary**: 2-4 bullets explaining the most important changes and why they matter. Use a `## Summary` heading and markdown list syntax (`-`).

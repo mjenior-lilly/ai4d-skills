@@ -1,6 +1,6 @@
 # RESOURCES.md Format
 
-`RESOURCES.md` is the curated set of trusted sources for this topic. Knowledge for explainers should be drawn from here, not from parametric guesses. Wisdom comes from the communities listed here.
+`RESOURCES.md` is the curated set of trusted sources for the topic. Ground explainers in these sources rather than parametric guesses, and use the listed communities as sources of practical wisdom.
 
 ## Structure
 
@@ -10,9 +10,9 @@
 ## Knowledge
 
 - [Book: _The Science and Practice of Strength Training_ — Zatsiorsky & Kraemer](https://example.com)
-  Foundational text on programming and adaptation. Use for: anything to do with periodisation, recovery, intensity zones.
+  Foundational text on programming and adaptation. Use it for periodisation, recovery, and intensity zones.
 - [Article: "How Much Should I Train?" — Greg Nuckols (Stronger By Science)](https://example.com)
-  Evidence-based review of volume landmarks. Use for: weekly set targets per muscle group.
+  Evidence-based review of volume landmarks. Use it for weekly set targets by muscle group.
 
 ## Wisdom (Communities)
 
@@ -25,8 +25,8 @@
 ## Rules
 
 - **High-trust only.** Prefer primary sources, recognised experts, peer-reviewed work, and communities with strong moderation. If a resource is marketing dressed as education, leave it out.
-- **Annotate every entry.** A bare link is useless in three months. Add one line: what it covers and when to reach for it.
-- **Group by Knowledge / Wisdom.** Mirrors the philosophy in [SKILL.md](./SKILL.md). It is fine for a resource to appear in only one group.
-- **Surface gaps explicitly.** If no good resource exists for an area the mission needs, write a `## Gaps` section listing what is missing. This drives future search.
-- **Prune ruthlessly.** A resource that turned out to be wrong, shallow, or off-mission should be removed, not buried. Better five sharp sources than thirty mediocre ones.
+- **Annotate every entry.** For each link, state what it covers and when to use it.
+- **Group by Knowledge / Wisdom.** Follow the groups defined in [SKILL.md](./SKILL.md); a resource may appear in only one.
+- **Surface gaps explicitly.** If the mission needs an area with no good resource, add a `## Gaps` section to guide future searches.
+- **Keep only strong resources.** Remove sources that prove inaccurate, shallow, or off-mission, and prefer a small high-quality set to a long mediocre list.
 - **Record community preferences.** If the user has opted out of joining communities, note it here so future sessions don't keep proposing them.

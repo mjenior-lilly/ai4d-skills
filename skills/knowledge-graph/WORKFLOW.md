@@ -24,7 +24,7 @@ Use this workflow to create, update, parse, or audit an Obsidian-compatible loca
 8. In frontmatter, use arrays for `aliases`, `tags`, `sources`, and `related`. Do not prefix frontmatter tags with `#`.
 9. Quote YAML strings that contain colons, brackets, braces, hashes, dates that should remain strings, or other special characters.
 10. Do not store large generated folders, dependency directories, datasets, or code repositories as indexed knowledge notes. If they must remain in the vault, mark them as Obsidian indexer exclusions in the manifest or audit.
-11. Use the full Obsidian Flavored Markdown syntax in [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md) — heading and block references, embeds, and callouts — so notes are navigable, not flat. Use typed frontmatter properties so notes are queryable.
+11. Use heading and block references, embeds, callouts, and other Obsidian Flavored Markdown syntax from [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md) so notes are navigable rather than flat. Use typed frontmatter properties so notes are queryable.
 12. Prefer a generated `.base` view ([references/BASES.md](./references/BASES.md)) for note listings that should stay current, and reserve `.canvas` ([references/CANVAS.md](./references/CANVAS.md)) for visual artifacts. Both are standard local files and keep the vault portable.
 
 ## Model and thinking tiers
@@ -174,7 +174,7 @@ After integration is complete and source records show `status: processed`, migra
    - Set `Archived location` to the vault-relative path (e.g., `50_Reference/papers/SRC-0003_smith-2024-enzyme-kinetics.pdf`).
    - Set or append `Obsidian handling` to `archived to 50_Reference`.
 6. Ensure `50_Reference/` appears in `00_Meta/VAULT-MANIFEST.md` under indexer exclusions if not already listed.
-7. For sources that cannot be migrated (external URLs, active repositories, user-managed files), record a stable reference (path, URL, commit, DOI) in the source register's `Location` field and set `Archived location` to `N/A — external reference`.
+7. For sources that cannot be migrated, such as external URLs, active repositories, and user-managed files, record a stable reference (path, URL, commit, DOI) in the source register's `Location` field and set `Archived location` to `N/A — external reference`.
 
 Use the **quick** model/thinking tier. Migration is mechanical file handling, not analysis.
 
@@ -214,10 +214,10 @@ Record results in `00_Meta/VAULT-AUDIT.md` using [VAULT-AUDIT-FORMAT.md](./VAULT
 
 ### Ongoing: capture project facts
 
-This step is reactive rather than sequential: it runs whenever, during any phase, a new or changed project-specific fact on a topic the vault covers is confirmed — a decision made, a state changed, or a concrete detail established.
+This is a reactive step. Run it during any phase when an in-scope project decision, state change, or concrete detail is confirmed.
 
 1. Detect the fact. A confirmed decision, state change, or concrete project detail on an in-scope topic. Ignore passing remarks, task instructions, and details unrelated to the knowledge base. Do not treat speculation, proposals, predictions, or open questions as facts.
-2. Confirm it is ground truth. Log only what is known to be true and can be anchored to a `source` — a reported decision, a document, an observed state, or the user's direct confirmation. If it cannot be confirmed, hold it in `10_Fleeting/` until it can, or omit it.
+2. Confirm it is ground truth. Log only what is known to be true and can be anchored to a `source`, such as a reported decision, a document, an observed state, or the user's direct confirmation. If it cannot be confirmed, hold it in `10_Fleeting/` until it can, or omit it.
 3. Resolve the `subject`. Match the fact to an existing topic note via titles, aliases, and tags. If the topic is clearly implied but has no note, create a minimal stub under `20_Permanent/` or hold the fact in `10_Fleeting/` until a topic note exists. Do not attach the fact to an unrelated note.
 4. Compose a project-fact note under `40_Project/` using [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md): precise statement, `subject` link, `source` provenance anchor, a `confirmed` `date-time`, `change`, and `status: current`. Timestamp with when the fact became true or was confirmed.
 5. Handle change over time append-only. If a fact about a subject already has a `current` note and it changes or is corrected, write a new note with a `supersedes` link and set the prior note's `status` to `superseded` (or `corrected` if the earlier note stated something now known to be wrong). Never edit the substance of a past fact in place.
@@ -225,14 +225,14 @@ This step is reactive rather than sequential: it runs whenever, during any phase
 
 ### 8. Analyze coverage and identify gaps
 
-Run this phase after initial vault creation from a collection of resources, after a major source-ingestion batch, or when the user explicitly asks for a coverage assessment. The goal is to evaluate whether the knowledge base provides sufficient grounding for agent responses across its domain, and to surface specific areas that need additional resources.
+Run this phase after initial vault creation, a major source-ingestion batch, or an explicit coverage request. Assess whether each domain area can ground agent responses and identify the resources needed to close its gaps.
 
 1. **Map concept clusters**. Analyze WikiLink connectivity, shared tags, co-occurring frontmatter properties, and folder proximity to identify natural groupings of related notes. A cluster is a set of notes that together should enable an agent to answer questions about one sub-domain.
 
 2. **Assess source grounding per cluster**. For each cluster:
    - Count independent sources referenced across its notes (via `sources` frontmatter and `Source grounding` sections).
    - Evaluate whether core claims have verifiable backing or rely on single-source extraction without corroboration.
-   - Check whether the grounding covers definitions, mechanisms, constraints, edge cases, and relationships — or only surface-level facts.
+   - Check whether the grounding covers definitions, mechanisms, constraints, edge cases, and relationships or only surface-level facts.
 
 3. **Rate coverage**. Apply the rating scale from [COVERAGE-ANALYSIS-FORMAT.md](./COVERAGE-ANALYSIS-FORMAT.md):
    - ◆ Strong: multiple independent sources, cross-referenced, suitable for confident grounding.
@@ -244,7 +244,7 @@ Run this phase after initial vault creation from a collection of resources, afte
    - Missing relationships between clusters that should connect (e.g., a "methods" cluster that never links to a "data models" cluster in the same system).
    - Contradictions between notes sourced from different materials.
    - Temporal staleness: sources with version numbers, publication dates, or API versions that may have changed.
-   - Scope boundaries that are unclear — where the vault implies coverage but silently stops.
+   - Unclear scope boundaries where the vault implies coverage but silently stops.
 
 5. **Assess source quality and concentration**. Check for:
    - Single-point-of-failure sources that ground a disproportionate fraction of notes.
@@ -268,7 +268,7 @@ Use the **standard** model/thinking tier for small-to-medium vaults (under 50 no
 
 ### 9. Generate vault abstract
 
-Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md). This file is a concise, LLM-optimized summary that enables retrieval systems and grounding agents to determine in one pass whether this vault is the correct resource for a given query.
+Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md) as a concise routing summary that helps retrieval systems and grounding agents decide whether to search this vault.
 
 1. **Read inputs**. Synthesize from:
    - `00_Meta/VAULT-MANIFEST.md` → domain description, scope, intended purpose.
@@ -281,7 +281,7 @@ Generate or update `00_Meta/VAULT-ABSTRACT.md` using [VAULT-ABSTRACT-FORMAT.md](
    - Concept taxonomy distilled to cluster names and coverage ratings.
    - Source profile summarized to types and temporal range.
    - Coverage strengths as confident-grounding topics.
-   - Known gaps and explicit scope boundaries (what the vault does NOT cover) — these are as important as strengths for retrieval routing.
+   - Known gaps and explicit scope boundaries, including what the vault does not cover. These are as important as strengths for retrieval routing.
    - Dense semantic descriptors for keyword and embedding matching.
 
 3. **Set staleness fields**. On full generation: `stale_since: null`, `updated: {{today}}`, `vault_modified: {{today}}`. On incremental updates that do not materially change vault scope: set `stale_since: {{update date}}` in the existing abstract without regenerating.

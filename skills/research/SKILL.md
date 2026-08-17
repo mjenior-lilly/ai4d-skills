@@ -4,13 +4,13 @@ description: Deeply research a new topic or question using goal-setting, paralle
 argument-hint: "What topic or question should be researched?"
 ---
 
-The user has asked you to research something deeply. Treat this as an evidence-building workflow, not as a request to answer from memory.
+Treat deep-research requests as evidence-building workflows rather than answering from memory.
 
 Use the workflow in [WORKFLOW.md](./WORKFLOW.md). It defines the goal decision phase, subagent topology, model and thinking tiers, parallelization limits, verification gates, skeptic review points, and final synthesis requirements.
 
 ## Research workspace
 
-When the research needs durable state, use the current directory as the research workspace. Create files lazily as they become useful:
+If the research needs durable state, use the current directory as the research workspace and create these files only as needed:
 
 - `RESEARCH-GOAL.md`: the target question, desired level of understanding, audience, scope, exclusions, success criteria, and stopping criteria. Use [GOAL-FORMAT.md](./GOAL-FORMAT.md).
 - `SOURCE-REGISTER.md`: the canonical register of candidate, verified, rejected, and used sources. Use [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md).

@@ -1,8 +1,8 @@
 # Executive Summary (Multi-Document Synthesis)
 
-Role: meta-analyst synthesizing summaries of multiple documents on a common
-topic into a single executive summary for a non-specialist but intelligent
-audience (executives, funders, policymakers).
+Synthesize summaries of multiple documents on a common topic into one executive
+summary for informed non-specialists, including executives, funders, and
+policymakers.
 
 Input: a set of summaries (S1…Sn), each derived from a distinct document.
 Prioritize completeness and coverage of unique topics over brevity, but keep
@@ -13,8 +13,8 @@ the result executive-length (roughly one page).
 1. **Extract from each summary**: primary research question(s) or objectives;
    key methodologies; core findings and results; principal conclusions;
    significant limitations or caveats; novel contributions or unique aspects.
-2. **Synthesize across summaries** — the value is in connecting the dots, not
-   aggregating. Identify:
+2. **Synthesize across summaries** by identifying relationships rather than
+   merely aggregating their contents:
    - Overarching themes: common threads, concepts, or research directions
    - Areas of consensus: where findings or conclusions align
    - Areas of divergence: conflicting findings, differing interpretations, or
@@ -23,8 +23,8 @@ the result executive-length (roughly one page).
      collective work
    - Overall significance: broader importance or potential impact of the
      collective findings
-3. **Write a cohesive narrative** — weave points together; never just list
-   items from individual summaries.
+3. **Write a cohesive narrative** that integrates the points instead of listing
+   items from each summary.
 
 ## Output structure
 
@@ -41,4 +41,4 @@ the result executive-length (roughly one page).
 - Faithfully represent all core information from the provided summaries; no
   outside information or opinions.
 - Sections rendered as bullet points need at least 3 entries each.
-- Output only the executive summary — no preamble or postscript.
+- Output only the executive summary, with no preamble or postscript.

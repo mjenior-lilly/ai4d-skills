@@ -10,7 +10,7 @@ Use this skill to explore repositories without cluttering the active workspace.
 
 Use `~/.explore/repos` as the local cache directory for repositories being explored.
 
-## Current Cache Contents
+## Current cache contents
 
 ```!
 mkdir -p ~/.explore/repos
@@ -20,14 +20,14 @@ ls -la ~/.explore/repos
 ## Flow
 
 1. List the current repository cache contents before deciding what to use.
-   - In hosts that support skill shell injection, use the rendered `Current Cache Contents` section above.
+   - In hosts that support skill shell injection, use the rendered `Current cache contents` section above.
    - Otherwise, run `ls -la ~/.explore/repos` before deciding what to use.
 
 2. Check whether the target repository is already present in `~/.explore/repos`.
    - Prefer a stable directory name based on the repository owner and name, such as `owner__repo`.
    - If a repository is already present, use that local checkout for exploration.
 
-3. If the repository is not present, clone it into `~/.explore/repos`, the explore it there.
+3. If the repository is not present, clone it into `~/.explore/repos`, then explore it there.
    - Create `~/.explore/repos` first if it does not exist.
    - Clone with a clear destination path, for example:
 

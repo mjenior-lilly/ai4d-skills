@@ -2,7 +2,7 @@
 
 Run from the **git repository root**. Requires `task` (go-task) and `uv` on `PATH`. If either tool is not found, stop and report the missing tool. Do not attempt to install it. Request network access when running `task preflight`, `task preflight:no-lock`, `git fetch`, `git pull --rebase`, `git push`, or `gh pr create`.
 
-Default posture: complete the full flow with minimal user interruption. If the repository is already on a non-`main`/`master` feature branch, use that branch. If the repository is still on `main` or `master`, do not push that branch; create an appropriately named feature branch before pushing and continue the normal push and pull request flow there. Prefer automatically resolving ordinary git, upstream, formatting, lint, test, hook, push, and pull request issues when the fix is local, bounded, and does not require destructive history edits or product judgment.
+Complete the full flow with minimal user interruption. Reuse the current branch if it is not `main` or `master`. Otherwise create a suitably named feature branch before staging, committing, or pushing, then continue through pull request creation. Automatically resolve ordinary git, upstream, formatting, lint, test, hook, push, and pull request issues only when the fix is local, bounded, non-destructive, and requires no product judgment.
 
 ## Mandatory flow
 
@@ -51,10 +51,10 @@ If preflight fails:
 
 1. Identify which step failed from the task output. go-task prints the subtask name in brackets (e.g. `task: [test] ...` or `task: Failed to run task "test"`). Match against: `install`, `upgrade`, `format`, `lint:fix`, `test`.
 2. Apply the smallest fix for **that** layer:
-   - **install** — environment sync failure; if `uv sync` fails and the issue looks like stale lock metadata, automatically try `task preflight` once instead of `task preflight:no-lock`. Ask the user only if the lock update introduces unrelated dependency churn or still fails.
-   - **upgrade** — dependency/version resolution; do not guess with unrelated code edits.
-   - **format** / **lint:fix** — accept or apply the reported auto-fixes.
-   - **test** — fix behavior or tests.
+   - **install**: environment sync failure; if `uv sync` fails and the issue looks like stale lock metadata, automatically try `task preflight` once instead of `task preflight:no-lock`. Ask the user only if the lock update introduces unrelated dependency churn or still fails.
+   - **upgrade**: dependency/version resolution; do not guess with unrelated code edits.
+   - **format** / **lint:fix**: accept or apply the reported auto-fixes.
+   - **test**: fix behavior or tests.
 3. Rerun the same preflight task you started with.
 
 Do **not** stop just because a failing check touches an in-scope feature-branch file that was already dirty at baseline; treat that file as eligible branch work and fix it if the change is consistent with the current branch behavior.
@@ -97,9 +97,9 @@ Anchor "this change" before staging anything. Files are eligible to commit in th
 
 When multiple groups are large, prefer **separate commits** (oldest dependency first):
 
-1. `uv.lock` only — message notes dependency refresh from preflight.
-2. Mechanical-only paths — e.g. `Apply ruff format and lint fixes`.
-3. Feature paths — the actual task message.
+1. `uv.lock` only: the message notes the dependency refresh from preflight.
+2. Mechanical-only paths: for example, `Apply ruff format and lint fixes`.
+3. Feature paths: use the actual task message.
 
 ## 4. Commit
 
@@ -148,7 +148,7 @@ Repeat per split-commit group from §3.
 
 If `git commit` is rejected before creating a commit, fix the issue, rerun the relevant validation, restage only approved paths, and run `git commit` again. Do **not** amend. If a commit succeeds but a hook auto-modified files afterward, follow the active amend safety rules before deciding whether amend is allowed.
 
-Prefer exhausting bounded local retries before surfacing a commit failure. Ordinary examples include formatting/lint hook rewrites, a fixable test assertion, or a lint error in an in-scope branch file.
+Retry bounded local fixes before reporting a commit failure, including formatting or lint hook rewrites, fixable test assertions, and lint errors in in-scope branch files.
 
 Run `git status` as the **post-commit status** after each commit to confirm success and see remaining unstaged paths.
 
@@ -156,13 +156,13 @@ Run `git status` as the **post-commit status** after each commit to confirm succ
 
 After committing, bump the project version using `bump-my-version` via task commands. Choose the bump level based on the scale of committed changes:
 
-- **`task bump:patch`** — bug fixes, formatting, doc updates, dependency refreshes, small refactors that do not change public API behavior. This is the default for most pushes.
-- **`task bump:minor`** — new features, new modules, meaningful behavioral changes, or non-trivial refactors that alter internal contracts (but remain backward-compatible at the public API level).
-- **`task bump:major`** — breaking changes to public API signatures, removal of existing features, or changes that require downstream consumers to update their code.
+- **`task bump:patch`**: bug fixes, formatting, doc updates, dependency refreshes, and small refactors that do not change public API behavior. This is the default for most pushes.
+- **`task bump:minor`**: new features, new modules, meaningful behavioral changes, or non-trivial refactors that alter internal contracts (but remain backward-compatible at the public API level).
+- **`task bump:major`**: breaking changes to public API signatures, removal of existing features, or changes that require downstream consumers to update their code.
 
 Use `task bump:dry -- <part>` to preview before applying. Use `task version` to confirm the current version if needed.
 
-Run the selected bump command after the commit(s) from §4 succeed. The bump tool creates its own commit automatically — do **not** amend or squash it into the feature commit.
+Run the selected bump command after the commit(s) from §4 succeed. The bump tool creates its own commit automatically. Do **not** amend or squash it into the feature commit.
 
 ## 6. Push
 
@@ -188,7 +188,7 @@ After the push succeeds, open a new pull request for the pushed branch.
    git log --oneline
    ```
 2. If this command reveals a significant number of apparently diverse commits, also investigate the actual code changes associated with the messages in question.
-3. Based on this collective context, write a descriptive pull request description in active voice, in past tense, and using varied sentence structure. Avoid common LLM-associated characters or phrasing. Include a descriptive title.
+3. Use the branch history and diff to write a descriptive title and a past-tense, active-voice description. Vary sentence structure, and avoid common LLM-associated characters or phrasing.
 4. Use GitHub CLI for creation:
 
    ```bash

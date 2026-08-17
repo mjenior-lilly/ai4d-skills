@@ -1,6 +1,6 @@
 # JSON Canvas (`.canvas`) Reference
 
-Use `.canvas` files for visual artifacts — mind maps, architecture diagrams, concept maps, and flowcharts — when a spatial layout communicates better than prose or a Mermaid block. Canvas nodes can embed vault notes, so a canvas doubles as a visual index that links back into the graph.
+Use `.canvas` files for standalone mind maps, architecture diagrams, concept maps, and flowcharts when spatial layout communicates better than prose or an inline Mermaid block. Because Canvas nodes can embed vault notes, a canvas can also serve as a visual index into the graph.
 
 Follows the JSON Canvas 1.0 spec (https://jsoncanvas.org/spec/1.0/). Place canvases in the relevant domain folder or `00_Meta/`; centralize any image nodes under `00_Meta/Attachments/`.
 
@@ -52,7 +52,7 @@ Connect two nodes. Required: `id`, `fromNode`, `toNode`. Optional: `fromSide`/`t
 ## Authoring rules
 
 1. Generate unique 16-char hex IDs; never collide across nodes and edges.
-2. Position nodes to avoid overlap — leave 50–100px spacing.
+2. Position nodes to avoid overlap, leaving 50–100px of space.
 3. Every `fromNode`/`toNode` must reference an existing node `id`.
 4. Prefer `file` nodes that embed real vault notes over duplicating their text, so the canvas stays linked to the graph.
 5. Validate: parse the JSON, confirm all IDs are unique, and confirm every edge reference resolves.

@@ -1,6 +1,6 @@
 # Obsidian CLI Reference (optional validation backend)
 
-When Obsidian is running, the `obsidian` CLI is a more reliable backend than blind filesystem reads for interacting with and validating a live vault: it resolves WikiLinks, queries backlinks and tags, sets typed properties, and can confirm a note actually renders. Use it as an **optional** path during the validation phase; fall back to direct filesystem checks when Obsidian is not running or the CLI is unavailable.
+When Obsidian is running, the `obsidian` CLI can validate a live vault using Obsidian's own link, backlink, tag, property, and rendering behavior. Use it as an optional validation backend; fall back to direct filesystem checks when Obsidian is not running or the CLI is unavailable.
 
 Adapted from the Obsidian CLI documentation (https://help.obsidian.md/cli). Run `obsidian help` for the authoritative, up-to-date command list.
 

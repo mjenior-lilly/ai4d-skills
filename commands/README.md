@@ -1,52 +1,32 @@
 # commands/
 
-Plain Markdown prompts intended for explicit slash command-style invocation. These are the source prompts for task-specific workflows: each file tells one agent how to perform a bounded action against real repository context — code, tests, diffs, plans, or logs.
+Plain Markdown prompts intended for explicit slash command-style invocation. Each file instructs an agent to perform a named task against repository context, source material, or the current git state.
 
-## analysis, audit, and debugging
+## Investigation and audits
 
-- `/abstract-codebase` - targeted structural and maintainability review for a file or module
-- `/cleanup-repo` - read-only audit for behavioral defects and unreachable code
-- `/investigate-issue` - root-cause investigation from workflow errors and intermediate output
-- `/inspect-prompts` - audit of prompts, agent instructions, and model-facing text against actual behavior
-- `/test-audit` - test-suite audit for behavior coverage, reachability, isolation, and maintainability
+- `/investigate-issue` (`investigate-issue.md`) - diagnose workflow failures from supplied errors, logs, intermediate output, and relevant repository evidence.
+- `/test-audit` (`test-audit.md`) - review a test suite for behavioral coverage, production-path reachability, isolation, duplication, and maintainability; it returns findings without editing tests unless edits are explicitly requested.
+- `/slop-search` (`slop-search.md`) - run a repository-wide, read-only construction-quality audit and write one ranked report with explicit coverage and evidence. The command does not plan, implement, commit, or open a PR.
 
-## planning and implementation workflow
+## Planning and implementation
 
-These commands form a plan lifecycle: build a plan (`/create-plan`), check it against the codebase (`/fit-plan-to-codebase`), pressure-test it (`/cross-examine`), fold findings back in (`/apply-plan-updates`), execute it (`/implement-plan`), then audit the resulting change set against the plan (`/audit-plan-implementation`).
+- `/create-plan` (`create-plan.md`) - turn requests, findings, diffs, and diagnostics into a sequenced implementation plan saved as Markdown.
+- `/cross-examine` (`cross-examine.md`) - pressure-test a plan through focused interview rounds using the installed `ask-user` skill and `ask_user` tool, then record decisions needed for implementation readiness.
+- `/implement-plan` (`implement-plan.md`) - use read-only reconnaissance subagents to gather context, resequence and implement a supplied plan, isolate parallel writes in worktrees, verify changes, and run a fresh-context audit.
+- `/audit-plan-implementation` (`audit-plan.md`) - compare a workspace with a supplied plan, checking definitions, direct callers, boundary contracts, regressions, and omitted work.
 
-- `/create-plan` - build an implementation plan from findings, diffs, diagnostics, or requests
-- `/fit-plan-to-codebase` - check whether a plan fits the current codebase and existing abstractions
-- `/cross-examine` - interactive pressure-test of a plan through focused questioning
-- `/apply-plan-updates` - update a plan using findings from investigation, fit review, risk review, or user feedback
-- `/implement-plan` - execute a provided plan in order with ongoing verification
-- `/audit-plan-implementation` - audit a plan's resulting code changes against callers, contracts, and regressions
+## Repository and benchmark artifacts
 
-## documentation and communication
+- `/create-test-dataset` (`create-test-dataset.md`) - orchestrate corpus analysis and parallel item generation to produce a corpus-grounded adversarial benchmark dataset for use with `agents/judge.md`.
+- `/map-repository` (`map-repository.md`) - orchestrate evidence gathering, synthesis, and validation to create or update an agent-focused `AGENTS.md` repository map.
 
-- `/annotate-code` - synchronize README files, docstrings, and code comments with implementation
-- `/humanize-text` - rewrite target text into natural, concise, human-sounding prose while preserving meaning
-- `/write-mr` - write a merge request title and description from actual branch history and diff
-- `/agent-handoff` - write a redacted handoff document, outside the workspace, so a fresh agent or agent team can resume the work
+## Documentation and communication
 
-## repository execution workflow
+- `/annotate-code` (`annotate-code.md`) - synchronize README files, docstrings, and comments with implementation without changing executable behavior.
+- `/humanize-text` (`humanize-text.md`) - rewrite supplied text as natural, concise prose while preserving its meaning and facts.
+- `/write-branch-mr` (`write-branch-mr.md`) - inspect branch history and diff, then return a merge request title and description without changing the repository or creating an MR.
+- `/agent-handoff` (`agent-handoff.md`) - write a redacted handoff document to the operating system's temporary directory for a fresh agent or agent team.
 
-- `/yeet` - end-to-end repository workflow for preflight, triage, commit, push, and merge request creation. The largest command in the directory, and deliberately kept as an explicit command rather than a skill: it drives high-risk, stateful git operations that should only run on exact user invocation.
+## Repository execution
 
-## How to use
-
-Use these files when your harness supports explicit user-invoked slash commands or named prompt templates.
-
-1. choose a command file that matches the task,
-2. register it in your harness as a slash command or reusable prompt,
-3. invoke it with the relevant repo context, plan file, diff, or logs.
-
-Examples:
-
-- use `/investigate-issue` for CI failures or broken workflow output
-- use `/audit-plan-implementation` to review a plan's resulting change set for contract drift and regressions
-- use `/annotate-code` to update docs and comments without changing executable code
-- use `/agent-handoff` to save a redacted session summary outside the workspace for a fresh agent or team of agents
-- use `/humanize-text` to rewrite text so it sounds natural, concise, and less generated
-- use `/yeet` only when you want the agent to drive the full commit and MR flow explicitly
-
-Several commands have skill counterparts in `skills/` (`annotate`, `audit`, `fit`, `humanize`, `investigate`) for harnesses that route by natural-language intent instead of explicit invocation. See the main README for guidance on choosing between the two forms.
+- `/yeet` (`yeet.md`) - from the repository root, run the stateful branch-to-pull-request flow: preflight, triage, branch creation when needed, selective staging, commit, version handling, push, and pull request creation through an authenticated `gh` session. It requires `task` and `uv`, plus network access for preflight and remote operations, and is intentionally explicit because it mutates git and remote state.

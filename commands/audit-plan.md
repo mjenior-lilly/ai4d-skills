@@ -1,8 +1,8 @@
 # audit-plan-implementation
 
-Audit the current state of the codebase in the workspace against the provided plan to verify that every change the plan specifies has been completely and correctly implemented.
+Audit the workspace against the provided plan and verify that every specified change is complete and correct.
 
-If no plan is identifiable in the conversation or linked context, ask the user to supply one (e.g., a plan file, PR description, or named feature spec) before proceeding — do not guess.
+If no plan is identifiable in the conversation or linked context, ask the user to supply one (e.g., a plan file, PR description, or named feature spec) before proceeding; do not guess.
 
 ## Scope
 
@@ -11,14 +11,14 @@ If no plan is identifiable in the conversation or linked context, ask the user t
    - the corresponding symbol (function, class, type, constant, config key, route, schema field) exists at its **definition site** and is complete and consistent with both the plan's intent and how it is used elsewhere,
    - its **direct call sites and importers** (one hop) correctly reference the new or updated symbol, and
    - any **boundary contracts** it crosses (public API, serialized payload, persisted schema, env/config, CLI/MCP surface) have been updated to match.
-3. Additionally, identify any plan-specified changes that are **absent** from the workspace (not yet implemented or partially implemented).
+3. Identify any plan-specified changes that are **absent** from the workspace (not yet implemented or partially implemented).
 4. Stop at one hop unless a contract change at the boundary forces deeper tracing. Note any deeper traces and why.
 
 ## Sub-agent strategy
 
 Scale sub-agent use dynamically based on change-set size and complexity. All sub-agent findings must be verified against the diff, relevant callers, diagnostics, or command results before fixing or reporting.
 
-### Tier 1 — Symbol tracing (fan-out by file)
+### Tier 1: Symbol tracing (fan-out by file)
 
 **When:** Change set spans 4+ files with distinct changed symbols.
 **Skip when:** 1–3 files or all changes are in a single module.
@@ -32,7 +32,7 @@ Scale sub-agent use dynamically based on change-set size and complexity. All sub
 
 Each agent traces symbols in its assigned file: definition site, direct callers/importers (one hop), and boundary contracts crossed. Return structured findings as JSON with keys: `file`, `symbol`, `definition_site`, `callers`, `contracts`.
 
-### Tier 2 — Boundary-contract review
+### Tier 2: Boundary-contract review
 
 **When:** Tier 1 (or manual tracing) identifies symbols crossing boundary contracts.
 
@@ -44,7 +44,7 @@ Each agent traces symbols in its assigned file: definition site, direct callers/
 
 Each agent verifies that every caller/consumer/test/doc has been updated to match the new signature or shape for its contract type. Classify gaps as Interface Drift or Missing/Insufficient.
 
-### Tier 3 — Adversarial verification
+### Tier 3: Adversarial verification
 
 **When:** Tiers 1–2 produce high-severity findings (broken contracts or behavioral regressions) before fixes are applied.
 
@@ -54,7 +54,7 @@ Each agent verifies that every caller/consumer/test/doc has been updated to matc
 | Model | opus for high-severity; sonnet for low-severity batch |
 | Effort | high |
 
-Each agent attempts to REFUTE the finding by checking: (1) whether the diff actually introduces the claimed issue, (2) whether an existing test already covers it, (3) whether the "missing" piece is intentionally deferred. Return verdict: confirmed or refuted with one-sentence evidence.
+Each agent tries to refute the finding by checking whether the diff introduced the issue, an existing test already covers it, or the supposedly missing work was intentionally deferred. Return a `confirmed` or `refuted` verdict with one sentence of evidence.
 
 ### Dedup and merge
 
@@ -72,7 +72,7 @@ After Tier 1 completes (or after manual tracing for small diffs), deduplicate fi
 
 Classify each finding into exactly one bucket:
 
-- **Unimplemented**: a change specified in the plan has no corresponding implementation in the current workspace — the code, config, schema, or test is entirely absent.
+- **Unimplemented**: a change specified in the plan has no corresponding implementation in the current workspace; the code, config, schema, or test is entirely absent.
 - **Incomplete/insufficient**: a plan-specified change is partially implemented but missing branches, error paths, migrations, or other elements the plan requires.
 - **Interface drift**: a signature, return shape, exception type, schema, or config key changed but at least one caller/consumer/test/doc was not updated to match.
 - **Behavioral regression**: a code path that previously produced behavior X now produces behavior Y, where Y is not explicitly intended by the plan. Include test failures, type/lint errors, and removed validations.
@@ -90,8 +90,8 @@ For each finding, record: file:line (or plan section if unimplemented), bucket, 
 
 After applying fixes, run the project's test, type, and lint commands relevant to the touched files in parallel and report results. If any command is unavailable or out of scope, say so explicitly rather than skipping silently.
 
-As a final step, assess whether any symbols or contract types were not covered by the fan-out. If gaps exist, note them explicitly in the output rather than silently omitting them.
+After verification, assess whether the fan-out missed any symbols or contract types. If gaps exist, note them explicitly in the output rather than silently omitting them.
 
 ## Output
 
-Produce a todo list with one item per finding, grouped by bucket and ordered by severity (unimplemented > incorrect > broken contracts > regressions > incomplete > cleanup). Mark each item as `fixed`, `needs-decision`, or `flagged`. End with a plan-coverage summary (what percentage of plan items are fully, partially, or not implemented), the verification results, and any unresolved questions.
+Produce a todo list with one item per finding, grouped by bucket and ordered by severity (`Unimplemented` > `Incorrect implementation` > `Interface drift` > `Behavioral regression` > `Incomplete/insufficient`). Mark each item as `fixed`, `needs-decision`, or `flagged`. End with a plan-coverage summary (what percentage of plan items are fully, partially, or not implemented), the verification results, and any unresolved questions.

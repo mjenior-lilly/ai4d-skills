@@ -4,11 +4,11 @@ Fetch issues and specs from GitLab using the `glab` CLI.
 
 ## Conventions
 
-- **Read an issue**: `glab issue view <number> --comments` — returns title, description, labels, and notes.
+- **Read an issue**: `glab issue view <number> --comments` returns the title, description, labels, and notes.
 - **List issues**: `glab issue list -F json` with appropriate `--label` filters.
 - **Read a merge request**: `glab mr view <number> --comments` and `glab mr diff <number>` for the diff.
 
-Infer the repo from `git remote -v` — `glab` does this automatically when run inside a clone.
+Infer the repo from `git remote -v`; `glab` does this automatically when run inside a clone.
 
 Unlike GitHub, GitLab numbers issues and merge requests separately, so `#42` is unambiguous once you know which surface it refers to. Issue references in commit messages (`#N`) are always issues; merge-request references use `!N`.
 

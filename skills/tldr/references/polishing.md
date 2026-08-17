@@ -1,7 +1,8 @@
 # Polishing (Reorganization and Stylistic Rewrite)
 
-Two modes on the same reorganization core. Default to **formal** unless the
-user asks for an engaging/accessible/narrative rewrite, which is **stylized**.
+Both modes use the same reorganization process. Use **formal** mode by default;
+use **stylized** mode when the user asks for an engaging, accessible, or
+narrative rewrite.
 
 ## Reorganization core (both modes)
 
@@ -13,28 +14,28 @@ inconsistent logical flow. Then rebuild:
 1. **Semantic analysis**: read the entire text; catalog every distinct concept,
    topic, methodology, result, discussion point, and background item.
 2. **Diagnosis**: identify the specific organizational flaws.
-3. **Outline**: design the optimal hierarchical outline — general to specific,
-   foundational to advanced, or problem to solution, as fits the content.
+3. **Outline**: design a clear hierarchical outline suited to the content:
+   general to specific, foundational to advanced, or problem to solution.
 4. **Mapping and relocation**: assign every original text block to its new
-   location and reassemble, strictly accounting for all content.
-5. **Transitions**: insert concise transition phrases between relocated blocks;
-   transitions derive purpose only from information already present.
-6. **Verification**: confirm all original content is present, the structure is
-   demonstrably more coherent, technical accuracy is intact, and the text flows
-   without abrupt shifts.
+   location, then reassemble the text without losing any content.
+5. **Transitions**: add concise transitions between relocated blocks, using only
+   information already present in the source.
+6. **Verification**: confirm that all original content remains, the new structure
+   is more coherent, technical accuracy is intact, and the text has no abrupt
+   shifts.
 
 Hard constraints:
 - **Absolute completeness**: include every topic, concept, fact, and data
-  point. No omissions or lossy summarization — out-of-place material gets
-  relocated, never discarded.
+  point. Do not omit or summarize content; relocate out-of-place material
+  instead of discarding it.
 - **Technical accuracy preserved**: never alter, misinterpret, or diminish the
   precision or nuance of the original.
 - **Citations**: keep citations attached to their text when the input has them.
 - **Headings**: build a clear Markdown heading hierarchy (#, ##, ###); adapt
   existing headings or create new ones. Bulleted sections need at least 2
   entries each.
-- Formal mode only: reorganization ONLY — no stylistic sentence rewriting, no
-  new information, explanations, or examples beyond minimal transitions.
+- **Formal mode only**: reorganize the text without stylistic sentence rewrites
+  or new information, explanations, or examples beyond minimal transitions.
 
 ## Stylized mode (adds a rewrite pass after reorganization)
 
@@ -50,7 +51,7 @@ science/nonfiction communicators, chosen by topic:
 - **Historical/cultural analysis**: Diamond or Harari + Gladwell or Lewis
 
 Rewrite rules:
-- Maintain factual accuracy and clarity; change or omit NONE of the information.
+- Maintain factual accuracy and clarity. Do not change or omit any information.
 - Adapt complexity to the specified audience; keep a consistent voice.
 - Include relevant examples or case studies only when present in the source.
 - Never mention which authors' styles are being used.

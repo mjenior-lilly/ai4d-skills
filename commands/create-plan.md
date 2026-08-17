@@ -13,11 +13,9 @@ Review all findings from the recent investigation and any referenced files, diff
 
 ## Output
 
-Within a new markdown document:
+Create a new Markdown file in the local working environment containing:
 
-Return:
-
-1. **Plan**: ordered implementation steps, each with the intended outcome and relevant files or symbols. Saved to a new markdown file in the local working environment.
+1. **Plan**: ordered implementation steps, each with the intended outcome and relevant files or symbols.
 2. **Coverage Check**: a concise mapping from every highlighted issue or suggestion to the plan step that addresses it.
 3. **Verification**: the tests, type checks, lint checks, manual checks, or diagnostic reruns needed, plus any checks that are intentionally out of scope.
 4. **Open Questions**: only unresolved decisions or missing evidence that could materially change implementation.

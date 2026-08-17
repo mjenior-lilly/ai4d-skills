@@ -1,6 +1,6 @@
 # Coverage Analysis Format
 
-Template for `COVERAGE-ANALYSIS.md`, written as a sibling to the vault root directory (not inside the vault). Use this format when analyzing an existing knowledge base to identify areas with poor reference coverage, shallow understanding, or missing context that would benefit from additional source material. The goal is to ensure the vault can serve as a comprehensive grounding resource for domain-specific agent responses.
+Template for `COVERAGE-ANALYSIS.md`, written beside the vault root rather than inside it. Use it to identify weak reference coverage, shallow extraction, and missing context that limit the vault's usefulness for grounding domain-specific agent responses.
 
 ---
 
@@ -118,11 +118,11 @@ Assessment of whether this vault, as-is, can reliably ground agent responses in 
 ## Construction rules
 
 1. Run this analysis after initial vault creation or after significant source ingestion, not during incremental single-note updates.
-2. Identify concept clusters by analyzing WikiLink connectivity, shared tags, and frontmatter relationships — not by folder structure alone.
+2. Identify concept clusters by analyzing WikiLink connectivity, shared tags, and frontmatter relationships, not by folder structure alone.
 3. Assess coverage by examining the `Source grounding` section of each permanent note and cross-referencing against `SOURCE-REGISTER.md`.
 4. A note has "strong" coverage only when its core claims are supported by ≥2 independent sources or one authoritative primary source with verifiable claims.
 5. "Thin" coverage means the note's substance derives from a single source with no independent corroboration, or from extraction that captured surface information without mechanisms, constraints, or edge cases.
-6. "Critical gap" means the vault implies coverage of a topic (via links, aliases, or cluster membership) but has no substantive source-backed content — an agent following these links would find nothing to ground on and would likely hallucinate.
+6. "Critical gap" means the vault implies coverage of a topic through links, aliases, or cluster membership but has no substantive source-backed content. An agent following these links would find no grounding and would likely hallucinate.
 7. Evaluate source diversity: a vault built entirely from one textbook or one API doc has correlated blind spots. Identify where independent sources (papers, implementations, specifications, user reports) would provide triangulation.
 8. Assess staleness risk: sources with publication dates, version numbers, or API versions that may have changed since ingestion. Flag notes grounded on potentially outdated material.
 9. Consider the agent use case: what questions will an agent need to answer using this vault? Gaps matter more in areas where agents will face queries.
@@ -131,6 +131,6 @@ Assessment of whether this vault, as-is, can reliably ground agent responses in 
     - Thin coverage on core domain concepts second;
     - Source diversity improvements third;
     - Staleness remediation fourth.
-11. Be specific in resource recommendations: name the *type* of resource (textbook chapter, API specification, primary research paper, implementation source code, domain expert review, experimental dataset documentation) and *why* it fills the identified gap — not just "more sources needed."
+11. Be specific in resource recommendations: name the *type* of resource, such as a textbook chapter, API specification, primary research paper, implementation source code, domain expert review, or experimental dataset documentation, and explain *why* it fills the identified gap. Do not write only "more sources needed."
 12. Do not recommend resources for topics outside the vault's declared scope unless the analysis reveals the scope should expand.
 13. Update this file in place when a new analysis supersedes the prior one. Keep only the most recent analysis as `current`; archive prior versions by renaming to `COVERAGE-ANALYSIS-{{date}}.md` if the user wants history.

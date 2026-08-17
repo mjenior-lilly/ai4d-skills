@@ -4,13 +4,13 @@ Fetch issues and specs from GitHub using the `gh` CLI.
 
 ## Conventions
 
-- **Read an issue**: `gh issue view <number> --comments` — returns title, body, labels, and full comment thread.
+- **Read an issue**: `gh issue view <number> --comments` returns the title, body, labels, and full comment thread.
 - **List issues**: `gh issue list --state open --json number,title,body,labels --jq '[.[] | {number, title, body, labels: [.labels[].name]}]'` with appropriate `--label` and `--state` filters.
 - **Read a PR**: `gh pr view <number> --comments` and `gh pr diff <number>` for the diff.
 
-Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
+Infer the repo from `git remote -v`; `gh` does this automatically when run inside a clone.
 
-GitHub shares one number space across issues and PRs, so a bare `#42` may be either — resolve with `gh issue view 42` first; if it 404s, try `gh pr view 42`.
+GitHub shares one number space across issues and PRs, so a bare `#42` may refer to either. Run `gh issue view 42` first; if it returns a 404, try `gh pr view 42`.
 
 ## Fetching a ticket by reference
 

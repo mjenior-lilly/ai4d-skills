@@ -1,4 +1,4 @@
-# Deep Research Workflow
+# Deep research workflow
 
 Use this workflow to convert an open-ended topic into a verified, synthesized research brief. The coordinator owns all phase gates. Subagents are bounded workers; their outputs are advisory until the coordinator checks them against verified sources and the research goal.
 
@@ -144,7 +144,7 @@ Existence verifier output:
 
 ### 5. Skeptic review
 
-Deploy the skeptic at minimum after preliminary extraction and before final synthesis. Also deploy after goal decision or source verification when the topic is broad, high-stakes, or prone to misinformation.
+Deploy the skeptic after preliminary extraction and before final synthesis. For broad, high-stakes, or misinformation-prone topics, also deploy one after goal decision or source verification.
 
 Skeptic review questions:
 

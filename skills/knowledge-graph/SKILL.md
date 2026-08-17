@@ -4,16 +4,16 @@ description: Create, update, audit, and parse Obsidian-compatible local knowledg
 argument-hint: "What documents, code, or vault should be converted or maintained?"
 ---
 
-The user has asked you to work with an Obsidian-compatible local knowledge base. Optimize only for Obsidian vaults: local folders of Markdown files, Obsidian WikiLinks, YAML frontmatter, attachments, and Obsidian indexing behavior. Do not generalize the workflow for other note platforms, static-site generators, or publishing systems unless the user explicitly asks in a separate task.
+Work only with Obsidian-compatible local knowledge bases: local folders of Markdown files, Obsidian WikiLinks, YAML frontmatter, attachments, and Obsidian indexing behavior. Do not adapt this workflow to other note platforms, static-site generators, or publishing systems unless the user explicitly requests that in a separate task.
 
 Use the workflow in [WORKFLOW.md](./WORKFLOW.md). It defines vault scoping, source inventory, extraction, note construction, subagent topology, model and thinking tiers, validation gates, and maintenance/audit procedures.
 
 Syntax and artifact references, loaded on demand:
 
-- [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md): LLM-optimized vault abstract — concise scope, taxonomy, source profile, coverage strengths, known gaps, and semantic descriptors for retrieval routing. Use after coverage analysis to generate `00_Meta/VAULT-ABSTRACT.md`.
-- [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md): Obsidian Flavored Markdown — wikilinks, heading/block references, embeds, callouts, tags, highlights, comments, footnotes, math, Mermaid. Consult when composing or repairing note bodies.
+- [VAULT-ABSTRACT-FORMAT.md](./VAULT-ABSTRACT-FORMAT.md): LLM-optimized vault abstract covering scope, taxonomy, source profile, coverage strengths, known gaps, and semantic descriptors for retrieval routing. Use it after coverage analysis to generate `00_Meta/VAULT-ABSTRACT.md`.
+- [references/OBSIDIAN-SYNTAX.md](./references/OBSIDIAN-SYNTAX.md): Obsidian Flavored Markdown syntax for wikilinks, heading and block references, embeds, callouts, tags, highlights, comments, footnotes, math, and Mermaid. Consult it when composing or repairing note bodies.
 - [references/BASES.md](./references/BASES.md): Obsidian Bases (`.base`) live index views. Use to replace hand-maintained MOC/index notes and static source tables with auto-updating queries over note frontmatter.
-- [references/CANVAS.md](./references/CANVAS.md): JSON Canvas (`.canvas`) visual artifacts — mind maps, architecture and concept diagrams that can embed vault notes.
+- [references/CANVAS.md](./references/CANVAS.md): JSON Canvas (`.canvas`) visual artifacts, such as mind maps and architecture or concept diagrams, that can embed vault notes.
 - [references/OBSIDIAN-CLI.md](./references/OBSIDIAN-CLI.md): the `obsidian` CLI as an optional, more reliable backend for live-vault interaction and validation when Obsidian is running.
 
 ## Obsidian workspace
@@ -22,7 +22,7 @@ Treat the user-named directory as the workspace and write all generated or updat
 
 If the user has not named a directory and the current directory looks like an Obsidian knowledge base, use it. A directory looks like a knowledge base when it contains `.obsidian/`, a meaningful set of `.md` files, or an obvious structure such as `00_Meta/`, `10_Fleeting/`, `20_Permanent/`, or `30_Projects/`.
 
-When creating a new knowledge base, name the top-level directory `{{topic}}-kb` (e.g., `metabolomics-kb`, `platform-architecture-kb`, `drug-discovery-kb`) so the purpose is immediately clear from the directory name alone. Use a short, lowercase, hyphenated slug derived from the domain or project the knowledge base covers. Do not use generic names like `vault/`, `notes/`, `kb/`, or `knowledge-base/` without a qualifying topic prefix. If the user provides an explicit directory name, use that instead.
+For a new knowledge base, use a short, lowercase, hyphenated top-level name in the form `{{topic}}-kb`, such as `metabolomics-kb`, `platform-architecture-kb`, or `drug-discovery-kb`. Avoid unqualified names such as `vault/`, `notes/`, `kb/`, or `knowledge-base/`. If the user provides a directory name, use it instead.
 
 Use this default internal structure unless the user provides an existing convention:
 
@@ -32,7 +32,7 @@ Use this default internal structure unless the user provides an existing convent
 - `10_Fleeting/`: temporary triage notes, rough imports, and scratch work.
 - `20_Permanent/`: evergreen concept notes intended for long-term retrieval.
 - `30_Projects/`: project-specific or time-bound notes.
-- `40_Project/`: timestamped, append-only notes logging new and changing project-specific facts — confirmed ground truth, not speculation.
+- `40_Project/`: timestamped, append-only notes that log confirmed project-specific facts and their changes, not speculation.
 - `50_Reference/`: structured archive for processed source files, excluded from Obsidian indexing.
 
 Create files lazily as they become useful, always under the knowledge base root:
@@ -67,10 +67,10 @@ Create files lazily as they become useful, always under the knowledge base root:
 
 ## Project-fact capture
 
-While working with the user's vault, watch for new or changed project-specific facts on topics the knowledge base covers — a decision that was made, a state that changed, or a concrete detail that has been confirmed. When one arises, log it as a timestamped project-fact note under `40_Project/` using [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md), link it to the subject topic note, and record it append-only so the temporal record of how the project's ground truth evolved is preserved.
+During vault work, apply the rules below whenever an in-scope project fact is newly confirmed or changes. Store the fact under `40_Project/` using [PROJECT-FACT-FORMAT.md](./PROJECT-FACT-FORMAT.md).
 
 - Record only confirmed ground truth. Do not log speculation, predictions, proposals, or hypothetical discussion. If a statement cannot be confirmed, hold it in `10_Fleeting/` until it is, or omit it.
-- Anchor every fact to its provenance (`source`): how it was established — a reported decision, a document, an observed state, or the user's direct confirmation.
+- Anchor every fact to its provenance (`source`), stating whether it came from a reported decision, a document, an observed state, or the user's direct confirmation.
 - Resolve the fact's `subject` to an existing topic note via titles, aliases, and tags. If the topic is clearly implied but has no note, create a minimal stub or hold the fact in `10_Fleeting/`; do not force an unrelated link.
 - When a previously recorded fact changes or is corrected, write a new note that supersedes the prior one rather than editing history.
 - Log only facts that bear on in-scope topics. Skip passing remarks, task instructions, and details unrelated to the knowledge base.
@@ -89,14 +89,14 @@ Create a `50_Reference/` folder at the vault root. This folder should be added t
 
 Organize migrated references by type and domain:
 
-- `50_Reference/papers/` — published research, preprints, white papers.
-- `50_Reference/specs/` — specifications, standards, RFCs, schemas.
-- `50_Reference/docs/` — technical documentation, manuals, guides, API references.
-- `50_Reference/code/` — code snapshots, repositories, notebooks, scripts.
-- `50_Reference/meetings/` — meeting notes, transcripts, recordings.
-- `50_Reference/data/` — datasets, data dictionaries, sample files.
-- `50_Reference/media/` — presentations, diagrams, videos, images not used as note attachments.
-- `50_Reference/other/` — anything that does not fit the above categories.
+- `50_Reference/papers/`: published research, preprints, and white papers.
+- `50_Reference/specs/`: specifications, standards, RFCs, and schemas.
+- `50_Reference/docs/`: technical documentation, manuals, guides, and API references.
+- `50_Reference/code/`: code snapshots, repositories, notebooks, and scripts.
+- `50_Reference/meetings/`: meeting notes, transcripts, and recordings.
+- `50_Reference/data/`: datasets, data dictionaries, and sample files.
+- `50_Reference/media/`: presentations, diagrams, videos, and images not used as note attachments.
+- `50_Reference/other/`: anything that does not fit the above categories.
 
 Within each type folder, add domain or project subfolders only when the collection exceeds ~15 files in a single type and a clear grouping exists. Keep nesting to one level below the type folder (e.g., `50_Reference/papers/metabolomics/`, not deeper).
 
@@ -116,7 +116,7 @@ The `source-id` prefix ties the file directly to its SOURCE-REGISTER entry. The 
 
 - Migrate a source file only after its SOURCE-REGISTER entry shows `status: processed` or `status: partial` with all intended extraction complete.
 - Record the migration destination in the source register's `Archived location` field (see [SOURCE-REGISTER-FORMAT.md](./SOURCE-REGISTER-FORMAT.md)).
-- Do not migrate files the user is actively editing or that live in a version-controlled repository the user works in — record a stable reference (path, URL, commit) instead.
+- Do not migrate files the user is actively editing or that live in a version-controlled repository the user works in. Record a stable reference, such as a path, URL, or commit, instead.
 - Do not delete original source files without explicit user approval. Migration means copying or moving to the archive; confirm the action with the user.
 - When a source is updated (new version, revision, erratum), place the new version alongside the old with a version suffix (`SRC-0003_smith-2024-enzyme-kinetics_v2.pdf`) and update the source register.
 - Binary files that cannot be indexed by Obsidian (PDFs, videos, compiled binaries) belong in `50_Reference/`, not `00_Meta/Attachments/`. Reserve `00_Meta/Attachments/` for images and small files embedded in notes.
@@ -127,11 +127,10 @@ Every migrated file must have its source record updated with:
 - `Archived location`: the vault-relative path in `50_Reference/`.
 - `Obsidian handling`: set to `archived to 50_Reference` (or append if other handling notes exist).
 
-This ensures the provenance chain from vault note → source ID → physical file remains unbroken for future re-extraction or audit.
 
 ## Coverage gap analysis
 
-After initial vault creation from a collection of resources, or when the user asks for an assessment, analyze the knowledge base to identify areas where source grounding is thin, missing, or concentrated in a single source. The purpose is to ensure the vault can reliably serve as a grounding source for agent responses across its domain.
+After initial vault creation or on request, assess where source grounding is thin, missing, or concentrated in one source:
 
 Run this analysis by:
 1. Mapping concept clusters via WikiLink connectivity, tags, and frontmatter relationships.

@@ -1,6 +1,6 @@
 # annotate-code
 
-Update documentation and code annotation to match the current implementation. 
+Update documentation, docstrings, and code comments to match the current implementation.
 
 Do not modify executable code; you may only edit Markdown, docstrings, and code comments.
 
@@ -20,7 +20,7 @@ What to change
 - Identify constructs that lack sufficient docstrings and add or update docstrings where they clarify public behavior, parameters, return values, side effects, raised errors, or workflow responsibilities. Keep docstrings grounded in the implementation and omit boilerplate for self-evident private helpers.
 - Identify complex code sections that lack useful comments and add or revise comments only to capture intent, trade-offs, invariants, or surprising mechanics. Do not add comments that restate what the code already shows.
 - Ensure each README has a short opening section stating the repository or package purpose, the functionality it currently provides, and why it exists. If an equivalent section already exists under any heading, leave it; only add or edit when the information is missing or wrong.
-- Ensure each package subdirectory has its own README that explains the utility, responsibilities, and workflow role of that package or subpackage. Include the key modules or entry points only when they can be verified from the code. The goal is documentation at every meaningful code-organization level so engineers new to the codebase can maintain, update, and understand the workflow without reverse-engineering the directory structure.
+- Ensure each package subdirectory has a README explaining the package's purpose, responsibilities, and role in the workflow so new engineers do not have to reverse-engineer the directory structure. Include key modules or entry points only when they can be verified from the code.
 
 Style
 - Concise, specific, active voice. No marketing language, no emoji, no filler transitions.

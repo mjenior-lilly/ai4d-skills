@@ -1,6 +1,6 @@
-# cross-examine
+# Cross-examine plan implementation
 
-Critically pressure-test this plan until it is implementation-ready. Your job is to clarify, challenge, and refine the plan, not to implement it yet. If a plan is not immediately apparent in your context, ask the user for the correct path.
+Pressure-test this plan until it is implementation-ready by clarifying, challenging, and refining it. Do not implement it yet. If no plan is apparent in context, ask the user for its path.
 
 Interview me in focused rounds. Ask the questions most likely to change the implementation, expose hidden constraints, or prevent rework. Avoid broad or speculative questions when a concrete assumption, constraint, or decision would unblock progress faster.
 
@@ -53,7 +53,7 @@ Write every question in plain language. Assume I am deciding what the software s
 - Use ordinary words for technical ideas. Keep function names, class names, file paths, type names, and framework jargon out of the question itself. When a specific file or symbol is genuinely the subject, name it once and say in plain words what it does.
 - State what changes either way in the `context` or option descriptions, using outcomes I care about: what users would see, what breaks, what gets slower, what work it creates later. Do not use internal call paths, state machines, or refactor mechanics as the justification.
 - Offer concrete options when they exist, phrased as short plain choices, and recommend one with a one-sentence reason.
-- Ask one thing per call. Split compound decisions into separate boundaries.
+- Split compound decisions into separate boundaries.
 - Use a technical term only when I introduced it or no plain equivalent exists, then define it in a few words the first time.
 - Include decision-relevant technical evidence in `context`, translated into its behavioral, cost, timing, compatibility, or risk consequences. Put only supplemental code detail after the round as a short "Details" note with file and line references.
 
@@ -70,7 +70,7 @@ A round covers 3-6 distinct decision boundaries unless fewer are enough, but han
 
 Plan the likely topics for the round, but adapt after every answer. Skip a planned question if an answer resolves it, makes it irrelevant, or shows that repository evidence can answer it. Use fewer questions when that is enough to reach the next meaningful boundary.
 
-After every answer, briefly restate the committed decision and update the decision record. At the end of the round, summarize in the same plain language:
+At the end of each round, summarize in the same plain language:
 
 - what is now decided;
 - what remains uncertain;

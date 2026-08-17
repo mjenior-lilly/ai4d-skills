@@ -13,15 +13,14 @@ description: >
 Turns technical source documents into structured summaries using a fixed
 per-document-type template, with optional downstream stages (executive synthesis,
 gap research, polishing, quality evaluation). Each stage has its own reference
-file — read only the file for the stage and document type you are executing.
+file. Read only the file for the stage and document type you are executing.
 
 ## Core workflow
 
-**Step 1 — Ingest.** Read the provided source completely and thoroughly interpret
-it before doing anything else. Accept file paths, pasted text, PDFs, or URLs. For
+**Step 1: Ingest.** Read and interpret the entire source before proceeding. Accept file paths, pasted text, PDFs, or URLs. For
 multiple documents, run Steps 2–4 per document, then offer Step 5.
 
-**Step 2 — Classify the document type.** Pick exactly one:
+**Step 2: Classify the document type.** Pick exactly one:
 
 | Type | Definition | Template |
 |---|---|---|
@@ -30,32 +29,31 @@ multiple documents, run Steps 2–4 per document, then offer Step 5.
 | `readme` | README from a code repository: project overview, setup, usage | `references/summary-readme.md` |
 | `other` | Anything else: memos, emails, meeting transcripts, etc. | `references/summary-other.md` |
 
-**Step 3 — Summarize.** Read the matching template file (only that one) and
-produce the summary following its exact section structure, plus the shared
-guardrails below.
+**Step 3: Summarize.** Read only the matching template file, then produce the
+summary with its exact section structure and the shared guardrails below.
 
-**Step 4 — Title and save.** Generate a concise, descriptive title of no more
+**Step 4: Title and save.** Generate a concise, descriptive title of no more
 than 5 words. When saving to a file, derive the filename from the title
 (kebab-case, `.md`) and write it beside the source unless the user specifies a
 destination. If the user only wants the summary inline, don't write a file.
 
-**Step 5 — Optional stages** (on user request, or offer when clearly relevant):
+**Step 5: Optional stages** (on user request, or offer when clearly relevant):
 
-- **Executive summary** — synthesize the summaries of 2+ documents on a common
+- **Executive summary**: synthesize the summaries of 2+ documents on a common
   topic into a single high-level overview: `references/executive-summary.md`
-- **Gap research** — identify under-explained concepts in the source and answer
-  them via web search: `references/gap-research.md`
-- **Polishing** — reorganize poorly structured technical text, optionally with a
+- **Gap research**: identify under-explained concepts in the source and answer
+  them through web search: `references/gap-research.md`
+- **Polishing**: reorganize poorly structured technical text, optionally with a
   stylistic rewrite: `references/polishing.md`
-- **Evaluation** — score a summary against its source with a weighted rubric,
+- **Evaluation**: score a summary against its source with a weighted rubric,
   and consolidate multiple score reports: `references/evaluation.md`
 
 ## Shared guardrails (apply to every summary)
 
-- **Completeness over brevity**: prioritize coverage of every unique topic over
-  shortness; but within each section, be concise and avoid verbosity.
+- **Completeness over brevity**: Prioritize coverage of every unique topic.
+  Within each section, be concise.
 - **All sections present**: include every section of the template even when the
-  source has no matching content — state "None" or "Not specified".
+  source has no matching content; state "None" or "Not specified".
 - **Objectivity**: do not add interpretation, assumptions, or outside
   information beyond the source text.
 - **Tone**: technical and concise, suitable for internal biotech/biopharma

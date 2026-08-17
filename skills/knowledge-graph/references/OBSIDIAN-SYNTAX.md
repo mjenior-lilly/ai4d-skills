@@ -135,7 +135,7 @@ graph TD
 ```
 ````
 
-To make a Mermaid node link to a vault note, add `class NodeName internal-link;`. For larger visual artifacts (mind maps, architecture graphs), prefer a `.canvas` file — see CANVAS.md.
+To make a Mermaid node link to a vault note, add `class NodeName internal-link;`. For larger visual artifacts, such as mind maps and architecture graphs, prefer a `.canvas` file; see CANVAS.md.
 
 ## Composition checklist
 

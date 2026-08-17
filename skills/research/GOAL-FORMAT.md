@@ -1,6 +1,6 @@
 # RESEARCH-GOAL.md Format
 
-`RESEARCH-GOAL.md` is the compass for the research workflow. It defines the user's target understanding before any scout searches for sources.
+`RESEARCH-GOAL.md` defines the user's target understanding before resource scouts search for sources.
 
 ## Template
 

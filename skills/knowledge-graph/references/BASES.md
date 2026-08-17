@@ -1,6 +1,6 @@
 # Obsidian Bases (`.base`) Reference
 
-Use Bases to replace hand-maintained index/MOC notes and static source tables with **live, auto-updating views** driven by the frontmatter the workflow already writes (`status`, `tags`, `sources`, `created`, `updated`). A `.base` index never goes stale, which directly improves vault recall.
+Use Bases to replace hand-maintained index/MOC notes and static source tables with **live views** driven by the frontmatter the workflow already writes (`status`, `tags`, `sources`, `created`, `updated`). These views update as note properties change, reducing index maintenance.
 
 Adapted from the Obsidian Bases documentation (https://help.obsidian.md/bases/syntax).
 
@@ -197,7 +197,7 @@ views:
 
 ## Validation
 
-After writing a `.base`: confirm it is valid YAML, every referenced property/formula exists, Duration math accesses a field before rounding, and (when a vault is live) the view renders via the Obsidian CLI — see OBSIDIAN-CLI.md.
+After writing a `.base`, confirm that it is valid YAML, every referenced property or formula exists, Duration math accesses a field before rounding, and, when a vault is live, the view renders through the Obsidian CLI. See OBSIDIAN-CLI.md.
 
 ## References
 
