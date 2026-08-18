@@ -1,4 +1,4 @@
-# Create a knowledge-corpus benchmark
+# Create a knowledge-corpus evaluation benchmark
 
 Orchestrate a multi-agent pipeline that analyzes a raw knowledge corpus and produces a corpus-grounded, adversarial evaluation dataset.
 

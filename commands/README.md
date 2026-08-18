@@ -17,7 +17,7 @@ Plain Markdown prompts intended for explicit slash command-style invocation. Eac
 
 ## Repository and benchmark artifacts
 
-- `/generate-test-dataset` (`generate-test-dataset.md`) - orchestrate corpus analysis and parallel item generation to produce a corpus-grounded adversarial benchmark dataset for use with `agents/judge.md`.
+- `/generate-eval-dataset` (`generate-eval-dataset.md`) - orchestrate corpus analysis and parallel item generation to produce a corpus-grounded adversarial benchmark dataset for use with `agents/JUDGE.md`.
 - `/map-repository` (`map-repository.md`) - orchestrate evidence gathering, synthesis, and validation to create or update an agent-focused `AGENTS.md` repository map.
 
 ## Documentation and communication
