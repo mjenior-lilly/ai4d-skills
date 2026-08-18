@@ -23,7 +23,7 @@ Plain Markdown prompts intended for explicit slash command-style invocation. Eac
 ## Documentation and communication
 
 - `/annotate-code` (`annotate-code.md`) - synchronize README files, docstrings, and comments with implementation without changing executable behavior.
-- `/humanize-text` (`humanize-text.md`) - rewrite supplied text as natural, concise prose while preserving its meaning and facts.
+- `/engineer-context` (`engineer-context`) - rewrite supplied text as natural, concise prose while preserving its meaning and facts.
 - `/write-branch-mr` (`write-branch-mr.md`) - inspect branch history and diff, then return a merge request title and description without changing the repository or creating an MR.
 - `/agent-handoff` (`agent-handoff.md`) - write a redacted handoff document to the operating system's temporary directory for a fresh agent or agent team.
 
